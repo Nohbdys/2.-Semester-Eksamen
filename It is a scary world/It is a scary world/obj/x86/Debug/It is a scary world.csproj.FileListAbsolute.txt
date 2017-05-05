@@ -26,3 +26,5 @@ C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\2.-Semester-E
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\CollisionTexture.png
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\HeroSheet.png
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\SlimeSheet.png
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\2.-Semester-Eksamen\It is a scary world\It is a scary world\obj\x86\Debug\It is a scary world.exe
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\2.-Semester-Eksamen\It is a scary world\It is a scary world\obj\x86\Debug\It is a scary world.pdb
