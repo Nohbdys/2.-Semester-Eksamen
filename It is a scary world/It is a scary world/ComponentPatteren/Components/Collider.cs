@@ -40,13 +40,13 @@ namespace It_is_a_scary_world
         /// <summary>
         /// Dictionary that contains pixels for all animations
         /// </summary>
-        private Dictionary<string, Color[][]> pixels = new Dictionary<string, Color[][]>();
+        private Lazy<Dictionary<string, Color[][]>> pixels;
 
         private Color[] CurrentPixels
         {
             get
             {
-                return pixels[animator.AnimationName][animator.CurrentIndex];
+                return pixels.Value[animator.AnimationName][animator.CurrentIndex];
             }
         }
 
@@ -69,6 +69,8 @@ namespace It_is_a_scary_world
 
         public Collider(GameObject gameObject) : base(gameObject)
         {
+            pixels = new Lazy<Dictionary<string, Color[][]>>(() => CachePixels());
+
             DoCollisionChecks = true;
 
             UsePixelCollision = true;
@@ -105,8 +107,10 @@ namespace It_is_a_scary_world
             spriteBatch.Draw(texture, leftLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
         }
 
-        private void CachePixels()
+        private Dictionary<string, Color[][]> CachePixels()
         {
+            Dictionary<string, Color[][]> tmpPixels = new Dictionary<string, Color[][]>();
+
             foreach (KeyValuePair<string, Animation> pair in animator.MyAnimations)
             {
                 Animation animation = pair.Value;
@@ -120,8 +124,10 @@ namespace It_is_a_scary_world
                     spriteRenderer.Sprite.GetData(0, animation.Rectangles[i], colors[i], 0, animation.Rectangles[i].Width * animation.Rectangles[i].Height);
                 }
 
-                pixels.Add(pair.Key, colors);
+                tmpPixels.Add(pair.Key, colors);
             }
+
+            return tmpPixels;
         }
 
         private void CheckCollision()
@@ -133,7 +139,7 @@ namespace It_is_a_scary_world
                     if (other != this)
                     {
                         if (CollisionBox.Intersects(other.CollisionBox) && ((UsePixelCollision && CheckPixelCollision(other)) || !UsePixelCollision))
-                        {
+                      {
                             gameObject.OnCollisionStay(other);
 
                             if (!otherColliders.Contains(other))
@@ -167,17 +173,20 @@ namespace It_is_a_scary_world
                 for (int x = left; x < right; x++)
                 {
                     int firstIndex = (x - CollisionBox.Left) + (y - CollisionBox.Top) * CollisionBox.Width;
+
                     int secondIndex = (x - other.CollisionBox.Left) + (y - other.CollisionBox.Top) * other.CollisionBox.Width;
 
                     //Get the color of both pixels at this point 
                     Color colorA = CurrentPixels[firstIndex];
-                    Color colorB = other.CurrentPixels[secondIndex];
-
-                    // If both pixels are not completely transparent
-                    if (colorA.A != 0 && colorB.A != 0)
+                    if (CollisionBox.Width < 100)
                     {
-                        //Then an intersection has been found
-                        return true;
+                        Color colorB = other.CurrentPixels[secondIndex];
+
+                        if (colorA.A != 0 && colorB.A != 0)
+                        {
+                            //Then an intersection has been found
+                            return true;
+                        }
                     }
                 }
             }

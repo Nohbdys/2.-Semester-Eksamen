@@ -69,14 +69,21 @@ namespace It_is_a_scary_world
 
         public void OnCollisionExit(Collider other)
         {
-            (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.White;
+            if (other.gameObject.Tag == "Player")
+            {
+               (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.White;
+
+            }
+            
 
         }
 
         public void OnCollisionEnter(Collider other)
         {
-
-            (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
+            if (other.gameObject.Tag == "Player")
+            {
+                (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
+            }
         }
     }
 }
