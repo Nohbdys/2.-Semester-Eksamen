@@ -38,9 +38,36 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Game1.cs" />
+    <Compile Include="Animation.cs" />
+    <Compile Include="Builder\Director.cs" />
+    <Compile Include="Builder\EnemyBuilder.cs" />
+    <Compile Include="Builder\IBuilder.cs" />
+    <Compile Include="Builder\PlayerBuilder.cs" />
+    <Compile Include="ComponentPatteren\Components\Animator.cs" />
+    <Compile Include="ComponentPatteren\Components\Collider.cs" />
+    <Compile Include="ComponentPatteren\Components\Component.cs" />
+    <Compile Include="ComponentPatteren\Components\SpriteRenderer.cs" />
+    <Compile Include="ComponentPatteren\Components\Transform.cs" />
+    <Compile Include="ComponentPatteren\Enemies\Slime.cs" />
+    <Compile Include="ComponentPatteren\GameObject.cs" />
+    <Compile Include="Strategy\IStrategy.cs" />
+    <Compile Include="ComponentPatteren\Player.cs" />
+    <Compile Include="GameWorld.cs" />
+    <Compile Include="ComponentPatteren\Interfaces\IAnimateable.cs" />
+    <Compile Include="ComponentPatteren\Interfaces\ICollisionEnter.cs" />
+    <Compile Include="ComponentPatteren\Interfaces\ICollisionExit.cs" />
+    <Compile Include="ComponentPatteren\Interfaces\ICollisionStay.cs" />
+    <Compile Include="ComponentPatteren\Interfaces\IDrawable.cs" />
+    <Compile Include="ComponentPatteren\Interfaces\ILoadable.cs" />
+    <Compile Include="ComponentPatteren\Interfaces\IUpdateable.cs" />
+    <Compile Include="ObjectPool\EnemyPool.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Strategy\Attack.cs" />
+    <Compile Include="Strategy\FollowTarget.cs" />
+    <Compile Include="Strategy\Idle.cs" />
+    <Compile Include="Strategy\Jump.cs" />
+    <Compile Include="Strategy\Walk.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -50,11 +77,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\CollisionTexture.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\HeroSheet.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\SlimeSheet.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
