@@ -52,6 +52,9 @@ namespace It_is_a_scary_world
         public GameWorld()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.IsFullScreen = false;
+            graphics.PreferredBackBufferHeight = 760;
+            graphics.PreferredBackBufferWidth = 1400;
             Content.RootDirectory = "Content";
         }
 
@@ -140,7 +143,7 @@ namespace It_is_a_scary_world
         {
             if (Keyboard.GetState().IsKeyDown(Keys.M) && addEnemy)
             {
-                newObjects.Add(EnemyPool.Create(new Vector2(rnd.Next(0, Window.ClientBounds.Width), rnd.Next(0, Window.ClientBounds.Height)), Content));
+                newObjects.Add(EnemyPool.Create(new Vector2(rnd.Next(0, 1000/*Window.ClientBounds.Width*/), rnd.Next(0, 600/*Window.ClientBounds.Height*/)), Content));
 
                 addEnemy = false;
             }
