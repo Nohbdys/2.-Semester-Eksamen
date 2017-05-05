@@ -14,7 +14,7 @@ namespace It_is_a_scary_world
         [STAThread]
         static void Main()
         {
-            using (var game = new Game1())
+            using (var game = GameWorld.Instance)
                 game.Run();
         }
     }
