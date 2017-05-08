@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
+using System.Threading;
 using static It_is_a_scary_world.DIRECTION;
 
 namespace It_is_a_scary_world
@@ -15,6 +16,8 @@ namespace It_is_a_scary_world
 
         private Animator animator;
 
+        bool activeThread = false;
+
         private GameObject player;
 
         private IStrategy strategy;
@@ -23,6 +26,15 @@ namespace It_is_a_scary_world
         {
             gameObject.Tag = "Enemy";
 
+            /*     Thread t = new Thread(Update);
+                 t.IsBackground = true;
+
+                 t.Start();
+
+                 while (!t.IsAlive) ;
+
+                 Thread.Sleep(10);
+     */
         }
         public void LoadContent(ContentManager content)
         {
@@ -55,26 +67,47 @@ namespace It_is_a_scary_world
 
         public void Update()
         {
-            if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 200 && !(strategy is FollowTarget))
+            if (!activeThread)
             {
-                strategy = new FollowTarget(player.transform, gameObject.transform, animator);
-            }
-            else if (Vector2.Distance(gameObject.transform.position, player.transform.position) > 200 && !(strategy is Idle))
-            {
-                strategy = new Idle(animator);
+                Thread t = new Thread(ThreadUpdate);
+                t.IsBackground = true;
+
+
+
+                t.Start();
+
+                activeThread = true;
+
             }
 
-            strategy.Execute(ref direction);
         }
+        public void ThreadUpdate()
+        {
+            while (true)
+            {
+                Thread.Sleep(17);
 
+                
+                if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 200 && !(strategy is FollowTarget))
+                {
+                    strategy = new FollowTarget(player.transform, gameObject.transform, animator);
+                }
+                else if (Vector2.Distance(gameObject.transform.position, player.transform.position) > 200 && !(strategy is Idle))
+                {
+                    strategy = new Idle(animator);
+                }
+
+                strategy.Execute(ref direction);
+            }
+        }
         public void OnCollisionExit(Collider other)
         {
             if (other.gameObject.Tag == "Player")
             {
-               (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.White;
+                (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.White;
 
             }
-            
+
 
         }
 
