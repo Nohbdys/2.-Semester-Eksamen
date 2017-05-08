@@ -82,3 +82,5 @@ C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Master Branch\2.-Semest
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Master Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\obj\x86\Debug\It is a scary world.csprojResolveAssemblyReference.cache
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Master Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\obj\x86\Debug\It is a scary world.exe
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Master Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\obj\x86\Debug\It is a scary world.pdb
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\2.-Semester-Eksamen 08-05-2016\It is a scary world\It is a scary world\obj\x86\Debug\It is a scary world.exe
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\2.-Semester-Eksamen 08-05-2016\It is a scary world\It is a scary world\obj\x86\Debug\It is a scary world.pdb
