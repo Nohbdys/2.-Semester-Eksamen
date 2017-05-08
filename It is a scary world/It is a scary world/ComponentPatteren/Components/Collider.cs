@@ -177,9 +177,10 @@ namespace It_is_a_scary_world
                     int secondIndex = (x - other.CollisionBox.Left) + (y - other.CollisionBox.Top) * other.CollisionBox.Width;
 
                     //Get the color of both pixels at this point 
-                    Color colorA = CurrentPixels[firstIndex];
-                    if (CollisionBox.Width < 100)
+
+                    if (secondIndex < 10000 && secondIndex > 0 && firstIndex < 10000 && firstIndex > 0)
                     {
+                        Color colorA = CurrentPixels[firstIndex];
                         Color colorB = other.CurrentPixels[secondIndex];
 
                         if (colorA.A != 0 && colorB.A != 0)
