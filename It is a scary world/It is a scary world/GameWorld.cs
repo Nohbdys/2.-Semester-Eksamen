@@ -6,7 +6,7 @@ using System;
 
 namespace It_is_a_scary_world
 {
-    //Hey
+   
 
     /// <summary>
     /// This is the main type for your game.
@@ -28,7 +28,8 @@ namespace It_is_a_scary_world
 
         private List<GameObject> newObjects;
 
-        private List<GameObject> objectsToRemove;
+        //private List<GameObject> objectsToRemove;
+        public static List<GameObject> objectsToRemove;
 
         public List<Collider> Colliders { get; private set; }
 

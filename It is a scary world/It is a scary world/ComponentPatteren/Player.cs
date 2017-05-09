@@ -23,6 +23,17 @@ namespace It_is_a_scary_world
         /// </summary>
         private Animator animator;
 
+        //Gravity
+        public bool grounded { get; set; } = false;
+        public Vector2 position { get; set; }
+        //GravityEnd
+
+        #region Stats (jump in testing)
+
+        public float movementSpeed { get; set; } = 100;
+
+        #endregion
+
         public Player(GameObject gameObject) : base(gameObject)
         {
 
@@ -62,6 +73,16 @@ namespace It_is_a_scary_world
         public void Update()
         {
             KeyboardState keyState = Keyboard.GetState();
+
+            //Gravity
+
+            if (position.Y <= 500)
+            {               
+                grounded = true;
+                position = new Vector2(0, 0);
+            }
+
+            //GravityEnd
 
             if (canMove)
             {

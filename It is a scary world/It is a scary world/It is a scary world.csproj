@@ -50,6 +50,7 @@
     <Compile Include="ComponentPatteren\Components\Transform.cs" />
     <Compile Include="ComponentPatteren\Enemies\Slime.cs" />
     <Compile Include="ComponentPatteren\GameObject.cs" />
+    <Compile Include="Gravity.cs" />
     <Compile Include="Strategy\IStrategy.cs" />
     <Compile Include="ComponentPatteren\Player.cs" />
     <Compile Include="GameWorld.cs" />
