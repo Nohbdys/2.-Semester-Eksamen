@@ -72,8 +72,7 @@ namespace It_is_a_scary_world
             if (other.gameObject.Tag == "Player")
             {
                 GameWorld.objectsToRemove.Add(gameObject);
-                (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.White;
-                
+                (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.White;               
             }
             
 

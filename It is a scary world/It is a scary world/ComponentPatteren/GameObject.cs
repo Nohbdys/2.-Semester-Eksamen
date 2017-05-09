@@ -20,7 +20,6 @@ namespace It_is_a_scary_world
         /// A List that contains all components on this GameObject
         /// </summary>
         private List<Component> components = new List<Component>();
-        public List<Component> componentsToRemove { get; set; } = new List<Component>();
         /// <summary>
         /// The tag of this GameObject
         /// </summary>
@@ -73,14 +72,7 @@ namespace It_is_a_scary_world
                     (component as IUpdateable).Update();
                 }
             }
-            if (componentsToRemove.Count > 0)
-            {
-                foreach (Component component in componentsToRemove)
-                {
-                    components.Remove(component);
-                }
-                componentsToRemove.Clear();
-            }
+
         }
 
         /// <summary>
