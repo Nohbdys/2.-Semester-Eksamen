@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
-using System.Threading;
 
 namespace It_is_a_scary_world
 {
@@ -18,8 +17,6 @@ namespace It_is_a_scary_world
         private bool canMove = true;
 
         private DIRECTION direction;
-
-        bool activeThread = false;
 
         /// <summary>
         /// A reference to the player's animator
@@ -75,21 +72,8 @@ namespace It_is_a_scary_world
 
         public void Update()
         {
-            if (!activeThread)
-            {
-                Thread t = new Thread(ThreadUpdate);
-                t.IsBackground = true;
+            KeyboardState keyState = Keyboard.GetState();
 
-                t.Start();
-
-                activeThread = true;
-
-            }
-        }
-
-        public void ThreadUpdate()
-        {
-            while (true)
             //Gravity
 
             if (position.Y <= 500)
@@ -103,32 +87,25 @@ namespace It_is_a_scary_world
             if (canMove)
             {
                 if (keyState.IsKeyDown(Keys.W) || keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.S) || keyState.IsKeyDown(Keys.D))
-                KeyboardState keyState = Keyboard.GetState();
-
-                Thread.Sleep(17);
-
-                if (canMove)
                 {
-                    if (keyState.IsKeyDown(Keys.W) || keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.S) || keyState.IsKeyDown(Keys.D))
+                    if (!(strategy is Walk))
                     {
-                        if (!(strategy is Walk))
-                        {
-                            strategy = new Walk(gameObject.transform, animator);
-                        }
-                    }
-                    else
-                    {
-                        strategy = new Idle(animator);
-                    }
-                    if (keyState.IsKeyDown(Keys.Space))
-                    {
-                        strategy = new Attack(animator);
-
-                        canMove = false;
+                        strategy = new Walk(gameObject.transform, animator);
                     }
                 }
-                strategy.Execute(ref direction);
+                else
+                {
+                    strategy = new Idle(animator);
+                }
+                if (keyState.IsKeyDown(Keys.Space))
+                {
+                    strategy = new Attack(animator);
+
+                    canMove = false;
+                }
             }
+
+            strategy.Execute(ref direction);
         }
 
         /// <summary>

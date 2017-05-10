@@ -71,7 +71,7 @@ namespace It_is_a_scary_world
                 if (component is IUpdateable)
                 {
                     (component as IUpdateable).Update();
-                                    }
+                }
             }
 
         }

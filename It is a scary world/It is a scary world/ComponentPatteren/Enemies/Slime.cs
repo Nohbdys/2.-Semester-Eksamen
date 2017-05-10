@@ -5,20 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
-using System.Threading;
 using static It_is_a_scary_world.DIRECTION;
 
 namespace It_is_a_scary_world
 {
-
     class Slime : Component, IUpdateable, ICollisionEnter, ICollisionExit
     {
-
         private DIRECTION direction;
 
         private Animator animator;
-
-        bool activeThread = false;
 
         private GameObject player;
 
@@ -28,7 +23,6 @@ namespace It_is_a_scary_world
         {
             gameObject.Tag = "Enemy";
         }
-
         public void LoadContent(ContentManager content)
         {
             player = GameWorld.Instance.FindGameObjectWithTag("Player");
@@ -60,37 +54,16 @@ namespace It_is_a_scary_world
 
         public void Update()
         {
-            if (!activeThread)
+            if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 200 && !(strategy is FollowTarget))
             {
-                Thread t = new Thread(ThreadUpdate);
-                t.IsBackground = true;
-
-
-
-                t.Start();
-
-                activeThread = true;
-
+                strategy = new FollowTarget(player.transform, gameObject.transform, animator);
+            }
+            else if (Vector2.Distance(gameObject.transform.position, player.transform.position) > 200 && !(strategy is Idle))
+            {
+                strategy = new Idle(animator);
             }
 
-        }
-        public void ThreadUpdate()
-        {
-            while (true)
-            {
-                Thread.Sleep(17);
-
-                if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 200 && !(strategy is FollowTarget))
-                {
-                    strategy = new FollowTarget(player.transform, gameObject.transform, animator);
-                }
-                else if (Vector2.Distance(gameObject.transform.position, player.transform.position) > 200 && !(strategy is Idle))
-                {
-                    strategy = new Idle(animator);
-                }
-
-                strategy.Execute(ref direction);
-            }
+            strategy.Execute(ref direction);
         }
 
         public void OnCollisionExit(Collider other)
@@ -107,7 +80,6 @@ namespace It_is_a_scary_world
             if (other.gameObject.Tag == "Player")
             {
                 (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
-                GameWorld.Instance.objectsToRemove.Add(gameObject);
             }
         }
     }
