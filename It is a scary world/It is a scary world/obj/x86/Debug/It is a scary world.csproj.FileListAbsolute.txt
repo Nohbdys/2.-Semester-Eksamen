@@ -142,3 +142,5 @@ C:\Users\admin\Desktop\EksamensProjekt2semester\2.-Semester-Eksamen 08-05-2016 C
 C:\Users\admin\Desktop\EksamensProjekt2semester\2.-Semester-Eksamen 08-05-2016 Casper Branch\It is a scary world\It is a scary world\obj\x86\Debug\It is a scary world.csprojResolveAssemblyReference.cache
 C:\Users\admin\Desktop\EksamensProjekt2semester\2.-Semester-Eksamen 08-05-2016 Casper Branch\It is a scary world\It is a scary world\obj\x86\Debug\It is a scary world.exe
 C:\Users\admin\Desktop\EksamensProjekt2semester\2.-Semester-Eksamen 08-05-2016 Casper Branch\It is a scary world\It is a scary world\obj\x86\Debug\It is a scary world.pdb
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\obj\x86\Debug\It is a scary world.exe
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\obj\x86\Debug\It is a scary world.pdb
