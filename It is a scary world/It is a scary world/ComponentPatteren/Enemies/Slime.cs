@@ -22,7 +22,6 @@ namespace It_is_a_scary_world
         public Slime(GameObject gameObject) : base(gameObject)
         {
             gameObject.Tag = "Enemy";
-
         }
         public void LoadContent(ContentManager content)
         {
@@ -71,11 +70,9 @@ namespace It_is_a_scary_world
         {
             if (other.gameObject.Tag == "Player")
             {
-                GameWorld.objectsToRemove.Add(gameObject);
+                GameWorld.Instance.objectsToRemove.Add(gameObject);
                 (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.White;               
-            }
-            
-
+            }           
         }
 
         public void OnCollisionEnter(Collider other)
