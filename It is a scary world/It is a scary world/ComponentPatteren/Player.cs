@@ -25,6 +25,17 @@ namespace It_is_a_scary_world
         /// </summary>
         private Animator animator;
 
+        //Gravity
+        public bool grounded { get; set; } = false;
+        public Vector2 position { get; set; }
+        //GravityEnd
+
+        #region Stats (jump in testing)
+
+        public float movementSpeed { get; set; } = 100;
+
+        #endregion
+
         public Player(GameObject gameObject) : base(gameObject)
         {
 
@@ -80,7 +91,19 @@ namespace It_is_a_scary_world
         public void ThreadUpdate()
         {
             while (true)
+            //Gravity
+
+            if (position.Y <= 500)
+            {               
+                grounded = true;
+                position = new Vector2(0, 0);
+            }
+
+            //GravityEnd
+
+            if (canMove)
             {
+                if (keyState.IsKeyDown(Keys.W) || keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.S) || keyState.IsKeyDown(Keys.D))
                 KeyboardState keyState = Keyboard.GetState();
 
                 Thread.Sleep(17);

@@ -10,6 +10,7 @@ namespace It_is_a_scary_world
 {
     public class GameObject : Component
     {
+
         /// <summary>
         /// The GameObject's transform
         /// </summary>
@@ -18,8 +19,8 @@ namespace It_is_a_scary_world
         /// <summary>
         /// A List that contains all components on this GameObject
         /// </summary>
+        
         private List<Component> components = new List<Component>();
-
         /// <summary>
         /// The tag of this GameObject
         /// </summary>
@@ -72,6 +73,7 @@ namespace It_is_a_scary_world
                     (component as IUpdateable).Update();
                                     }
             }
+
         }
 
         /// <summary>
