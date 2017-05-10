@@ -10,8 +10,10 @@ using static It_is_a_scary_world.DIRECTION;
 
 namespace It_is_a_scary_world
 {
+
     class Slime : Component, IUpdateable, ICollisionEnter, ICollisionExit
     {
+
         private DIRECTION direction;
 
         private Animator animator;
@@ -25,16 +27,8 @@ namespace It_is_a_scary_world
         public Slime(GameObject gameObject) : base(gameObject)
         {
             gameObject.Tag = "Enemy";
-            /*     Thread t = new Thread(Update);
-                 t.IsBackground = true;
-
-                 t.Start();
-
-                 while (!t.IsAlive) ;
-
-                 Thread.Sleep(10);
-     */
         }
+
         public void LoadContent(ContentManager content)
         {
             player = GameWorld.Instance.FindGameObjectWithTag("Player");
@@ -86,7 +80,6 @@ namespace It_is_a_scary_world
             {
                 Thread.Sleep(17);
 
-                
                 if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 200 && !(strategy is FollowTarget))
                 {
                     strategy = new FollowTarget(player.transform, gameObject.transform, animator);
@@ -99,6 +92,7 @@ namespace It_is_a_scary_world
                 strategy.Execute(ref direction);
             }
         }
+
         public void OnCollisionExit(Collider other)
         {
             if (other.gameObject.Tag == "Player")
@@ -106,7 +100,6 @@ namespace It_is_a_scary_world
                 GameWorld.Instance.objectsToRemove.Add(gameObject);
                 (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.White;               
             }           
-
         }
 
         public void OnCollisionEnter(Collider other)
@@ -114,6 +107,7 @@ namespace It_is_a_scary_world
             if (other.gameObject.Tag == "Player")
             {
                 (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
+                GameWorld.Instance.objectsToRemove.Add(gameObject);
             }
         }
     }

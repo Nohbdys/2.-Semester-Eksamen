@@ -20,6 +20,7 @@ namespace It_is_a_scary_world
         private DIRECTION direction;
 
         bool activeThread = false;
+
         /// <summary>
         /// A reference to the player's animator
         /// </summary>
@@ -79,8 +80,6 @@ namespace It_is_a_scary_world
                 Thread t = new Thread(ThreadUpdate);
                 t.IsBackground = true;
 
-
-
                 t.Start();
 
                 activeThread = true;
@@ -128,11 +127,9 @@ namespace It_is_a_scary_world
                         canMove = false;
                     }
                 }
-
                 strategy.Execute(ref direction);
             }
         }
-
 
         /// <summary>
         /// Loads the player's content
