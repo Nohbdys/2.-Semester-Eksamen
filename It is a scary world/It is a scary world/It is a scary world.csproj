@@ -50,6 +50,10 @@
     <Compile Include="ComponentPatteren\Components\Transform.cs" />
     <Compile Include="ComponentPatteren\Enemies\Slime.cs" />
     <Compile Include="ComponentPatteren\GameObject.cs" />
+    <Compile Include="Gravity.cs" />
+    <Compile Include="Builder\PlatformBuilder.cs" />
+    <Compile Include="ComponentPatteren\Platform.cs" />
+    <Compile Include="ObjectPool\ObjectPool.cs" />
     <Compile Include="Strategy\IStrategy.cs" />
     <Compile Include="ComponentPatteren\Player.cs" />
     <Compile Include="GameWorld.cs" />
@@ -81,6 +85,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\HeroSheet.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Platform.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\SlimeSheet.png">
