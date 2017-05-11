@@ -10,7 +10,7 @@ namespace It_is_a_scary_world
 {
     enum DIRECTION { Front, Back, Left, Right };
 
-    class Player : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit
+    class Player : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit, ICollisionStay
     {
         private IStrategy strategy;
 
@@ -18,15 +18,19 @@ namespace It_is_a_scary_world
 
         private DIRECTION direction;
 
+        //test
+        private bool isAttacking;
+        private GameObject go;
+        private Transform transform;
+        public List<Collider> collidingObjects { get; private set; }
+        //testslut
+
         /// <summary>
         /// A reference to the player's animator
         /// </summary>
         private Animator animator;
 
-        //Gravity
-        public bool grounded { get; set; } = false;
         public Vector2 position { get; set; }
-        //GravityEnd
 
         #region Stats (jump in testing)
 
@@ -34,9 +38,11 @@ namespace It_is_a_scary_world
 
         #endregion
 
-        public Player(GameObject gameObject) : base(gameObject)
+        public Player(GameObject gameObject, Transform transform) : base(gameObject)
         {
-
+            this.go = gameObject;
+            this.transform = transform;
+            collidingObjects = new List<Collider>();
         }
 
         /// <summary>
@@ -74,35 +80,43 @@ namespace It_is_a_scary_world
         {
             KeyboardState keyState = Keyboard.GetState();
 
-            //Gravity
-
-            if (position.Y <= 500)
-            {               
-                grounded = true;
-                position = new Vector2(0, 0);
+            //Test gravity
+            if (keyState.IsKeyDown(Keys.Space) && canMove)
+            {
+                strategy = new Attack(animator);
+                canMove = false;
+                isAttacking = true;
             }
-
-            //GravityEnd
+            //test gravity slut
 
             if (canMove)
             {
-                if (keyState.IsKeyDown(Keys.W) || keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.S) || keyState.IsKeyDown(Keys.D))
+                if (keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.D))
                 {
                     if (!(strategy is Walk))
                     {
                         strategy = new Walk(gameObject.transform, animator);
                     }
                 }
+                else if (keyState.IsKeyDown(Keys.W))
+                {
+                    if (!(strategy is Jump))
+                    {
+                        strategy = new Jump(gameObject.transform, animator, gameObject);
+                    }
+                }
                 else
                 {
                     strategy = new Idle(animator);
                 }
+                /*
                 if (keyState.IsKeyDown(Keys.Space))
                 {
                     strategy = new Attack(animator);
 
                     canMove = false;
                 }
+                */
             }
 
             strategy.Execute(ref direction);
@@ -131,12 +145,52 @@ namespace It_is_a_scary_world
 
         public void OnCollisionEnter(Collider other)
         {
+            Collider box = (gameObject.GetComponent("Collider") as Collider);
+
             (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
         }
 
         public void OnCollisionExit(Collider other)
         {
             (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.White;
+        }
+
+        public void OnCollisionStay(Collider other)
+        {
+            KeyboardState keyState = Keyboard.GetState();
+            Collider playerBox = (this.gameObject.GetComponent("Collider") as Collider);
+
+
+            if (other.gameObject.Tag == "Platform")
+            {
+                //player left side collision
+                if (playerBox.CollisionBox.Left >= other.CollisionBox.Left &&
+                    playerBox.CollisionBox.Left <= other.CollisionBox.Right + 5 &&
+                    playerBox.CollisionBox.Top <= other.CollisionBox.Bottom - 10 &&
+                    playerBox.CollisionBox.Bottom >= other.CollisionBox.Top + 10)
+                {
+                    this.transform.position = new Vector2(other.CollisionBox.X + other.CollisionBox.Width + 2, this.transform.position.Y);
+                }
+                //player right side collision
+                if (playerBox.CollisionBox.Right <= other.CollisionBox.Right &&
+                    playerBox.CollisionBox.Right >= other.CollisionBox.Left - 5 &&
+                    playerBox.CollisionBox.Top <= other.CollisionBox.Bottom - 10 &&
+                    playerBox.CollisionBox.Bottom >= other.CollisionBox.Top + 10)
+                {
+                    this.transform.position = new Vector2(other.CollisionBox.X - playerBox.CollisionBox.Width - 2, playerBox.CollisionBox.Y);
+                }
+                //player top side collision
+                if (playerBox.CollisionBox.Top <= other.CollisionBox.Bottom + (other.CollisionBox.Height / 5) &&
+                    playerBox.CollisionBox.Top >= other.CollisionBox.Bottom - 3 &&
+                    playerBox.CollisionBox.Right >= other.CollisionBox.Left + 10 &&
+                    playerBox.CollisionBox.Left <= other.CollisionBox.Right - 10)
+                {
+                    (go.GetComponent("Gravity") as Gravity).velocity = new Vector2(0, 0);
+
+                    this.transform.position = new Vector2(this.transform.position.X, other.CollisionBox.Y + other.CollisionBox.Height);
+
+                }
+            }
         }
     }
 }

@@ -142,3 +142,32 @@ C:\Users\admin\Desktop\EksamensProjekt2semester\2.-Semester-Eksamen 08-05-2016 C
 C:\Users\admin\Desktop\EksamensProjekt2semester\2.-Semester-Eksamen 08-05-2016 Casper Branch\It is a scary world\It is a scary world\obj\x86\Debug\It is a scary world.csprojResolveAssemblyReference.cache
 C:\Users\admin\Desktop\EksamensProjekt2semester\2.-Semester-Eksamen 08-05-2016 Casper Branch\It is a scary world\It is a scary world\obj\x86\Debug\It is a scary world.exe
 C:\Users\admin\Desktop\EksamensProjekt2semester\2.-Semester-Eksamen 08-05-2016 Casper Branch\It is a scary world\It is a scary world\obj\x86\Debug\It is a scary world.pdb
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\obj\x86\Debug\It is a scary world.exe
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\obj\x86\Debug\It is a scary world.pdb
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\CollisionTexture.png
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\HeroSheet.png
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\Platform.png
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\SlimeSheet.png
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\It is a scary world.exe
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\It is a scary world.pdb
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\MonoGame.Framework.dll
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\SharpDX.MediaFoundation.dll
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\SharpDX.dll
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\SharpDX.XAudio2.dll
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\SharpDX.DXGI.dll
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\SharpDX.Direct3D11.dll
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\SharpDX.Direct2D1.dll
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\SharpDX.XInput.dll
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\SharpDX.RawInput.dll
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\SharpDX.Direct3D9.dll
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\MonoGame.Framework.xml
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\SharpDX.MediaFoundation.xml
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\SharpDX.xml
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\SharpDX.XAudio2.xml
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\SharpDX.DXGI.xml
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\SharpDX.Direct3D11.xml
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\SharpDX.Direct2D1.xml
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\SharpDX.XInput.xml
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\SharpDX.RawInput.xml
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\SharpDX.Direct3D9.xml
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\obj\x86\Debug\It is a scary world.csprojResolveAssemblyReference.cache
