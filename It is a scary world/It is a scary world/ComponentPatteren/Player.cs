@@ -157,6 +157,7 @@ namespace It_is_a_scary_world
 
         public void OnCollisionStay(Collider other)
         {
+            /*
             KeyboardState keyState = Keyboard.GetState();
             Collider playerBox = (this.gameObject.GetComponent("Collider") as Collider);
 
@@ -191,6 +192,7 @@ namespace It_is_a_scary_world
 
                 }
             }
+            */
         }
     }
 }

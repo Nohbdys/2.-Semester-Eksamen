@@ -28,6 +28,8 @@ namespace It_is_a_scary_world
 
         public static DIRECTION direction { get; private set; }
 
+
+
         public Jump(Transform transform, Animator animator, GameObject gameObject)
         {
             this.transform = transform;
@@ -47,6 +49,7 @@ namespace It_is_a_scary_world
 
             if (keyState.IsKeyDown(Keys.W) && isFalling == false)
             {
+                (go.GetComponent("Gravity") as Gravity).grounded = false;
                 startPos = go.transform.position;
                 if ((go.GetComponent("Gravity") as Gravity).collidingObject.gameObject.Tag == "Platform")
                 {

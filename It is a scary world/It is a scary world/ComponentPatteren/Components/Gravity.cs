@@ -21,9 +21,9 @@ namespace It_is_a_scary_world
         public bool isFalling { get; set; }
         public Collider collidingObject;
         public List<Collider> collidingObjects { get; private set; }
+        public bool grounded = false;
 
         public int movementSpeed = 200;
-        private float oldSpeed;
 
         private GameObject go;
 
@@ -35,7 +35,9 @@ namespace It_is_a_scary_world
         }
 
         public void Update()
-        {                  
+        {
+            if (grounded == false)
+            {
                 oldPos = go.transform.position;
                 movementSpeed = 200;
                 KeyboardState keyState = Keyboard.GetState();
@@ -58,6 +60,7 @@ namespace It_is_a_scary_world
 
                 transform.Translate(translation * movementSpeed * GameWorld.Instance.deltaTime);
             }
+        }
 
 
 
@@ -85,7 +88,7 @@ namespace It_is_a_scary_world
         public void OnCollisionStay(Collider other)
         {
             Collider box = (gameObject.GetComponent("Collider") as Collider);
-
+            
             if (other.gameObject.Tag == "Platform")
             {
                 if (box.CollisionBox.Bottom >= other.CollisionBox.Top - 1 &&
@@ -93,7 +96,7 @@ namespace It_is_a_scary_world
                     box.CollisionBox.Right >= other.CollisionBox.Left + 10 &&
                     box.CollisionBox.Left <= other.CollisionBox.Right - 10)
                 {
-
+                    grounded = true;
                     collidingObject = other;
                     isFalling = false;
                     velocity = Vector2.Zero;
@@ -101,6 +104,7 @@ namespace It_is_a_scary_world
                 }
 
             }
+            
         }
 
 
