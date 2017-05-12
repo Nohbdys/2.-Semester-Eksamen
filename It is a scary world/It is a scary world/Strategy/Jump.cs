@@ -13,7 +13,6 @@ namespace It_is_a_scary_world
 {
     class Jump : IStrategy
     {
-
         private GameObject go;
 
         public static Vector2 startPos;
@@ -27,8 +26,6 @@ namespace It_is_a_scary_world
         private Vector2 velocity;
 
         public static DIRECTION direction { get; private set; }
-
-
 
         public Jump(Transform transform, Animator animator, GameObject gameObject)
         {

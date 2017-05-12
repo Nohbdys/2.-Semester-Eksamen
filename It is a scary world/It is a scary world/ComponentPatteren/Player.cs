@@ -80,19 +80,10 @@ namespace It_is_a_scary_world
         {
             KeyboardState keyState = Keyboard.GetState();
 
-            //Test gravity
-            if (keyState.IsKeyDown(Keys.Space) && canMove)
-            {
-                strategy = new Attack(animator);
-                canMove = false;
-                isAttacking = true;
-            }
-            //test gravity slut
-
             if (canMove)
             {
                 if (keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.D))
-                {
+                {                    
                     if (!(strategy is Walk))
                     {
                         strategy = new Walk(gameObject.transform, animator);
@@ -109,16 +100,22 @@ namespace It_is_a_scary_world
                 {
                     strategy = new Idle(animator);
                 }
-                /*
+
+                if (keyState.IsKeyDown(Keys.W))
+                {
+                    if (!(strategy is Jump))
+                    {
+                        strategy = new Jump(gameObject.transform, animator, gameObject);
+                    }
+                }
+
                 if (keyState.IsKeyDown(Keys.Space))
                 {
                     strategy = new Attack(animator);
-
                     canMove = false;
+                    isAttacking = true;
                 }
-                */
             }
-
             strategy.Execute(ref direction);
         }
 
@@ -139,6 +136,7 @@ namespace It_is_a_scary_world
         {
             if (animationName.Contains("Attack"))
             {
+                isAttacking = false;
                 canMove = true;
             }
         }
@@ -157,10 +155,9 @@ namespace It_is_a_scary_world
 
         public void OnCollisionStay(Collider other)
         {
-            /*
+            
             KeyboardState keyState = Keyboard.GetState();
             Collider playerBox = (this.gameObject.GetComponent("Collider") as Collider);
-
 
             if (other.gameObject.Tag == "Platform")
             {
@@ -192,7 +189,7 @@ namespace It_is_a_scary_world
 
                 }
             }
-            */
+            
         }
     }
 }
