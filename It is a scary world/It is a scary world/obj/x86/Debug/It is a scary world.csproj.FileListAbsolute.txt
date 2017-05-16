@@ -171,3 +171,4 @@ C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBra
 C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\SharpDX.RawInput.xml
 C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\SharpDX.Direct3D9.xml
 C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\obj\x86\Debug\It is a scary world.csprojResolveAssemblyReference.cache
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBranch\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\BlackSword.png

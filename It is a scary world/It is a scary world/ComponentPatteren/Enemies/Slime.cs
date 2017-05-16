@@ -22,6 +22,9 @@ namespace It_is_a_scary_world
         #region Stats
 
         public int health = 100;
+        public int damage = 1;
+        public int expDrop = 10;
+        public int goldDrop = 10;
 
         #endregion
 
@@ -60,6 +63,13 @@ namespace It_is_a_scary_world
 
         public void Update()
         {
+            #region Death
+            if (health <= 0)
+            {
+                GameWorld.Instance.objectsToRemove.Add(gameObject);
+            }
+            #endregion
+            
             if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 200 && !(strategy is FollowTarget))
             {
                 strategy = new FollowTarget(player.transform, gameObject.transform, animator);
@@ -68,7 +78,7 @@ namespace It_is_a_scary_world
             {
                 strategy = new Idle(animator);
             }
-
+            
             strategy.Execute(ref direction);
         }
 
@@ -76,7 +86,7 @@ namespace It_is_a_scary_world
         {
             if (other.gameObject.Tag == "Player")
             {
-                GameWorld.Instance.objectsToRemove.Add(gameObject);
+                //GameWorld.Instance.objectsToRemove.Add(gameObject);
                 (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.White;               
             }           
         }

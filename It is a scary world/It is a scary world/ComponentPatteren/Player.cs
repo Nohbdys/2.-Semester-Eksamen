@@ -42,7 +42,7 @@ namespace It_is_a_scary_world
         private int level = 1;
         private int levelReward;
         private bool checkLevelReward;
-        private int damage;
+        private int damage = 100;
         public float movementSpeed { get; set; } = 100;
         #endregion
 
@@ -189,7 +189,11 @@ namespace It_is_a_scary_world
 
             (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
 
-            //(other.gameObject.GetComponent("Slime") as Slime).health -= damage;
+            if (other.gameObject.Tag == "Enemy")
+            {
+                isAttacking = false;
+                (other.gameObject.GetComponent("Slime") as Slime).health -= damage;
+            }
         }
 
         public void OnCollisionExit(Collider other)

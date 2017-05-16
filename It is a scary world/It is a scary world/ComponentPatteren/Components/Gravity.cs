@@ -36,8 +36,7 @@ namespace It_is_a_scary_world
 
         public void Update()
         {
-            if (grounded == false)
-            {
+
                 oldPos = go.transform.position;
                 movementSpeed = 200;
                 KeyboardState keyState = Keyboard.GetState();
@@ -59,7 +58,7 @@ namespace It_is_a_scary_world
                 }
 
                 transform.Translate(translation * movementSpeed * GameWorld.Instance.deltaTime);
-            }
+            
         }
 
 
@@ -97,7 +96,7 @@ namespace It_is_a_scary_world
                     box.CollisionBox.Right >= other.CollisionBox.Left + 10 &&
                     box.CollisionBox.Left <= other.CollisionBox.Right - 10)
                 {
-                    grounded = true;
+                    //grounded = true;
                     collidingObject = other;
                     isFalling = false;
                     velocity = Vector2.Zero;
