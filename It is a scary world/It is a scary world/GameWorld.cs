@@ -207,7 +207,7 @@ namespace It_is_a_scary_world
                     float x = (go.GetComponent("Player") as Player).gameObject.transform.position.X + (100 - 10) / 2; //The attack's position on the X-axis, based on the Player object's position (should be in the middle)
                     float y = (go.GetComponent("Player") as Player).gameObject.transform.position.Y - 30; //The attack's position on the Y-axis, based on the Player object's position (Edit last number to place it probably based on the Player object's sprite)
 
-                    newObjects.Add(BulletPool.Create(new Vector2(x, y), Content));
+                  //  newObjects.Add(BulletPool.Create(new Vector2(x, y), Content));
                     break;
                 }
             }

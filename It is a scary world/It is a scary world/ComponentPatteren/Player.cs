@@ -36,7 +36,7 @@ namespace It_is_a_scary_world
         #region Stats (player)
         private int health = 1;
         private int armor = 2;
-        private int gold ;
+        private int gold;
         private double exp;
         private double expToLevel = 100;
         private int level = 1;
@@ -107,7 +107,7 @@ namespace It_is_a_scary_world
 
                 if (levelReward == 2)
                 {
-                    armor += 1;                
+                    armor += 1;
                 }
 
                 if (levelReward == 3)
@@ -154,26 +154,27 @@ namespace It_is_a_scary_world
                 if (keyState.IsKeyDown(Keys.Space))
                 {
                     strategy = new Attack(animator);
-                        canMove = false;
-                        if (true) //If canAttack is true, if reloading is false, and if the Player's current Weapon is the Pistol
-                        {
-
-                            GameWorld.Instance.SpawnBullet();
-                            
-                        }
-                    }
                     canMove = false;
-                    isAttacking = true;
-                }
-            }
-            strategy.Execute(ref direction);
-        }
+                    if (true) //If canAttack is true, if reloading is false, and if the Player's current Weapon is the Pistol
+                    {
 
-        /// <summary>
-        /// Loads the player's content
-        /// </summary>
-        /// <param name="content"></param>
-        public void LoadContent(ContentManager content)
+                        GameWorld.Instance.SpawnBullet();
+
+                    }
+                }
+
+                strategy.Execute(ref direction);
+            }
+            
+        }
+ 
+        
+
+    /// <summary>
+    /// Loads the player's content
+    /// </summary>
+    /// <param name="content"></param>
+    public void LoadContent(ContentManager content)
         {
             //Sets up a reference to the palyer's animator
             animator = (Animator)gameObject.GetComponent("Animator");
@@ -207,7 +208,7 @@ namespace It_is_a_scary_world
 
         public void OnCollisionStay(Collider other)
         {
-            
+
             KeyboardState keyState = Keyboard.GetState();
             Collider playerBox = (this.gameObject.GetComponent("Collider") as Collider);
 
@@ -241,7 +242,8 @@ namespace It_is_a_scary_world
 
                 }
             }
-            
+
         }
     }
 }
+
