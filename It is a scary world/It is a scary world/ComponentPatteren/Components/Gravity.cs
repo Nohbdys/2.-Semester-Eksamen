@@ -76,11 +76,12 @@ namespace It_is_a_scary_world
         {
             if (other.gameObject.Tag == "Platform")
             {
+                
                 if (collidingObjects.Count < 2)
                 {
                     collidingObject = null;
                     isFalling = true;
-                }
+                }                
                 collidingObjects.Remove(other);
             }
         }

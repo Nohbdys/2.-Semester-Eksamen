@@ -19,6 +19,7 @@ namespace It_is_a_scary_world
         private DIRECTION direction;
 
         //test
+        private bool moveTest;
         private bool isAttacking;
         private GameObject go;
         private Transform transform;
@@ -32,11 +33,20 @@ namespace It_is_a_scary_world
 
         public Vector2 position { get; set; }
 
-        #region Stats (jump in testing)
-
+        #region Stats (player)
+        private int health = 1;
+        private int armor = 2;
+        private int gold ;
+        private double exp;
+        private double expToLevel = 100;
+        private int level = 1;
+        private int levelReward;
+        private bool checkLevelReward;
+        private int damage;
         public float movementSpeed { get; set; } = 100;
-
         #endregion
+
+        private bool invincible;
 
         public Player(GameObject gameObject, Transform transform) : base(gameObject)
         {
@@ -80,33 +90,65 @@ namespace It_is_a_scary_world
         {
             KeyboardState keyState = Keyboard.GetState();
 
+            #region LevelSystem and perks
+
+            if ((int)Math.Ceiling(exp) >= (int)Math.Ceiling(expToLevel))
+            {
+                level += 1;
+                levelReward += 1;
+                exp -= (int)Math.Ceiling(expToLevel);
+                expToLevel = (int)Math.Ceiling(expToLevel) * 1.2;
+
+                //LevelRewards
+                if (levelReward == 1)
+                {
+                    armor += 1;
+                }
+
+                if (levelReward == 2)
+                {
+                    armor += 1;                
+                }
+
+                if (levelReward == 3)
+                {
+                    armor += 1;
+                }
+
+                if (levelReward == 4)
+                {
+                    armor += 1;
+                }
+
+                if (levelReward == 5)
+                {
+                    armor += 1;
+                }
+            }
+
+            #endregion
+
+            #region Death
+
+            if (health <= 0)
+            {
+
+            }
+
+            #endregion
+
             if (canMove)
             {
-                if (keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.D))
-                {                    
-                    if (!(strategy is Walk))
-                    {
-                        strategy = new Walk(gameObject.transform, animator);
-                    }
-                }
-                else if (keyState.IsKeyDown(Keys.W))
+                if (keyState.IsKeyDown(Keys.W) || keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.D))
                 {
-                    if (!(strategy is Jump))
+                    if (!(strategy is Movement))
                     {
-                        strategy = new Jump(gameObject.transform, animator, gameObject);
+                        strategy = new Movement(gameObject.transform, animator, gameObject);
                     }
                 }
                 else
                 {
                     strategy = new Idle(animator);
-                }
-
-                if (keyState.IsKeyDown(Keys.W))
-                {
-                    if (!(strategy is Jump))
-                    {
-                        strategy = new Jump(gameObject.transform, animator, gameObject);
-                    }
                 }
 
                 if (keyState.IsKeyDown(Keys.Space))
@@ -146,6 +188,8 @@ namespace It_is_a_scary_world
             Collider box = (gameObject.GetComponent("Collider") as Collider);
 
             (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
+
+            //(other.gameObject.GetComponent("Slime") as Slime).health -= damage;
         }
 
         public void OnCollisionExit(Collider other)

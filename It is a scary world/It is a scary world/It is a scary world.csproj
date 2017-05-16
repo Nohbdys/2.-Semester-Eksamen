@@ -53,6 +53,7 @@
     <Compile Include="ComponentPatteren\Components\Gravity.cs" />
     <Compile Include="Builder\PlatformBuilder.cs" />
     <Compile Include="ComponentPatteren\Platform.cs" />
+    <Compile Include="Strategy\Movement.cs" />
     <Compile Include="ObjectPool\ObjectPool.cs" />
     <Compile Include="Strategy\IStrategy.cs" />
     <Compile Include="ComponentPatteren\Player.cs" />

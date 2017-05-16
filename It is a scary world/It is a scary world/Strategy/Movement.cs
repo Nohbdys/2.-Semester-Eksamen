@@ -3,28 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static It_is_a_scary_world.DIRECTION;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Audio;
+using static It_is_a_scary_world.DIRECTION;
 
 namespace It_is_a_scary_world
 {
-    class Jump : IStrategy
+    class Movement : IStrategy
     {
-
-        private GameObject go;
-
-        private static Vector2 startPos;
-
         private Transform transform;
+
+        public static Vector2 startPos;
 
         private Animator animator;
 
+        private GameObject go;
+
         public static DIRECTION direction { get; private set; }
 
-        public Jump(Transform transform, Animator animator, GameObject gameObject)
+        public Movement(Transform transform, Animator animator, GameObject gameObject)
         {
             this.transform = transform;
             this.animator = animator;
@@ -46,12 +45,29 @@ namespace It_is_a_scary_world
                     translation += new Vector2(0, -1);
                     (go.GetComponent("Gravity") as Gravity).velocity = new Vector2(0, -500);
                 }
-
-                direction = currentDirection;
-                transform.Translate(translation * (go.GetComponent("Player") as Player).movementSpeed * GameWorld.Instance.deltaTime);
-
-                animator.PlayAnimation("Walk" + currentDirection);
             }
+            /*
+                if (keyState.IsKeyDown(Keys.S))
+            {
+                translation += new Vector2(0, 1);
+                currentDirection = Front;
+            }
+            */
+
+            if (keyState.IsKeyDown(Keys.A))
+            {
+                translation += new Vector2(-1, 0);
+                currentDirection = Left;
+            }
+            if (keyState.IsKeyDown(Keys.D))
+            {
+                translation += new Vector2(1, 0);
+                currentDirection = Right;
+            }
+
+            transform.Translate(translation * (go.GetComponent("Player") as Player).movementSpeed * GameWorld.Instance.deltaTime);
+
+            animator.PlayAnimation("Walk" + currentDirection);
         }
     }
 }

@@ -147,6 +147,8 @@ namespace It_is_a_scary_world
                 go.Update();
             }
 
+            
+
             base.Update(gameTime);
         }
         /// <summary>
@@ -165,9 +167,12 @@ namespace It_is_a_scary_world
             {
                 addEnemy = true;
             }
+            
 
+                
             if (Keyboard.GetState().IsKeyDown(Keys.N) && removeEnemy)
             {
+                
                 foreach (GameObject go in gameObjects)
                 {
                     if (go.Tag == "Enemy")
