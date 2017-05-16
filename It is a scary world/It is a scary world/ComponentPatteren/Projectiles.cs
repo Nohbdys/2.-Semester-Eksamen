@@ -51,7 +51,7 @@ namespace It_is_a_scary_world
         public void Update()
         {
 
-            gameObject.transform.position += direction * 4; //The bullet moves towards the mouse's current position
+            gameObject.transform.position += direction * 2; //The bullet moves towards the mouse's current position
 
         }
         public void OnCollisionStay(Collider other)

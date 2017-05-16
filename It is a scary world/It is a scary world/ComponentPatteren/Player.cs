@@ -10,7 +10,7 @@ namespace It_is_a_scary_world
 {
     enum DIRECTION { Front, Back, Left, Right };
 
-    class Player : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit, ICollisionStay
+    class Player : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit
     {
         private IStrategy strategy;
 
@@ -31,7 +31,7 @@ namespace It_is_a_scary_world
         /// </summary>
         private Animator animator;
 
-        public Vector2 position { get; set; }
+   //     public Vector2 position { get; set; }
 
         #region Stats (player)
         private int health = 1;
@@ -155,26 +155,22 @@ namespace It_is_a_scary_world
                 {
                     strategy = new Attack(animator);
                     canMove = false;
-                    if (true) //If canAttack is true, if reloading is false, and if the Player's current Weapon is the Pistol
-                    {
 
-                        GameWorld.Instance.SpawnBullet();
-
-                    }
+                    GameWorld.Instance.SpawnBullet();
                 }
 
                 strategy.Execute(ref direction);
             }
-            
-        }
- 
-        
 
-    /// <summary>
-    /// Loads the player's content
-    /// </summary>
-    /// <param name="content"></param>
-    public void LoadContent(ContentManager content)
+        }
+
+
+
+        /// <summary>
+        /// Loads the player's content
+        /// </summary>
+        /// <param name="content"></param>
+        public void LoadContent(ContentManager content)
         {
             //Sets up a reference to the palyer's animator
             animator = (Animator)gameObject.GetComponent("Animator");
@@ -198,22 +194,12 @@ namespace It_is_a_scary_world
 
             (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
 
-            //(other.gameObject.GetComponent("Slime") as Slime).health -= damage;
-        }
-
-        public void OnCollisionExit(Collider other)
-        {
-            (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.White;
-        }
-
-        public void OnCollisionStay(Collider other)
-        {
-
             KeyboardState keyState = Keyboard.GetState();
             Collider playerBox = (this.gameObject.GetComponent("Collider") as Collider);
 
             if (other.gameObject.Tag == "Platform")
             {
+
                 //player left side collision
                 if (playerBox.CollisionBox.Left >= other.CollisionBox.Left &&
                     playerBox.CollisionBox.Left <= other.CollisionBox.Right + 5 &&
@@ -228,7 +214,7 @@ namespace It_is_a_scary_world
                     playerBox.CollisionBox.Top <= other.CollisionBox.Bottom - 10 &&
                     playerBox.CollisionBox.Bottom >= other.CollisionBox.Top + 10)
                 {
-                    this.transform.position = new Vector2(other.CollisionBox.X - playerBox.CollisionBox.Width - 2, playerBox.CollisionBox.Y);
+                    this.transform.position = new Vector2(other.CollisionBox.X - playerBox.CollisionBox.Width - 2, this.transform.position.Y);
                 }
                 //player top side collision
                 if (playerBox.CollisionBox.Top <= other.CollisionBox.Bottom + (other.CollisionBox.Height / 5) &&
@@ -243,7 +229,14 @@ namespace It_is_a_scary_world
                 }
             }
 
+            //(other.gameObject.GetComponent("Slime") as Slime).health -= damage;
         }
+
+        public void OnCollisionExit(Collider other)
+        {
+            (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.White;
+        }
+
     }
 }
 

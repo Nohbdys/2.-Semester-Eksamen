@@ -36,15 +36,15 @@ namespace It_is_a_scary_world
 
             Vector2 translation = Vector2.Zero;
 
-            if (keyState.IsKeyDown(Keys.W) && (go.GetComponent("Gravity") as Gravity).isFalling == false)
+            if (keyState.IsKeyDown(Keys.W) && (go.GetComponent("Gravity") as Gravity).grounded == true)
             {
                 (go.GetComponent("Gravity") as Gravity).grounded = false;
                 startPos = go.transform.position;
-                if ((go.GetComponent("Gravity") as Gravity).collidingObject.gameObject.Tag == "Platform")
-                {
+                //if ((go.GetComponent("Gravity") as Gravity).collidingObject.gameObject.Tag == "Platform")
+                //{
                     translation += new Vector2(0, -1);
                     (go.GetComponent("Gravity") as Gravity).velocity = new Vector2(0, -500);
-                }
+                //}
             }
             /*
                 if (keyState.IsKeyDown(Keys.S))
