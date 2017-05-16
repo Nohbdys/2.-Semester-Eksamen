@@ -10,7 +10,7 @@ namespace It_is_a_scary_world
 {
     enum DIRECTION { Front, Back, Left, Right };
 
-    class Player : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit
+    class Player : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit, ICollisionStay
     {
         private IStrategy strategy;
 
@@ -18,25 +18,41 @@ namespace It_is_a_scary_world
 
         private DIRECTION direction;
 
+        //test
+        private bool moveTest;
+        private bool isAttacking;
+        private GameObject go;
+        private Transform transform;
+        public List<Collider> collidingObjects { get; private set; }
+        //testslut
+
         /// <summary>
         /// A reference to the player's animator
         /// </summary>
         private Animator animator;
 
-        //Gravity
-        public bool grounded { get; set; } = false;
         public Vector2 position { get; set; }
-        //GravityEnd
 
-        #region Stats (jump in testing)
-
+        #region Stats (player)
+        private int health = 1;
+        private int armor = 2;
+        private int gold ;
+        private double exp;
+        private double expToLevel = 100;
+        private int level = 1;
+        private int levelReward;
+        private bool checkLevelReward;
+        private int damage;
         public float movementSpeed { get; set; } = 100;
-
         #endregion
 
-        public Player(GameObject gameObject) : base(gameObject)
-        {
+        private bool invincible;
 
+        public Player(GameObject gameObject, Transform transform) : base(gameObject)
+        {
+            this.go = gameObject;
+            this.transform = transform;
+            collidingObjects = new List<Collider>();
         }
 
         /// <summary>
@@ -74,33 +90,70 @@ namespace It_is_a_scary_world
         {
             KeyboardState keyState = Keyboard.GetState();
 
-            //Gravity
+            #region LevelSystem and perks
 
-            if (position.Y <= 500)
-            {               
-                grounded = true;
-                position = new Vector2(0, 0);
+            if ((int)Math.Ceiling(exp) >= (int)Math.Ceiling(expToLevel))
+            {
+                level += 1;
+                levelReward += 1;
+                exp -= (int)Math.Ceiling(expToLevel);
+                expToLevel = (int)Math.Ceiling(expToLevel) * 1.2;
+
+                //LevelRewards
+                if (levelReward == 1)
+                {
+                    armor += 1;
+                }
+
+                if (levelReward == 2)
+                {
+                    armor += 1;                
+                }
+
+                if (levelReward == 3)
+                {
+                    armor += 1;
+                }
+
+                if (levelReward == 4)
+                {
+                    armor += 1;
+                }
+
+                if (levelReward == 5)
+                {
+                    armor += 1;
+                }
             }
 
-            //GravityEnd
+            #endregion
+
+            #region Death
+
+            if (health <= 0)
+            {
+
+            }
+
+            #endregion
 
             if (canMove)
             {
-                if (keyState.IsKeyDown(Keys.W) || keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.S) || keyState.IsKeyDown(Keys.D))
+                if (keyState.IsKeyDown(Keys.W) || keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.D))
                 {
-                    if (!(strategy is Walk))
+                    if (!(strategy is Movement))
                     {
-                        strategy = new Walk(gameObject.transform, animator);
+                        strategy = new Movement(gameObject.transform, animator, gameObject);
                     }
                 }
                 else
                 {
                     strategy = new Idle(animator);
                 }
+
                 if (keyState.IsKeyDown(Keys.Space))
                 {
                     strategy = new Attack(animator);
-
                         canMove = false;
                         if (true) //If canAttack is true, if reloading is false, and if the Player's current Weapon is the Pistol
                         {
@@ -110,9 +163,9 @@ namespace It_is_a_scary_world
                         }
                     }
                     canMove = false;
+                    isAttacking = true;
                 }
             }
-
             strategy.Execute(ref direction);
         }
 
@@ -133,18 +186,62 @@ namespace It_is_a_scary_world
         {
             if (animationName.Contains("Attack"))
             {
+                isAttacking = false;
                 canMove = true;
             }
         }
 
         public void OnCollisionEnter(Collider other)
         {
+            Collider box = (gameObject.GetComponent("Collider") as Collider);
+
             (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
+
+            //(other.gameObject.GetComponent("Slime") as Slime).health -= damage;
         }
 
         public void OnCollisionExit(Collider other)
         {
             (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.White;
+        }
+
+        public void OnCollisionStay(Collider other)
+        {
+            
+            KeyboardState keyState = Keyboard.GetState();
+            Collider playerBox = (this.gameObject.GetComponent("Collider") as Collider);
+
+            if (other.gameObject.Tag == "Platform")
+            {
+                //player left side collision
+                if (playerBox.CollisionBox.Left >= other.CollisionBox.Left &&
+                    playerBox.CollisionBox.Left <= other.CollisionBox.Right + 5 &&
+                    playerBox.CollisionBox.Top <= other.CollisionBox.Bottom - 10 &&
+                    playerBox.CollisionBox.Bottom >= other.CollisionBox.Top + 10)
+                {
+                    this.transform.position = new Vector2(other.CollisionBox.X + other.CollisionBox.Width + 2, this.transform.position.Y);
+                }
+                //player right side collision
+                if (playerBox.CollisionBox.Right <= other.CollisionBox.Right &&
+                    playerBox.CollisionBox.Right >= other.CollisionBox.Left - 5 &&
+                    playerBox.CollisionBox.Top <= other.CollisionBox.Bottom - 10 &&
+                    playerBox.CollisionBox.Bottom >= other.CollisionBox.Top + 10)
+                {
+                    this.transform.position = new Vector2(other.CollisionBox.X - playerBox.CollisionBox.Width - 2, playerBox.CollisionBox.Y);
+                }
+                //player top side collision
+                if (playerBox.CollisionBox.Top <= other.CollisionBox.Bottom + (other.CollisionBox.Height / 5) &&
+                    playerBox.CollisionBox.Top >= other.CollisionBox.Bottom - 3 &&
+                    playerBox.CollisionBox.Right >= other.CollisionBox.Left + 10 &&
+                    playerBox.CollisionBox.Left <= other.CollisionBox.Right - 10)
+                {
+                    (go.GetComponent("Gravity") as Gravity).velocity = new Vector2(0, 0);
+
+                    this.transform.position = new Vector2(this.transform.position.X, other.CollisionBox.Y + other.CollisionBox.Height);
+
+                }
+            }
+            
         }
     }
 }

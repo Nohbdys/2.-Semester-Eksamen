@@ -11,7 +11,10 @@ namespace It_is_a_scary_world
 {
     class Platform : Component
     {
-        //test
+        //test gravity
+        private GameObject player;
+        //slut
+
         private Animator animator;
         private IStrategy strategy;
 
@@ -22,6 +25,9 @@ namespace It_is_a_scary_world
 
         public void LoadContent(ContentManager content)
         {
+            //test gravity
+            player = GameWorld.Instance.FindGameObjectWithTag("Player");
+            //slut
             animator = (Animator)gameObject.GetComponent("Animator");
 
             Texture2D sprite = content.Load<Texture2D>("Platform");

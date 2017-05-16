@@ -19,6 +19,12 @@ namespace It_is_a_scary_world
 
         private IStrategy strategy;
 
+        #region Stats
+
+        public int health = 100;
+
+        #endregion
+
         public Slime(GameObject gameObject) : base(gameObject)
         {
             gameObject.Tag = "Enemy";

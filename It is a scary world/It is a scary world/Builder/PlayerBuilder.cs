@@ -19,11 +19,11 @@ namespace It_is_a_scary_world
 
             gameObject.AddComponent(new Animator(gameObject));
 
-            gameObject.AddComponent(new Player(gameObject));
+            gameObject.AddComponent(new Player(gameObject, gameObject.transform));
 
             gameObject.AddComponent(new Collider(gameObject));
 
-            //gameObject.AddComponent(new Gravity(gameObject.transform, gameObject) { isFalling = true });
+            gameObject.AddComponent(new Gravity(gameObject.transform, gameObject) { isFalling = true });
 
             gameObject.transform.position = position;
 

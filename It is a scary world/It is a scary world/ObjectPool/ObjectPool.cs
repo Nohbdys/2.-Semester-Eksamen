@@ -10,7 +10,6 @@ namespace It_is_a_scary_world
 {
     class ObjectPool
     {
-        //test
         private static List<GameObject> inactive = new List<GameObject>();
 
         private static List<GameObject> active = new List<GameObject>();

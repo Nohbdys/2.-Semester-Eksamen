@@ -9,7 +9,6 @@ namespace It_is_a_scary_world
 {
     class PlatformBuilder : IBuilder
     {
-        //test
         private GameObject gameObject;
 
         public void BuildGameObject(Vector2 position)
