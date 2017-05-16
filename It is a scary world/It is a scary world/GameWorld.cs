@@ -6,13 +6,15 @@ using System;
 
 namespace It_is_a_scary_world
 {
-   
 
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
     public class GameWorld : Game
     {
+
+        private GameObject go;
+
         GraphicsDeviceManager graphics;
 
         SpriteBatch spriteBatch;
@@ -86,7 +88,7 @@ namespace It_is_a_scary_world
             //Platforms
             gameObjects.Add(ObjectPool.Create(new Vector2(500, 500), Content));
 
-            
+
             base.Initialize();
         }
 
@@ -129,7 +131,9 @@ namespace It_is_a_scary_world
 
             deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-             SpawnEnemy();
+            SpawnEnemy();
+            UpdateMouse();
+
 
             //Updates all GameObjects
             foreach (GameObject go in gameObjects)
@@ -142,9 +146,10 @@ namespace It_is_a_scary_world
         /// <summary>
         /// Remove This Later. ITs a Note
         /// </summary>
-        
+
         private void SpawnEnemy()
         {
+
             if (Keyboard.GetState().IsKeyDown(Keys.M) && addEnemy)
             {
                 newObjects.Add(EnemyPool.Create(new Vector2(rnd.Next(0, 1000/*Window.ClientBounds.Width*/), rnd.Next(0, 600/*Window.ClientBounds.Height*/)), Content));
@@ -166,8 +171,6 @@ namespace It_is_a_scary_world
                         break;
                     }
                 }
-
-
                 removeEnemy = false;
             }
             if (Keyboard.GetState().IsKeyUp(Keys.N))
@@ -176,6 +179,33 @@ namespace It_is_a_scary_world
             }
 
             UpdateLevel();
+        }
+
+        /// <summary>
+        ///    Bliver kaldet fra Player Class
+        /// </summary>
+        public void SpawnBullet()
+        {
+            foreach (GameObject go in gameObjects)
+            {
+                if (go.Tag == "Player")
+                {
+                    float x = (go.GetComponent("Player") as Player).gameObject.transform.position.X + (100 - 10) / 2; //The attack's position on the X-axis, based on the Player object's position (should be in the middle)
+                    float y = (go.GetComponent("Player") as Player).gameObject.transform.position.Y - 30; //The attack's position on the Y-axis, based on the Player object's position (Edit last number to place it probably based on the Player object's sprite)
+
+                    newObjects.Add(BulletPool.Create(new Vector2(x, y), Content));
+                    break;
+                }
+            }
+
+        }
+        public void UpdateMouse()
+        {
+            MouseState current_mouse = Mouse.GetState();
+
+            int mouseX = current_mouse.X;
+            int mouseY = current_mouse.Y;
+
         }
         public void UpdateLevel()
         {
@@ -196,7 +226,7 @@ namespace It_is_a_scary_world
                 newObjects.Clear();
             }
         }
-        
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>

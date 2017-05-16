@@ -101,6 +101,14 @@ namespace It_is_a_scary_world
                 {
                     strategy = new Attack(animator);
 
+                        canMove = false;
+                        if (true) //If canAttack is true, if reloading is false, and if the Player's current Weapon is the Pistol
+                        {
+
+                            GameWorld.Instance.SpawnBullet();
+                            
+                        }
+                    }
                     canMove = false;
                 }
             }

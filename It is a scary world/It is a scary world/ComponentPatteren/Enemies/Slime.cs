@@ -81,6 +81,11 @@ namespace It_is_a_scary_world
             {
                 (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
             }
+            if (other.gameObject.Tag == "Bullet")
+            {
+                (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
+                GameWorld.Instance.objectsToRemove.Add(gameObject);
+            }
         }
     }
 }
