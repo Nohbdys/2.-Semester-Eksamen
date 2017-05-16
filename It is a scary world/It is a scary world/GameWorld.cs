@@ -6,7 +6,8 @@ using System;
 
 namespace It_is_a_scary_world
 {
-    
+   
+
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -82,6 +83,8 @@ namespace It_is_a_scary_world
 
             gameObjects.Add(EnemyPool.Create(new Vector2(400, 400), Content));
 
+            //Platforms
+            gameObjects.Add(ObjectPool.Create(new Vector2(500, 500), Content));
 
             
             base.Initialize();
