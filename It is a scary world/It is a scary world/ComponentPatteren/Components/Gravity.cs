@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace It_is_a_scary_world
 {
-    class Gravity : Component, IUpdateable, ICollisionExit, ICollisionEnter, ICollisionStay
+    class Gravity : Component, IUpdateable, ICollisionExit, ICollisionEnter
     {
         public Vector2 velocity { get; set; } 
         private Transform transform;
@@ -54,9 +54,7 @@ namespace It_is_a_scary_world
                     }
 
                     newPos = go.transform.position += velocity * GameWorld.Instance.deltaTime;
-
                 }
-
                 transform.Translate(translation * movementSpeed * GameWorld.Instance.deltaTime);
             
         }
@@ -69,6 +67,16 @@ namespace It_is_a_scary_world
             {
                 collidingObjects.Add(other);
             }
+                        Collider box = (gameObject.GetComponent("Collider") as Collider);
+            
+            if (other.gameObject.Tag == "Platform")
+            {
+                    grounded = true;
+                    collidingObject = other;
+                    isFalling = false;
+                    velocity = Vector2.Zero;
+                    this.transform.position = new Vector2(this.transform.position.X, other.CollisionBox.Y - box.CollisionBox.Height + 3);
+            }
         }
 
         public void OnCollisionExit(Collider other)
@@ -76,36 +84,15 @@ namespace It_is_a_scary_world
             if (other.gameObject.Tag == "Platform")
             {
                 
-                if (collidingObjects.Count < 2)
-                {
+                //if (collidingObjects.Count <= 2)
+                //{
                     collidingObject = null;
                     isFalling = true;
-                }                
+                //}                
                 collidingObjects.Remove(other);
             }
         }
 
-        public void OnCollisionStay(Collider other)
-        {
-            Collider box = (gameObject.GetComponent("Collider") as Collider);
-            
-            if (other.gameObject.Tag == "Platform")
-            {
-                if (box.CollisionBox.Bottom >= other.CollisionBox.Top - 1 &&
-                    box.CollisionBox.Bottom <= other.CollisionBox.Top + (other.CollisionBox.Height) &&
-                    box.CollisionBox.Right >= other.CollisionBox.Left + 10 &&
-                    box.CollisionBox.Left <= other.CollisionBox.Right - 10)
-                {
-                    //grounded = true;
-                    collidingObject = other;
-                    isFalling = false;
-                    velocity = Vector2.Zero;
-                    this.transform.position = new Vector2(this.transform.position.X, other.CollisionBox.Y - box.CollisionBox.Height + 3);
-                }
-
-            }
-            
-        }
 
 
     }

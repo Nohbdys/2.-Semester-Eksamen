@@ -9,6 +9,8 @@ namespace It_is_a_scary_world
 {
     class EnemyPool
     {
+        private static Random rnd = new Random();
+
         private static List<GameObject> inactive = new List<GameObject>();
 
         private static List<GameObject> active = new List<GameObject>();
@@ -17,6 +19,7 @@ namespace It_is_a_scary_world
 
         public static GameObject Create(Vector2 position, ContentManager content)
         {
+            
             if (inactive.Count > 0)
             {
                 GameObject enemy = inactive[0];
@@ -27,16 +30,31 @@ namespace It_is_a_scary_world
             }
             else
             {
+                if (rnd.Next(0, 1) == 1)
+                {
+                    GameObject enemy = director.Construct(position);
 
-                GameObject enemy = director.Construct(position);
+                    (enemy.GetComponent("Slime") as Slime).LoadContent(content);
 
-                (enemy.GetComponent("Slime") as Slime).LoadContent(content);
+                    enemy.LoadContent(content);
 
-                enemy.LoadContent(content);
+                    active.Add(enemy);
 
-                active.Add(enemy);
+                    return enemy;
+                }
+                else
+                {
+                    GameObject enemy = director.Construct(position);
 
-                return enemy;
+                    (enemy.GetComponent("Slime") as Slime).LoadContent(content);
+
+                    enemy.LoadContent(content);
+
+                    active.Add(enemy);
+
+                    return enemy;
+                }
+                
             }
         }
 

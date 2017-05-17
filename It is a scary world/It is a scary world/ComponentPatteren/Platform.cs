@@ -32,7 +32,7 @@ namespace It_is_a_scary_world
 
             Texture2D sprite = content.Load<Texture2D>("Platform");
 
-            animator.CreateAnimation("IdleFront", new Animation(1, 0, 0, 100, 100, 0, Vector2.Zero, sprite));
+            animator.CreateAnimation("IdleFront", new Animation(1, 0, 0, 400, 100, 0, Vector2.Zero, sprite));
 
             animator.PlayAnimation("IdleFront");
 
