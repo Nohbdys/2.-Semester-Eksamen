@@ -60,8 +60,6 @@ namespace It_is_a_scary_world
             }
         }
 
-
-
         public void OnCollisionEnter(Collider other)
         {
             if (other.gameObject.Tag == "Platform")

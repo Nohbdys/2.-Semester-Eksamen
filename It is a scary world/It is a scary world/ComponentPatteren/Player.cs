@@ -20,7 +20,6 @@ namespace It_is_a_scary_world
 
         //test
         private bool moveTest;
-        private bool isAttacking;
         private GameObject go;
         private Transform transform;
         public List<Collider> collidingObjects { get; private set; }
@@ -50,8 +49,8 @@ namespace It_is_a_scary_world
 
         public Player(GameObject gameObject, Transform transform) : base(gameObject)
         {
-            this.go = gameObject;
-            this.transform = transform;
+            //this.go = gameObject;
+            //this.transform = transform;
             collidingObjects = new List<Collider>();
         }
 
@@ -59,7 +58,7 @@ namespace It_is_a_scary_world
         /// Creates all the player's animations
         /// </summary>
         private void CreateAnimations()
-        {
+        {   
             SpriteRenderer spriteRenderer = (SpriteRenderer)gameObject.GetComponent("SpriteRenderer");
 
             animator.CreateAnimation("IdleFront", new Animation(4, 0, 0, 90, 150, 6, Vector2.Zero, spriteRenderer.Sprite));
@@ -148,7 +147,9 @@ namespace It_is_a_scary_world
                 }
                 else
                 {
+
                     strategy = new Idle(animator);
+
                 }
 
                 if (keyState.IsKeyDown(Keys.Space))
@@ -156,7 +157,12 @@ namespace It_is_a_scary_world
                     strategy = new Attack(animator);
                     canMove = false;
 
-                    GameWorld.Instance.SpawnBullet();
+                    if (true) //If canAttack is true, if reloading is false, and if the Player's current Weapon is the Pistol
+                    {
+
+                        GameWorld.Instance.SpawnBullet();
+
+                    }
                 }
 
                 strategy.Execute(ref direction);
@@ -164,26 +170,25 @@ namespace It_is_a_scary_world
 
         }
 
-
-
         /// <summary>
         /// Loads the player's content
         /// </summary>
         /// <param name="content"></param>
         public void LoadContent(ContentManager content)
         {
+            
             //Sets up a reference to the palyer's animator
             animator = (Animator)gameObject.GetComponent("Animator");
 
             //We can make our animations when we have a reference to the player's animator.
             CreateAnimations();
+
         }
 
         public void OnAnimationDone(string animationName)
         {
             if (animationName.Contains("Attack"))
             {
-                isAttacking = false;
                 canMove = true;
             }
         }
@@ -206,22 +211,29 @@ namespace It_is_a_scary_world
                     playerBox.CollisionBox.Top <= other.CollisionBox.Bottom - 10 &&
                     playerBox.CollisionBox.Bottom >= other.CollisionBox.Top + 10)
                 {
+
                     this.transform.position = new Vector2(other.CollisionBox.X + other.CollisionBox.Width + 2, this.transform.position.Y);
+
                 }
+                
                 //player right side collision
                 if (playerBox.CollisionBox.Right <= other.CollisionBox.Right &&
                     playerBox.CollisionBox.Right >= other.CollisionBox.Left - 5 &&
                     playerBox.CollisionBox.Top <= other.CollisionBox.Bottom - 10 &&
                     playerBox.CollisionBox.Bottom >= other.CollisionBox.Top + 10)
                 {
+
                     this.transform.position = new Vector2(other.CollisionBox.X - playerBox.CollisionBox.Width - 2, this.transform.position.Y);
+
                 }
+                
                 //player top side collision
                 if (playerBox.CollisionBox.Top <= other.CollisionBox.Bottom + (other.CollisionBox.Height / 5) &&
                     playerBox.CollisionBox.Top >= other.CollisionBox.Bottom - 3 &&
                     playerBox.CollisionBox.Right >= other.CollisionBox.Left + 10 &&
                     playerBox.CollisionBox.Left <= other.CollisionBox.Right - 10)
                 {
+
                     (go.GetComponent("Gravity") as Gravity).velocity = new Vector2(0, 0);
 
                     this.transform.position = new Vector2(this.transform.position.X, other.CollisionBox.Y + other.CollisionBox.Height);

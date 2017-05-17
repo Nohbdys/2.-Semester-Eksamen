@@ -24,7 +24,7 @@ namespace It_is_a_scary_world
         /// <summary>
         /// Creates a list of GameObjects
         /// </summary>
-        private List<GameObject> gameObjects;
+        public List<GameObject> gameObjects;
 
         private List<GameObject> newObjects;
 

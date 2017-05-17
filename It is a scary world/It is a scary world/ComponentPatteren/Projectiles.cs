@@ -13,7 +13,7 @@ namespace It_is_a_scary_world
     {
         private Animator animator;
 
-        private GameObject player;
+        private GameObject go;
 
         private IStrategy strategy;
 
@@ -26,7 +26,14 @@ namespace It_is_a_scary_world
             int mouseX = current_mouse.X;
             int mouseY = current_mouse.Y;
 
-            direction = new Vector2(mouseX, mouseY) - gameObject.transform.position; //The bullet is shot in the direction of the mouse's current position
+            foreach (GameObject gol in GameWorld.Instance.gameObjects)
+            {
+                if (gol.Tag == "Player")
+                {
+                    direction = new Vector2(mouseX, mouseY) - (gol.GetComponent("Player") as Player).gameObject.transform.position; //The bullet is shot in the direction of the mouse's current position
+                    break;
+                }
+            }
             direction.Normalize();
 
             gameObject.Tag = "Bullet";
@@ -35,7 +42,7 @@ namespace It_is_a_scary_world
         public void LoadContent(ContentManager content)
         {
 
-            player = GameWorld.Instance.FindGameObjectWithTag("Player");
+            go = GameWorld.Instance.FindGameObjectWithTag("Player");
 
             animator = (Animator)gameObject.GetComponent("Animator");
 
@@ -51,7 +58,7 @@ namespace It_is_a_scary_world
         public void Update()
         {
 
-            gameObject.transform.position += direction * 2; //The bullet moves towards the mouse's current position
+            gameObject.transform.position += direction * 4; //The bullet moves towards the mouse's current position
 
         }
         public void OnCollisionStay(Collider other)
