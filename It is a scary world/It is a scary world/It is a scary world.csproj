@@ -97,6 +97,9 @@
     <Content Include="Content\HeroSheet.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Katana.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Platform.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

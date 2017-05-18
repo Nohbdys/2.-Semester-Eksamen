@@ -88,7 +88,13 @@ namespace It_is_a_scary_world
             {
                 //GameWorld.Instance.objectsToRemove.Add(gameObject);
                 (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.White;               
-            }           
+            }
+              
+                if (other.gameObject.Tag == "Platform")
+                {
+                    (this.gameObject.GetComponent("Gravity") as Gravity).grounded = true;                    
+                }
+                
         }
 
         public void OnCollisionEnter(Collider other)

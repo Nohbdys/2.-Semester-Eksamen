@@ -98,7 +98,7 @@ namespace It_is_a_scary_world
 
 
             //Weapon
-            //gameObjects.Add(TestPool.Create(new Vector2(500, 400), Content));
+            gameObjects.Add(TestPool.Create(new Vector2(500, 400), Content));
 
             base.Initialize();
         }

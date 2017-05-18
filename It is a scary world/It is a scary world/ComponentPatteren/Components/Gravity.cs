@@ -12,7 +12,7 @@ namespace It_is_a_scary_world
 {
     class Gravity : Component, IUpdateable, ICollisionExit, ICollisionEnter
     {
-        public Vector2 velocity { get; set; } 
+        public Vector2 velocity { get; set; }
         private Transform transform;
         private readonly Vector2 gravity = new Vector2(0, 15.8F);
 
@@ -36,7 +36,8 @@ namespace It_is_a_scary_world
 
         public void Update()
         {
-
+            if (grounded == false)
+            {
                 oldPos = go.transform.position;
                 movementSpeed = 200;
                 KeyboardState keyState = Keyboard.GetState();
@@ -56,7 +57,7 @@ namespace It_is_a_scary_world
                     newPos = go.transform.position += velocity * GameWorld.Instance.deltaTime;
                 }
                 transform.Translate(translation * movementSpeed * GameWorld.Instance.deltaTime);
-            
+            }
         }
 
 
@@ -67,15 +68,15 @@ namespace It_is_a_scary_world
             {
                 collidingObjects.Add(other);
             }
-                        Collider box = (gameObject.GetComponent("Collider") as Collider);
-            
+            Collider box = (gameObject.GetComponent("Collider") as Collider);
+
             if (other.gameObject.Tag == "Platform")
             {
-                    grounded = true;
-                    collidingObject = other;
-                    isFalling = false;
-                    velocity = Vector2.Zero;
-                    this.transform.position = new Vector2(this.transform.position.X, other.CollisionBox.Y - box.CollisionBox.Height + 3);
+                grounded = true;
+                collidingObject = other;
+                isFalling = false;
+                velocity = Vector2.Zero;
+                this.transform.position = new Vector2(this.transform.position.X, other.CollisionBox.Y - box.CollisionBox.Height + 3);
             }
         }
 
@@ -83,11 +84,11 @@ namespace It_is_a_scary_world
         {
             if (other.gameObject.Tag == "Platform")
             {
-                
+
                 //if (collidingObjects.Count <= 2)
                 //{
-                    collidingObject = null;
-                    isFalling = true;
+                collidingObject = null;
+                isFalling = true;
                 //}                
                 collidingObjects.Remove(other);
             }

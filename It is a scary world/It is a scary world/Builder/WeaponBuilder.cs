@@ -15,7 +15,7 @@ namespace It_is_a_scary_world
         {
             gameObject = new GameObject();
 
-            gameObject.AddComponent(new SpriteRenderer(gameObject, "BlackSword", 1));
+            gameObject.AddComponent(new SpriteRenderer(gameObject, "Katana", 1));
 
             gameObject.AddComponent(new Animator(gameObject));
 

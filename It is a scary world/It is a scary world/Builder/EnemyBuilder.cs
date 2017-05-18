@@ -23,6 +23,8 @@ namespace It_is_a_scary_world
 
             gameObject.AddComponent(new Collider(gameObject) { UsePixelCollision = true });
 
+            gameObject.AddComponent(new Gravity(gameObject.transform, gameObject) { isFalling = true }) ;
+
             gameObject.transform.position = position;
         }
 

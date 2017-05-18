@@ -11,7 +11,7 @@ using static It_is_a_scary_world.DIRECTION;
 
 namespace It_is_a_scary_world
 {
-    class Weapons : Component, IUpdateable
+    class Weapons : Component
     {
         private IStrategy strategy;
 
@@ -21,32 +21,32 @@ namespace It_is_a_scary_world
         private Transform transform;
         private Animator animator;
 
+
+
         public Weapons(GameObject gameObject, Transform transform) : base(gameObject)
         {
             this.go = gameObject;
             this.transform = transform;
             gameObject.Tag = "Weapon";
-        }
-        
-        public void Update()
-        {     
-           /*   
-           position.X = (go.GetComponent("Player") as Player).gameObject.transform.position.X + 1;
-           position.Y = (go.GetComponent("Player") as Player).gameObject.transform.position.Y;         
-           */ 
-        }
+        }      
         
         public void LoadContent(ContentManager content)
         {
             animator = (Animator)gameObject.GetComponent("Animator");
 
-            Texture2D sprite = content.Load<Texture2D>("BlackSword");
+            Texture2D sprite = content.Load<Texture2D>("Katana");
 
-            animator.CreateAnimation("IdleFront", new Animation(1, 0, 0, 215, 215, 0, Vector2.Zero, sprite));
+            animator.CreateAnimation("IdleFront", new Animation(1, 0, 0, 100, 100, 0, Vector2.Zero, sprite));
 
             animator.PlayAnimation("IdleFront");
 
             strategy = new Idle(animator);
         }
+
+        //Note til mig om sværd position (casper)
+        /*   
+        position.X = (go.GetComponent("Player") as Player).gameObject.transform.position.X + 1;
+        position.Y = (go.GetComponent("Player") as Player).gameObject.transform.position.Y;         
+        */
     }
 }
