@@ -11,11 +11,9 @@ using static It_is_a_scary_world.DIRECTION;
 
 namespace It_is_a_scary_world
 {
-    class Weapons : Component
+    public class Weapons : Component, IUpdateable, ILoadable
     {
         private IStrategy strategy;
-
-        private Vector2 position;
 
         private GameObject go;
         private Transform transform;
@@ -30,6 +28,12 @@ namespace It_is_a_scary_world
             gameObject.Tag = "Weapon";
         }      
         
+        public void Update()
+        {
+            
+            //gameObject.transform.position = new Vector2((go.gameObject.GetComponent("Player") as Player).gameObject.transform.position.X + 100, (go.gameObject.GetComponent("Player") as Player).gameObject.transform.position.Y + 100);
+        }
+
         public void LoadContent(ContentManager content)
         {
             animator = (Animator)gameObject.GetComponent("Animator");

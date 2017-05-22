@@ -25,21 +25,28 @@ namespace It_is_a_scary_world
         {
             Vector2 translation = Vector2.Zero;
 
+            //Enemy followtarget Y-axis
+            /*
             if (target.position.Y <= transform.position.Y)
             {
                 translation += new Vector2(0, -1);
                 currentDirection = Back;
             }
-            if (target.position.X <= transform.position.X)
-            {
-                translation += new Vector2(-1, 0);
-                currentDirection = Left;
-            }
+
             if (target.position.Y >= transform.position.Y)
             {
                 translation += new Vector2(0, 1);
                 currentDirection = Front;
             }
+            */
+
+            //Enemy followtarget x-axis
+            if (target.position.X <= transform.position.X)
+            {
+                translation += new Vector2(-1, 0);
+                currentDirection = Left;
+            }
+
             if (target.position.X >= transform.position.X)
             {
                 translation += new Vector2(1, 0);

@@ -19,6 +19,7 @@ namespace It_is_a_scary_world
         private DIRECTION direction;
 
         //test
+        private int platformTimer;
         private bool moveTest;
         private bool isAttacking;
         private GameObject go;
@@ -137,12 +138,26 @@ namespace It_is_a_scary_world
 
             #endregion
 
+            #region Platform collision check (not working still testing)
+
+            if (platformTimer > 0)
+            {
+                platformTimer -= 1;
+            }
+            if (platformTimer <= 0)
+            {
+                //Place code for gravity activation
+            }
+
+            #endregion
+
             if (canMove)
             {
                 if (keyState.IsKeyDown(Keys.W) || keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.D))
                 {
                     if (!(strategy is Movement))
                     {
+                        //There is made a new movement every time so i need to add dobulejump currentjump and maxjump to constructer 
                         strategy = new Movement(gameObject.transform, animator, gameObject);
                     }
                 }
@@ -199,6 +214,9 @@ namespace It_is_a_scary_world
 
             if (other.gameObject.Tag == "Platform")
             {
+                //Gravity test
+                platformTimer = 5;
+                //Gravity test slut
 
                 //player left side collision
                 if (playerBox.CollisionBox.Left >= other.CollisionBox.Left &&

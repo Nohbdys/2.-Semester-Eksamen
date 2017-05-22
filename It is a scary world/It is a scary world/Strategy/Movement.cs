@@ -21,6 +21,10 @@ namespace It_is_a_scary_world
 
         private GameObject go;
 
+        private bool doubleJump = false;
+        private int maxJump = 2;
+        private int currentJump;
+
         public static DIRECTION direction { get; private set; }
 
         public Movement(Transform transform, Animator animator, GameObject gameObject)
@@ -36,16 +40,28 @@ namespace It_is_a_scary_world
 
             Vector2 translation = Vector2.Zero;
 
-            if (keyState.IsKeyDown(Keys.W) && (go.GetComponent("Gravity") as Gravity).grounded == true)
+            if (keyState.IsKeyDown(Keys.W) && maxJump >= currentJump /*(go.GetComponent("Gravity") as Gravity).grounded == true*/)
             {
+                
                 (go.GetComponent("Gravity") as Gravity).grounded = false;
                 startPos = go.transform.position;
                 //if ((go.GetComponent("Gravity") as Gravity).collidingObject.gameObject.Tag == "Platform")
                 //{
                     translation += new Vector2(0, -1);
                     (go.GetComponent("Gravity") as Gravity).velocity = new Vector2(0, -500);
+                    currentJump += 1;
                 //}
             }
+            /*
+            if (keyState.IsKeyDown(Keys.W) && firstJump == true && doubleJump == true && (go.GetComponent("Player") as Player).currentJump <= maxJump && (go.GetComponent("Gravity") as Gravity).grounded == false)
+            {
+                startPos = go.transform.position;
+                translation += new Vector2(0, -1);
+                (go.GetComponent("Gravity") as Gravity).velocity = new Vector2(0, -500);
+                (go.GetComponent("Player") as Player).currentJump += 1;
+            }
+            */
+
             /*
                 if (keyState.IsKeyDown(Keys.S))
             {

@@ -24,6 +24,8 @@ namespace It_is_a_scary_world
             gameObject.AddComponent(new Collider(gameObject));
 
             gameObject.transform.position = position;
+
+            gameObject.Tag = "Weapon";
         }
 
         public GameObject GetResult()

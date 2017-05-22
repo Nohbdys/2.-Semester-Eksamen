@@ -19,6 +19,8 @@ namespace It_is_a_scary_world
 
         private IStrategy strategy;
 
+        private int platformTimer;
+
         #region Stats
 
         public int health = 100;
@@ -69,7 +71,23 @@ namespace It_is_a_scary_world
                 GameWorld.Instance.objectsToRemove.Add(gameObject);
             }
             #endregion
-            
+
+            #region Platform collision check
+
+            //Used to check if the slime is colliding with the platform
+            //PlatformTimer is in collisionEnter
+            if (platformTimer > 0)
+            {
+                platformTimer -= 1;
+            }
+            if (platformTimer <= 0)
+            {
+                (this.gameObject.GetComponent("Gravity") as Gravity).grounded = false;
+            }
+
+            #endregion
+
+            #region FollowTarget / idle
             if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 200 && !(strategy is FollowTarget))
             {
                 strategy = new FollowTarget(player.transform, gameObject.transform, animator);
@@ -80,6 +98,7 @@ namespace It_is_a_scary_world
             }
             
             strategy.Execute(ref direction);
+            #endregion
         }
 
         public void OnCollisionExit(Collider other)
@@ -92,9 +111,9 @@ namespace It_is_a_scary_world
               
                 if (other.gameObject.Tag == "Platform")
                 {
-                    (this.gameObject.GetComponent("Gravity") as Gravity).grounded = true;                    
+                    (this.gameObject.GetComponent("Gravity") as Gravity).grounded = true;
+                    platformTimer = 5;           
                 }
-                
         }
 
         public void OnCollisionEnter(Collider other)

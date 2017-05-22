@@ -95,10 +95,14 @@ namespace It_is_a_scary_world
 
             gameObjects.Add(ObjectPool.Create(new Vector2(1200, 660), Content));
 
-
+            //Wall test
+            gameObjects.Add(ObjectPool.Create(new Vector2(1200, 560), Content));
 
             //Weapon
-            gameObjects.Add(TestPool.Create(new Vector2(500, 400), Content));
+            Director weapon = new Director(new WeaponBuilder());
+
+            gameObjects.Add(weapon.Construct(Vector2.Zero));
+
 
             base.Initialize();
         }
