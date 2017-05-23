@@ -81,7 +81,7 @@ namespace It_is_a_scary_world
 
             gameObjects.Add(director.Construct(Vector2.Zero));
 
-            gameObjects.Add(EnemyPool.Create(new Vector2(400, 400), Content));
+            //gameObjects.Add(EnemyPool.Create(new Vector2(400, 400), Content));
 
             //Platforms
             gameObjects.Add(ObjectPool.Create(new Vector2(0, 660), Content));

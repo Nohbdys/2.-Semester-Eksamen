@@ -146,7 +146,7 @@ namespace It_is_a_scary_world
             }
             if (platformTimer <= 0)
             {
-                (go.GetComponent("Gravity") as Gravity).grounded = false;
+                //(go.GetComponent("Gravity") as Gravity).grounded = false;
             }
 
             #endregion
@@ -216,46 +216,18 @@ namespace It_is_a_scary_world
             {
                 //Gravity test
                 (go.GetComponent("Gravity") as Gravity).grounded = true;
-                platformTimer = 5;
+                //platformTimer = 5;
                 //Gravity test slut
-
-                /*
-                //player left side collision
-                if (playerBox.CollisionBox.Left >= other.CollisionBox.Left &&
-                    playerBox.CollisionBox.Left <= other.CollisionBox.Right + 5 &&
-                    playerBox.CollisionBox.Top <= other.CollisionBox.Bottom - 10 &&
-                    playerBox.CollisionBox.Bottom >= other.CollisionBox.Top + 10)
-                {
-                    this.transform.position = new Vector2(other.CollisionBox.X + other.CollisionBox.Width + 2, this.transform.position.Y);
-                }
-                //player right side collision
-                if (playerBox.CollisionBox.Right <= other.CollisionBox.Right &&
-                    playerBox.CollisionBox.Right >= other.CollisionBox.Left - 5 &&
-                    playerBox.CollisionBox.Top <= other.CollisionBox.Bottom - 10 &&
-                    playerBox.CollisionBox.Bottom >= other.CollisionBox.Top + 10)
-                {
-                    this.transform.position = new Vector2(other.CollisionBox.X - playerBox.CollisionBox.Width - 2, this.transform.position.Y);
-                }
-                //player top side collision
-                if (playerBox.CollisionBox.Top <= other.CollisionBox.Bottom + (other.CollisionBox.Height / 5) &&
-                    playerBox.CollisionBox.Top >= other.CollisionBox.Bottom - 3 &&
-                    playerBox.CollisionBox.Right >= other.CollisionBox.Left + 10 &&
-                    playerBox.CollisionBox.Left <= other.CollisionBox.Right - 10)
-                {
-                    (go.GetComponent("Gravity") as Gravity).velocity = new Vector2(0, 0);
-
-                    this.transform.position = new Vector2(this.transform.position.X, other.CollisionBox.Y + other.CollisionBox.Height);
-
-                }
-                */
             }
-
-            //(other.gameObject.GetComponent("Slime") as Slime).health -= damage;
         }
 
         public void OnCollisionExit(Collider other)
         {
-            (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.White;
+            if (other.gameObject.Tag == "Platform")
+            {
+                (go.GetComponent("Gravity") as Gravity).grounded = false;
+                (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.White;
+            }
         }
 
     }

@@ -64,6 +64,7 @@ namespace It_is_a_scary_world
 
         public void OnCollisionEnter(Collider other)
         {
+            
             if (other.gameObject.Tag == "Platform")
             {
                 collidingObjects.Add(other);
@@ -72,16 +73,18 @@ namespace It_is_a_scary_world
 
             if (other.gameObject.Tag == "Platform")
             {
-                grounded = true;
+                //grounded = true;
                 collidingObject = other;
                 isFalling = false;
                 velocity = Vector2.Zero;
-                this.transform.position = new Vector2(this.transform.position.X, other.CollisionBox.Y - box.CollisionBox.Height + 3);
+                //this.transform.position = new Vector2(this.transform.position.X, other.CollisionBox.Y - box.CollisionBox.Height + 3);
             }
+            
         }
 
         public void OnCollisionExit(Collider other)
         {
+            
             if (other.gameObject.Tag == "Platform")
             {
 
@@ -92,6 +95,7 @@ namespace It_is_a_scary_world
                 //}                
                 collidingObjects.Remove(other);
             }
+            
         }
 
 
