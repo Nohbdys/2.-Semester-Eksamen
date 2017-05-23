@@ -16,7 +16,7 @@ namespace It_is_a_scary_world
 
         private static Director director = new Director(new WallBuilder());
 
-        public static GameObject Create(Vector2 position, ContentManager content)
+        public static GameObject Create(Vector2 position, ContentManager content, int xSize, int ySize)
         {
             if (inactive.Count > 0)
             {
@@ -31,7 +31,7 @@ namespace It_is_a_scary_world
 
                 GameObject wall = director.Construct(position);
 
-                (wall.GetComponent("Wall") as Wall).LoadContent(content);
+                (wall.GetComponent("Wall") as Wall).LoadContent(content, xSize, ySize);
 
                 wall.LoadContent(content);
 

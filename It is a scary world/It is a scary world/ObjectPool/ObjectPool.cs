@@ -16,7 +16,7 @@ namespace It_is_a_scary_world
 
         private static Director director = new Director(new PlatformBuilder());
 
-        public static GameObject Create(Vector2 position, ContentManager content)
+        public static GameObject Create(Vector2 position, ContentManager content, int xSize, int ySize)
         {
             if (inactive.Count > 0)
             {
@@ -31,7 +31,7 @@ namespace It_is_a_scary_world
 
                 GameObject platform = director.Construct(position);
 
-                (platform.GetComponent("Platform") as Platform).LoadContent(content);
+                (platform.GetComponent("Platform") as Platform).LoadContent(content, xSize, ySize);
 
                 platform.LoadContent(content);
 

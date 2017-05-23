@@ -106,7 +106,7 @@ namespace It_is_a_scary_world
                 exp -= (int)Math.Ceiling(expToLevel);
                 expToLevel = (int)Math.Ceiling(expToLevel) * 1.2;
 
-                //LevelRewards
+                #region LevelRewards 
                 if (levelReward == 1)
                 {
                     armor += 1;
@@ -131,6 +131,7 @@ namespace It_is_a_scary_world
                 {
                     armor += 1;
                 }
+                #endregion
             }
 
             #endregion
