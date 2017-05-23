@@ -59,12 +59,12 @@ namespace It_is_a_scary_world
             }
             */
 
-            if (keyState.IsKeyDown(Keys.A))
+            if (keyState.IsKeyDown(Keys.A) && (go.GetComponent("Player") as Player).rightWallCollision == false)
             {
                 translation += new Vector2(-1, 0);
                 currentDirection = Left;
             }
-            if (keyState.IsKeyDown(Keys.D))
+            if (keyState.IsKeyDown(Keys.D) && (go.GetComponent("Player") as Player).leftWallCollision == false)
             {
                 translation += new Vector2(1, 0);
                 currentDirection = Right;

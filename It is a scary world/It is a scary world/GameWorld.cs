@@ -80,7 +80,7 @@ namespace It_is_a_scary_world
             //Adds a GameObject to the game
             Director director = new Director(new PlayerBuilder());
 
-            gameObjects.Add(director.Construct(Vector2.Zero));
+            gameObjects.Add(director.Construct(new Vector2(500,0)));
 
             //gameObjects.Add(EnemyPool.Create(new Vector2(400, 400), Content));
 
@@ -98,7 +98,7 @@ namespace It_is_a_scary_world
 
             //Wall test
             gameObjects.Add(WallPool.Create(new Vector2(1000, 360), Content));
-
+            gameObjects.Add(WallPool.Create(new Vector2(400, 360), Content));
             //Weapon
             Director weapon = new Director(new WeaponBuilder());
 

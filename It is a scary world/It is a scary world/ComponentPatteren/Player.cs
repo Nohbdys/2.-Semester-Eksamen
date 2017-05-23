@@ -10,13 +10,19 @@ namespace It_is_a_scary_world
 {
     enum DIRECTION { Front, Back, Left, Right };
 
-    class Player : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit
+    class Player : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit, ICollisionStay
     {
         private IStrategy strategy;
 
         private bool canMove = true;
 
         private DIRECTION direction;
+
+
+        //WallCollisionTest
+        public bool rightWallCollision;
+        public bool leftWallCollision;
+        //WallCollisionTestSlut
 
         //test
         private int platformTimer;
@@ -223,6 +229,11 @@ namespace It_is_a_scary_world
 
         public void OnCollisionExit(Collider other)
         {
+            if (other.gameObject.Tag == "Wall")
+            {
+                rightWallCollision = false;
+                leftWallCollision = false;
+            }
             if (other.gameObject.Tag == "Platform")
             {
                 (go.GetComponent("Gravity") as Gravity).grounded = false;
@@ -230,6 +241,37 @@ namespace It_is_a_scary_world
             }
         }
 
+        public void OnCollisionStay(Collider other)
+        {
+            Collider playerBox = (this.gameObject.GetComponent("Collider") as Collider);
+
+            if (other.gameObject.Tag == "Wall")
+            {
+                //player left side collision
+                if (playerBox.CollisionBox.Left >= other.CollisionBox.Left &&
+                    playerBox.CollisionBox.Left <= other.CollisionBox.Right + 5 &&
+                    playerBox.CollisionBox.Top <= other.CollisionBox.Bottom - 10 &&
+                    playerBox.CollisionBox.Bottom >= other.CollisionBox.Top + 10)
+                {
+                    rightWallCollision = true;
+                }
+                //player right side collision
+                if (playerBox.CollisionBox.Right <= other.CollisionBox.Right &&
+                    playerBox.CollisionBox.Right >= other.CollisionBox.Left - 5 &&
+                    playerBox.CollisionBox.Top <= other.CollisionBox.Bottom - 10 &&
+                    playerBox.CollisionBox.Bottom >= other.CollisionBox.Top + 10)
+                {
+
+                    leftWallCollision = true;
+                }
+            }
+
+            if (other.gameObject.Tag != "Wall")
+            {
+                leftWallCollision = false;
+                rightWallCollision = false;
+            }
+        }
     }
 }
 
