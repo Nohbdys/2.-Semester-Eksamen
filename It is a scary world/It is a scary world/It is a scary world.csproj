@@ -77,6 +77,9 @@
     <Compile Include="Strategy\Jump.cs" />
     <Compile Include="Strategy\Walk.cs" />
     <Compile Include="Builder\WeaponBuilder.cs" />
+    <Compile Include="ComponentPatteren\Wall.cs" />
+    <Compile Include="ObjectPool\WallPool.cs" />
+    <Compile Include="Builder\WallBuilder.cs" />
     <Compile Include="Weapons.cs" />
   </ItemGroup>
   <ItemGroup>

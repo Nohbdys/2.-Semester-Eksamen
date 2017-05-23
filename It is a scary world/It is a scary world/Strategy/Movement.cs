@@ -45,12 +45,9 @@ namespace It_is_a_scary_world
                 
                 (go.GetComponent("Gravity") as Gravity).grounded = false;
                 startPos = go.transform.position;
-                //if ((go.GetComponent("Gravity") as Gravity).collidingObject.gameObject.Tag == "Platform")
-                //{
-                    translation += new Vector2(0, -1);
-                    (go.GetComponent("Gravity") as Gravity).velocity = new Vector2(0, -500);
-                    currentJump += 1;
-                //}
+                translation += new Vector2(0, -1);
+                (go.GetComponent("Gravity") as Gravity).velocity = new Vector2(0, -500);
+                currentJump += 1;
             }
             /*
             if (keyState.IsKeyDown(Keys.W) && firstJump == true && doubleJump == true && (go.GetComponent("Player") as Player).currentJump <= maxJump && (go.GetComponent("Gravity") as Gravity).grounded == false)
@@ -59,14 +56,6 @@ namespace It_is_a_scary_world
                 translation += new Vector2(0, -1);
                 (go.GetComponent("Gravity") as Gravity).velocity = new Vector2(0, -500);
                 (go.GetComponent("Player") as Player).currentJump += 1;
-            }
-            */
-
-            /*
-                if (keyState.IsKeyDown(Keys.S))
-            {
-                translation += new Vector2(0, 1);
-                currentDirection = Front;
             }
             */
 

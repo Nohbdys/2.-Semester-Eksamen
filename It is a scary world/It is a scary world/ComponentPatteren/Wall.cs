@@ -9,14 +9,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace It_is_a_scary_world
 {
-    class Platform : Component
+    class Wall : Component
     {
         private Animator animator;
         private IStrategy strategy;
 
-        public Platform(GameObject gameObject) : base(gameObject)
+        public Wall(GameObject gameObject) : base(gameObject)
         {
-            gameObject.Tag = "Platform";
+            gameObject.Tag = "Wall";
         }
 
         public void LoadContent(ContentManager content)
@@ -25,7 +25,7 @@ namespace It_is_a_scary_world
 
             Texture2D sprite = content.Load<Texture2D>("Platform");
 
-            animator.CreateAnimation("IdleFront", new Animation(1, 0, 0, 400, 100, 0, Vector2.Zero, sprite));
+            animator.CreateAnimation("IdleFront", new Animation(1, 0, 0, 100, 400, 0, Vector2.Zero, sprite));
 
             animator.PlayAnimation("IdleFront");
 

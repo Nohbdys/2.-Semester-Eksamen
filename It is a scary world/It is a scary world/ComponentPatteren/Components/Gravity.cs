@@ -77,7 +77,7 @@ namespace It_is_a_scary_world
                 collidingObject = other;
                 isFalling = false;
                 velocity = Vector2.Zero;
-                //this.transform.position = new Vector2(this.transform.position.X, other.CollisionBox.Y - box.CollisionBox.Height + 3);
+                this.transform.position = new Vector2(this.transform.position.X, other.CollisionBox.Y - box.CollisionBox.Height + 3);
             }
             
         }
@@ -87,7 +87,8 @@ namespace It_is_a_scary_world
             
             if (other.gameObject.Tag == "Platform")
             {
-
+                Collider box = (gameObject.GetComponent("Collider") as Collider);
+                this.transform.position = new Vector2(this.transform.position.X, other.CollisionBox.Y - box.CollisionBox.Height + 3);
                 //if (collidingObjects.Count <= 2)
                 //{
                 collidingObject = null;
@@ -97,8 +98,5 @@ namespace It_is_a_scary_world
             }
             
         }
-
-
-
     }
 }
