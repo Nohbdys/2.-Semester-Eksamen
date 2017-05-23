@@ -96,7 +96,7 @@ namespace It_is_a_scary_world
             gameObjects.Add(ObjectPool.Create(new Vector2(1200, 660), Content));
 
             //Wall test
-            gameObjects.Add(WallPool.Create(new Vector2(1000, 260), Content));
+            gameObjects.Add(WallPool.Create(new Vector2(1000, 360), Content));
 
             //Weapon
             Director weapon = new Director(new WeaponBuilder());

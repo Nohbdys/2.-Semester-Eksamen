@@ -21,7 +21,7 @@ namespace It_is_a_scary_world
 
             gameObject.AddComponent(new Platform(gameObject));
 
-            gameObject.AddComponent(new Collider(gameObject));
+            gameObject.AddComponent(new Collider(gameObject) { UsePixelCollision = false, DoCollisionChecks = false });
 
             gameObject.transform.position = position;
         }
