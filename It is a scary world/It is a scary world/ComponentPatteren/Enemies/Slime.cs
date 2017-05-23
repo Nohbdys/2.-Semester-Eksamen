@@ -111,10 +111,13 @@ namespace It_is_a_scary_world
               
                 if (other.gameObject.Tag == "Platform")
                 {
+                    (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
                     (this.gameObject.GetComponent("Gravity") as Gravity).grounded = true;
                     platformTimer = 5;           
                 }
         }
+
+
 
         public void OnCollisionEnter(Collider other)
         {

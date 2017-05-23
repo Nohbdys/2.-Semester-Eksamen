@@ -146,7 +146,7 @@ namespace It_is_a_scary_world
             }
             if (platformTimer <= 0)
             {
-                //Place code for gravity activation
+                (go.GetComponent("Gravity") as Gravity).grounded = false;
             }
 
             #endregion
@@ -215,9 +215,11 @@ namespace It_is_a_scary_world
             if (other.gameObject.Tag == "Platform")
             {
                 //Gravity test
+                (go.GetComponent("Gravity") as Gravity).grounded = true;
                 platformTimer = 5;
                 //Gravity test slut
 
+                /*
                 //player left side collision
                 if (playerBox.CollisionBox.Left >= other.CollisionBox.Left &&
                     playerBox.CollisionBox.Left <= other.CollisionBox.Right + 5 &&
@@ -245,6 +247,7 @@ namespace It_is_a_scary_world
                     this.transform.position = new Vector2(this.transform.position.X, other.CollisionBox.Y + other.CollisionBox.Height);
 
                 }
+                */
             }
 
             //(other.gameObject.GetComponent("Slime") as Slime).health -= damage;
