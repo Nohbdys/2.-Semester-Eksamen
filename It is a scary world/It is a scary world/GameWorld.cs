@@ -24,7 +24,7 @@ namespace It_is_a_scary_world
         /// <summary>
         /// Creates a list of GameObjects
         /// </summary>
-        private List<GameObject> gameObjects;
+        public List<GameObject> gameObjects;
 
         private List<GameObject> newObjects;
 
@@ -57,6 +57,7 @@ namespace It_is_a_scary_world
             graphics.PreferredBackBufferHeight = 760;
             graphics.PreferredBackBufferWidth = 1400;
             Content.RootDirectory = "Content";
+            this.IsMouseVisible = true;
         }
 
         /// <summary>
@@ -146,6 +147,7 @@ namespace It_is_a_scary_world
 
             deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+            SpawnEnemy();
             UpdateMouse();
 
 
