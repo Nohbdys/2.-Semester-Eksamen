@@ -6,6 +6,7 @@ using System;
 
 namespace It_is_a_scary_world
 {
+    public enum GameState { MainMenu, InGame}
 
     /// <summary>
     /// This is the main type for your game.
@@ -24,6 +25,8 @@ namespace It_is_a_scary_world
         /// <summary>
         /// Creates a list of GameObjects
         /// </summary>
+        /// 
+        
         public List<GameObject> gameObjects;
 
         private List<GameObject> newObjects;
@@ -37,6 +40,19 @@ namespace It_is_a_scary_world
         private bool addEnemy;
 
         private bool removeEnemy;
+
+        //MainmenuTest (den er sat 2 steder til loadcontent og draw funktionerne
+        private SpriteFont mainMenuT;
+        private SpriteFont mainMenuTL;
+        private int mainMenuID = 1;
+        private int mainMenuMinID = 1;
+        private int mainMenuMaxID = 3;
+
+        private int mainMenuTimer = 1;
+        private int mainMenuTimerCheck = 0;
+        private int clickDelay = 0;
+        private bool options = false;
+        //MainMenuTestSlut
 
         public static GameWorld Instance
         {
@@ -94,15 +110,16 @@ namespace It_is_a_scary_world
 
             gameObjects.Add(ObjectPool.Create(new Vector2(800, 660), Content, 400, 100));
 
-            gameObjects.Add(ObjectPool.Create(new Vector2(1200, 660), Content, 400, 100));
+            gameObjects.Add(ObjectPool.Create(new Vector2(800, 360), Content, 400, 100));
 
-            //Wall test
-            gameObjects.Add(WallPool.Create(new Vector2(1000, 360), Content, 100, 400));
-            gameObjects.Add(WallPool.Create(new Vector2(400, 360), Content, 50,600));
+            //Wall 
+            //gameObjects.Add(WallPool.Create(new Vector2(1000, 360), Content, 100, 400));
+            //gameObjects.Add(WallPool.Create(new Vector2(400, 360), Content, 50,600));
+            
             //Weapon
             Director weapon = new Director(new WeaponBuilder());
 
-            gameObjects.Add(weapon.Construct(Vector2.Zero));
+            //gameObjects.Add(weapon.Construct(Vector2.Zero));
 
 
             base.Initialize();
@@ -116,6 +133,11 @@ namespace It_is_a_scary_world
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+
+            //MainMenuTest
+            mainMenuT = Content.Load<SpriteFont>("MainMenu");
+            mainMenuTL = Content.Load<SpriteFont>("MainMenuLarge");
 
             // TODO: use this.Content to load your game content here
             foreach (GameObject go in gameObjects)
@@ -156,8 +178,6 @@ namespace It_is_a_scary_world
             {
                 go.Update();
             }
-
-            
 
             base.Update(gameTime);
         }
@@ -257,6 +277,108 @@ namespace It_is_a_scary_world
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
+
+            //MainMenuTest
+            #region MainMenu
+
+            KeyboardState keyState = Keyboard.GetState();
+
+            if (keyState.IsKeyDown(Keys.Up) && mainMenuTimer == 1 && options == false)
+            {
+                mainMenuID -= 1;
+                mainMenuTimer = 0;
+            }
+            if (keyState.IsKeyDown(Keys.Down) && mainMenuTimer == 1 && options == false)
+            {
+                mainMenuID += 1;
+                mainMenuTimer = 0;
+            }
+
+            //Hvis man er i bunden af menuen og klikker ned kommer man op til toppen og omvendt
+            if (mainMenuID < mainMenuMinID)
+            {
+                mainMenuID = mainMenuMaxID;
+            }
+            else if (mainMenuID > mainMenuMaxID)
+            {
+                mainMenuID = mainMenuMinID;
+            }
+
+            //Et delay så man kan gå rundt i menuen i et normalt tempo
+            if (mainMenuTimer == 0)
+            {
+                mainMenuTimerCheck += 1;
+                if (mainMenuTimerCheck >= 15)
+                {
+                    mainMenuTimer = 1;
+                    mainMenuTimerCheck = 0;
+                }
+            }
+
+            if (keyState.IsKeyDown(Keys.Enter) && clickDelay == 0)
+            {
+                if (mainMenuID == 1)
+                {
+                    clickDelay = 30;
+                }
+
+                if (mainMenuID == 2 && options == false)
+                {
+                    options = true;
+                    clickDelay = 30;
+                }
+
+                if (mainMenuID == 2 && options == true)
+                {
+                    options = false;
+                    clickDelay = 30;
+                }
+
+                if (mainMenuID == 3)
+                {
+                    Environment.Exit(0);
+                }
+            }
+
+            if (options == false)
+            {
+                //Skriver menu teksten ud til skræmen
+                if (mainMenuID == 1)
+                {
+                    spriteBatch.DrawString(mainMenuTL, "New Game", new Vector2(10, 10), Color.Black);
+                    spriteBatch.DrawString(mainMenuT, "Options", new Vector2(10, 60), Color.Black);
+                    spriteBatch.DrawString(mainMenuT, "Exit to desktop", new Vector2(10, 110), Color.Black);
+                }
+
+                if (mainMenuID == 2)
+                {
+                    spriteBatch.DrawString(mainMenuT, "New Game", new Vector2(10, 10), Color.Black);
+                    spriteBatch.DrawString(mainMenuTL, "Options", new Vector2(10, 60), Color.Black);
+                    spriteBatch.DrawString(mainMenuT, "Exit to desktop", new Vector2(10, 110), Color.Black);
+                }
+
+                if (mainMenuID == 3)
+                {
+                    spriteBatch.DrawString(mainMenuT, "New Game", new Vector2(10, 10), Color.Black);
+                    spriteBatch.DrawString(mainMenuT, "Options", new Vector2(10, 60), Color.Black);
+                    spriteBatch.DrawString(mainMenuTL, "Exit to desktop", new Vector2(10, 110), Color.Black);
+                }
+            }
+            
+            #endregion
+
+            #region ClickDelay
+            //Delay før man kan klikke på enter igen
+            if (clickDelay > 0)
+            {
+                clickDelay -= 1;
+            }
+            else if (clickDelay < 0)
+            {
+                clickDelay = 0;
+            }
+            #endregion
+            //MainMenuTestSlut
 
             // TODO: Add your drawing code here
 

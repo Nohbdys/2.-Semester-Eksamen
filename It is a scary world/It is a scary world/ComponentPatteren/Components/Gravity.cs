@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace It_is_a_scary_world
 {
-    class Gravity : Component, IUpdateable, ICollisionExit, ICollisionEnter
+    class Gravity : Component, IUpdateable, ICollisionExit, ICollisionEnter, ICollisionStay
     {
         public Vector2 velocity { get; set; }
         private Transform transform;
@@ -43,6 +43,7 @@ namespace It_is_a_scary_world
                 KeyboardState keyState = Keyboard.GetState();
                 Vector2 translation = Vector2.Zero;
 
+                
                 if (isFalling)
                 {
                     if (velocity.Y > 500)
@@ -57,6 +58,7 @@ namespace It_is_a_scary_world
                     newPos = go.transform.position += velocity * GameWorld.Instance.deltaTime;
                 }
                 transform.Translate(translation * movementSpeed * GameWorld.Instance.deltaTime);
+                
             }
         }
 
@@ -64,39 +66,42 @@ namespace It_is_a_scary_world
 
         public void OnCollisionEnter(Collider other)
         {
-            
-            if (other.gameObject.Tag == "Platform")
-            {
-                collidingObjects.Add(other);
-            }
+
             Collider box = (gameObject.GetComponent("Collider") as Collider);
 
             if (other.gameObject.Tag == "Platform")
-            {
-                //grounded = true;
-                collidingObject = other;
-                isFalling = false;
-                velocity = Vector2.Zero;
-                this.transform.position = new Vector2(this.transform.position.X, other.CollisionBox.Y - box.CollisionBox.Height + 3);
+            {               
+                velocity = Vector2.Zero;                
+                this.transform.position = new Vector2(this.transform.position.X, other.CollisionBox.Y - box.CollisionBox.Height + 3);               
             }
             
         }
 
         public void OnCollisionExit(Collider other)
         {
-            
+            /*
             if (other.gameObject.Tag == "Platform")
             {
                 Collider box = (gameObject.GetComponent("Collider") as Collider);
+
                 this.transform.position = new Vector2(this.transform.position.X, other.CollisionBox.Y - box.CollisionBox.Height + 3);
-                //if (collidingObjects.Count <= 2)
-                //{
-                collidingObject = null;
-                isFalling = true;
-                //}                
-                collidingObjects.Remove(other);
+                //collidingObject = null;
+                //isFalling = true;              
+                //collidingObjects.Remove(other);
             }
-            
+            */
+        }
+
+        public void OnCollisionStay(Collider other)
+        {
+            /*
+            Collider box = (gameObject.GetComponent("Collider") as Collider);
+
+            if (other.gameObject.Tag == "Platform")
+            {
+                this.transform.position = new Vector2(this.transform.position.X, other.CollisionBox.Y - box.CollisionBox.Height + 3);
+            }
+            */
         }
     }
 }

@@ -15,7 +15,7 @@ namespace It_is_a_scary_world
         {
             gameObject = new GameObject();
 
-            gameObject.AddComponent(new SpriteRenderer(gameObject, "HeroSheet", 1));
+            gameObject.AddComponent(new SpriteRenderer(gameObject, "PlayerSheet", 1));
 
             gameObject.AddComponent(new Animator(gameObject));
 

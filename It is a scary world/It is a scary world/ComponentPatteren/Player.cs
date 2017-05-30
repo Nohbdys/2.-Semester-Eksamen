@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
+using System.Drawing;
 
 namespace It_is_a_scary_world
 {
@@ -19,14 +20,14 @@ namespace It_is_a_scary_world
         private DIRECTION direction;
 
 
-        //WallCollisionTest
+        //WallCollision
         public bool rightWallCollision;
         public bool leftWallCollision;
-        //WallCollisionTestSlut
+        //WallCollision
 
         //test
+        private bool platformCheck;
         private int platformTimer;
-        private bool moveTest;
         private bool isAttacking;
         private GameObject go;
         private Transform transform;
@@ -53,8 +54,6 @@ namespace It_is_a_scary_world
         public float movementSpeed { get; set; } = 100;
         #endregion
 
-        private bool invincible;
-
         public Player(GameObject gameObject, Transform transform) : base(gameObject)
         {
             this.go = gameObject;
@@ -69,26 +68,24 @@ namespace It_is_a_scary_world
         {
             SpriteRenderer spriteRenderer = (SpriteRenderer)gameObject.GetComponent("SpriteRenderer");
 
-            animator.CreateAnimation("IdleFront", new Animation(4, 0, 0, 90, 150, 6, Vector2.Zero, spriteRenderer.Sprite));
-            animator.CreateAnimation("IdleBack", new Animation(4, 0, 4, 90, 150, 6, Vector2.Zero, spriteRenderer.Sprite));
-            animator.CreateAnimation("IdleLeft", new Animation(4, 0, 8, 90, 150, 6, Vector2.Zero, spriteRenderer.Sprite));
-            animator.CreateAnimation("IdleRight", new Animation(4, 0, 12, 90, 150, 6, Vector2.Zero, spriteRenderer.Sprite));
-            animator.CreateAnimation("WalkFront", new Animation(4, 150, 0, 90, 150, 6, Vector2.Zero, spriteRenderer.Sprite));
-            animator.CreateAnimation("WalkBack", new Animation(4, 150, 4, 90, 150, 6, Vector2.Zero, spriteRenderer.Sprite));
-            animator.CreateAnimation("WalkLeft", new Animation(4, 150, 8, 90, 150, 6, Vector2.Zero, spriteRenderer.Sprite));
-            animator.CreateAnimation("WalkRight", new Animation(4, 150, 12, 90, 150, 6, Vector2.Zero, spriteRenderer.Sprite));
-            animator.CreateAnimation("AttackFront", new Animation(4, 300, 0, 145, 160, 8, new Vector2(-50, 0), spriteRenderer.Sprite));
-            animator.CreateAnimation("AttackBack", new Animation(4, 465, 0, 170, 155, 8, new Vector2(-20, 0), spriteRenderer.Sprite));
-            animator.CreateAnimation("AttackRight", new Animation(4, 620, 0, 150, 150, 8, Vector2.Zero, spriteRenderer.Sprite));
-            animator.CreateAnimation("AttackLeft", new Animation(4, 770, 0, 150, 150, 8, new Vector2(-60, 0), spriteRenderer.Sprite));
-            animator.CreateAnimation("DieFront", new Animation(3, 920, 0, 150, 150, 5, Vector2.Zero, spriteRenderer.Sprite));
-            animator.CreateAnimation("DieBack", new Animation(3, 920, 3, 150, 150, 5, Vector2.Zero, spriteRenderer.Sprite));
-            animator.CreateAnimation("DieLeft", new Animation(3, 1070, 0, 150, 150, 5, Vector2.Zero, spriteRenderer.Sprite));
-            animator.CreateAnimation("DieRight", new Animation(3, 1070, 3, 150, 150, 5, Vector2.Zero, spriteRenderer.Sprite));
+            animator.CreateAnimation("IdleFront", new Animation(2, 0, 0, 29, 43, 3, Vector2.Zero, spriteRenderer.Sprite));
+            animator.CreateAnimation("Attack", new Animation(2, 0, 0, 29, 43, 12, Vector2.Zero, spriteRenderer.Sprite));
+
+            animator.CreateAnimation("IdleBack", new Animation(2, 0, 0, 29, 43, 3, Vector2.Zero, spriteRenderer.Sprite));
+
+            animator.CreateAnimation("WalkFront", new Animation(5, 86, 0, 29, 43, 5, Vector2.Zero, spriteRenderer.Sprite));
+            animator.CreateAnimation("WalkBack", new Animation(5, 43, 0, 29, 43, 5, Vector2.Zero, spriteRenderer.Sprite));
+            //
+
+            animator.CreateAnimation("IdleLeft", new Animation(2, 0, 0, 29, 43, 6, Vector2.Zero, spriteRenderer.Sprite));
+            animator.CreateAnimation("IdleRight", new Animation(2, 0, 0, 29, 43, 3, Vector2.Zero, spriteRenderer.Sprite));
+
+            animator.CreateAnimation("WalkLeft", new Animation(5, 86, 0, 29, 43, 5, Vector2.Zero, spriteRenderer.Sprite));
+            animator.CreateAnimation("WalkRight", new Animation(5, 43, 0, 29, 43, 5, Vector2.Zero, spriteRenderer.Sprite));
 
             //Plays an animation to make sure that we have an animation to play
             //If we don't do this we will get an exception
-            animator.PlayAnimation("IdleFront");
+            animator.PlayAnimation("IdleLeft");
 
             strategy = new Idle(animator);
         }
@@ -145,17 +142,15 @@ namespace It_is_a_scary_world
 
             #endregion
 
-            #region Platform collision check (not working still testing)
-
+            #region Checks collision with platform
             if (platformTimer > 0)
             {
                 platformTimer -= 1;
             }
-            if (platformTimer <= 0)
+            else if (platformTimer <= 0)
             {
-                //(go.GetComponent("Gravity") as Gravity).grounded = false;
+                platformCheck = false;
             }
-
             #endregion
 
             if (canMove)
@@ -209,45 +204,60 @@ namespace It_is_a_scary_world
                 canMove = true;
             }
         }
-
+        
         public void OnCollisionEnter(Collider other)
         {
-            Collider box = (gameObject.GetComponent("Collider") as Collider);
-
+            //used to test (see) collision
             (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
 
-            KeyboardState keyState = Keyboard.GetState();
+            //Gives the players collisionbox
             Collider playerBox = (this.gameObject.GetComponent("Collider") as Collider);
 
             if (other.gameObject.Tag == "Platform")
             {
-                //Gravity test
-                (go.GetComponent("Gravity") as Gravity).grounded = true;
-                //platformTimer = 5;
-                //Gravity test slut
+                if (playerBox.CollisionBox.Bottom >= other.CollisionBox.Top)
+                {
+                    platformCheck = true;
+                    //(go.GetComponent("Gravity") as Gravity).grounded = true;
+                    (go.GetComponent("Gravity") as Gravity).isFalling = false;
+                }
             }
         }
 
         public void OnCollisionExit(Collider other)
         {
+            
             if (other.gameObject.Tag == "Wall")
             {
                 rightWallCollision = false;
                 leftWallCollision = false;
             }
-            if (other.gameObject.Tag == "Platform")
+            if (other.gameObject.Tag == "Platform" && platformCheck == false)
             {
-                (go.GetComponent("Gravity") as Gravity).grounded = false;
+                (go.GetComponent("Gravity") as Gravity).isFalling = true;
                 (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.White;
             }
+            
         }
 
         public void OnCollisionStay(Collider other)
         {
+            /*
             Collider playerBox = (this.gameObject.GetComponent("Collider") as Collider);
 
-            if (other.gameObject.Tag == "Wall")
+            if (other.gameObject.Tag == "Platform")
             {
+                if (playerBox.CollisionBox.Bottom >= other.CollisionBox.Top)
+                {
+                    (go.GetComponent("Gravity") as Gravity).grounded = true;
+                    platformTimer = 5;
+                }
+            }
+
+            
+            if (other.gameObject.Tag == "Wall")
+            {       
+                  
                 //player left side collision
                 if (playerBox.CollisionBox.Left >= other.CollisionBox.Left &&
                     playerBox.CollisionBox.Left <= other.CollisionBox.Right + 5 &&
@@ -272,7 +282,9 @@ namespace It_is_a_scary_world
                 leftWallCollision = false;
                 rightWallCollision = false;
             }
+            */
         }
+        
     }
 }
 

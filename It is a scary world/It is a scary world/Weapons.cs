@@ -30,7 +30,13 @@ namespace It_is_a_scary_world
         
         public void Update()
         {
-            
+            foreach (GameObject go in GameWorld.Instance.gameObjects)
+            {
+                    //float x = (go.GetComponent("Player") as Player).gameObject.transform.position.X + (50 - 10) / 2;
+                    //float y = (go.GetComponent("Player") as Player).gameObject.transform.position.Y - 30;
+
+                //transform.position = new Vector2(x, y);
+            }
             //gameObject.transform.position = new Vector2((go.gameObject.GetComponent("Player") as Player).gameObject.transform.position.X + 100, (go.gameObject.GetComponent("Player") as Player).gameObject.transform.position.Y + 100);
         }
 
