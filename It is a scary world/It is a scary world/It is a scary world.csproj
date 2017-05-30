@@ -56,6 +56,7 @@
     <Compile Include="ComponentPatteren\Platform.cs" />
     <Compile Include="ComponentPatteren\Projectiles.cs" />
     <Compile Include="ObjectPool\BulletPool.cs" />
+    <Compile Include="Shop.cs" />
     <Compile Include="Strategy\Movement.cs" />
     <Compile Include="ObjectPool\ObjectPool.cs" />
     <Compile Include="Strategy\IStrategy.cs" />
