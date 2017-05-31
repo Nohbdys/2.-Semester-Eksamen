@@ -12,7 +12,7 @@ namespace It_is_a_scary_world
     class Shop : Component, IUpdateable, ILoadable
     {
         //Make them to players stats
-        private double gold = 1000;
+        public double gold = 1000;
 
         private int weaponDamageLevel = 1;
         private int weaponAttackSpeedLevel = 1;

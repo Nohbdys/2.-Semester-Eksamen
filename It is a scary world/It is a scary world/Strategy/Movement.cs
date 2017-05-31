@@ -42,7 +42,7 @@ namespace It_is_a_scary_world
                 {
                     (go.GetComponent("Player") as Player).jumpTimer = 15;
                     (go.GetComponent("Player") as Player).currentJump = 2;
-                    (go.GetComponent("Gravity") as Gravity).velocity = new Vector2(0, -500);
+                    (go.GetComponent("Gravity") as Gravity).velocity = new Vector2(0, -350);
                     
                 }
 
@@ -51,7 +51,7 @@ namespace It_is_a_scary_world
                     (go.GetComponent("Player") as Player).jumpTimer = 15;
                     (go.GetComponent("Player") as Player).currentJump = 1;
                     translation += new Vector2(0, -1);
-                    (go.GetComponent("Gravity") as Gravity).velocity = new Vector2(0, -500);
+                    (go.GetComponent("Gravity") as Gravity).velocity = new Vector2(0, -350);
                 }                                               
             }
 

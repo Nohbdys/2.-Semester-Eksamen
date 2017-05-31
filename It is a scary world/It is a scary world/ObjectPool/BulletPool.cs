@@ -11,7 +11,7 @@ namespace It_is_a_scary_world
 {
     class BulletPool
     {
-        //test
+        
         private static List<GameObject> inactive = new List<GameObject>();
 
         private static List<GameObject> active = new List<GameObject>();
@@ -54,7 +54,7 @@ namespace It_is_a_scary_world
 
         private static void CleanUp()
         {
-            //Reset data, remove references etc.
+            
         }
     }
 }

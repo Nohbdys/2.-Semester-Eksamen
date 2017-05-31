@@ -28,7 +28,11 @@ namespace It_is_a_scary_world
         public int expDrop = 10;
         public int goldDrop = 10;
 
+        private int dropChance;
+
         #endregion
+
+        private Random rnd;
 
         public Slime(GameObject gameObject) : base(gameObject)
         {
@@ -68,6 +72,12 @@ namespace It_is_a_scary_world
             #region Death
             if (health <= 0)
             {
+                int dropChance = rnd.Next(1, 3);
+                if (dropChance == 1)
+                {
+                    (this.gameObject.GetComponent("Shop") as Shop).gold += rnd.Next(25, 100);
+
+                }
                 GameWorld.Instance.objectsToRemove.Add(gameObject);
             }
             #endregion
@@ -103,11 +113,6 @@ namespace It_is_a_scary_world
 
         public void OnCollisionExit(Collider other)
         {
-            if (other.gameObject.Tag == "Player")
-            {
-                //GameWorld.Instance.objectsToRemove.Add(gameObject);
-                (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.White;               
-            }
               
                 if (other.gameObject.Tag == "Platform")
                 {
@@ -121,15 +126,25 @@ namespace It_is_a_scary_world
 
         public void OnCollisionEnter(Collider other)
         {
-            if (other.gameObject.Tag == "Player")
-            {
-                (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
-            }
             if (other.gameObject.Tag == "Bullet")
             {
-                (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
                 GameWorld.Instance.objectsToRemove.Add(gameObject);
             }
+
+            if (other.gameObject.Tag == "Player")
+            {
+                if ((other.gameObject.GetComponent("Player") as Player).armor <= 0)
+                {
+                    (other.gameObject.GetComponent("Player") as Player).health -= 1;
+                }
+
+                if ((other.gameObject.GetComponent("Player") as Player).armor > 0)
+                {
+                    (other.gameObject.GetComponent("Player") as Player).armor -= 1;
+                }
+            }
         }
+
+        
     }
 }

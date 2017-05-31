@@ -309,3 +309,4 @@ C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester
 C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen 31-05-2017 tileset test\It is a scary world\It is a scary world\bin\Windows\x86\Debug\SharpDX.RawInput.xml
 C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen 31-05-2017 tileset test\It is a scary world\It is a scary world\bin\Windows\x86\Debug\SharpDX.Direct3D9.xml
 C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen 31-05-2017 tileset test\It is a scary world\It is a scary world\obj\x86\Debug\It is a scary world.csprojResolveAssemblyReference.cache
+C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\Door.png

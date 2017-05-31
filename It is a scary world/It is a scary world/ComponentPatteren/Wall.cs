@@ -31,5 +31,7 @@ namespace It_is_a_scary_world
 
             strategy = new Idle(animator);
         }
+
+
     }
 }

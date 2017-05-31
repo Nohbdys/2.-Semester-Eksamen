@@ -110,7 +110,11 @@ namespace It_is_a_scary_world
             Director director = new Director(new PlayerBuilder());
 
             gameObjects.Add(director.Construct(new Vector2(- 100, 0)));
-            
+
+            //Shop
+            Director shop = new Director(new ShopBuilder());
+
+            gameObjects.Add(shop.Construct(new Vector2(0, 0)));
 
 
             base.Initialize();
@@ -119,10 +123,10 @@ namespace It_is_a_scary_world
         public void TileSet()
         {
 
-            int tileSet = rnd.Next(1, 3);
-            int lastRun = tileSet;
 
 
+
+            
             //boundaries
             gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 25, Window.ClientBounds.Bottom));
             gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 25, Window.ClientBounds.Bottom));
@@ -134,27 +138,8 @@ namespace It_is_a_scary_world
                 gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 25, 50));
             }
             gameObjects.Add(DoorPool.Create(new Vector2(2000, 2000), Content, 11, 30));
+            
 
-
-            //Wall test
-            //   gameObjects.Add(WallPool.Create(new Vector2(1000, 360), Content, 100, 400));
-            //   gameObjects.Add(WallPool.Create(new Vector2(400, 360), Content, 50, 600));
-
-            //ClientBounds
-
-
-
-            //Weapon
-            Director weapon = new Director(new WeaponBuilder());
-
-            base.Update(gameTime);
-        }
-        /// <summary>
-        /// Remove This Later. ITs a Note
-        /// </summary>
-
-        public void TileSet()
-        {
             //Builders
             Director director = new Director(new PlayerBuilder());
 
@@ -496,6 +481,7 @@ namespace It_is_a_scary_world
         {
             foreach (GameObject go in gameObjects)
             {
+                
                 if (go.Tag == "Player")
                 {
                     float x = (go.GetComponent("Player") as Player).gameObject.transform.position.X + (50 - 10) / 2; //The attack's position on the X-axis, based on the Player object's position (should be in the middle)
@@ -504,6 +490,14 @@ namespace It_is_a_scary_world
                     newObjects.Add(BulletPool.Create(new Vector2(x, y), Content));
                     break;
                 }
+                
+                /*
+                if (go.Tag == "Bullet")
+                {
+                    (go.GetComponent("Bullet") as Projectiles).gameObject.transform.position = new Vector2(0, 0);
+                    break;
+                }
+                */
             }
 
         }
@@ -549,7 +543,7 @@ namespace It_is_a_scary_world
 
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
+           
 
             //Menues and clickdelays
             #region MainMenu
@@ -583,9 +577,9 @@ namespace It_is_a_scary_world
                         Environment.Exit(0);
                     }
                 }
-
-                    //Skriver menu teksten ud til skræmen
-                    if (menuID == 1)
+                spriteBatch.Begin();
+                //Skriver menu teksten ud til skræmen
+                if (menuID == 1)
                     {
                         spriteBatch.DrawString(mainMenuTL, "New Game", new Vector2(10, 10), Color.Black);
                         spriteBatch.DrawString(mainMenuT, "Exit to desktop", new Vector2(10, 60), Color.Black);
@@ -596,7 +590,7 @@ namespace It_is_a_scary_world
                         spriteBatch.DrawString(mainMenuT, "New Game", new Vector2(10, 10), Color.Black);
                         spriteBatch.DrawString(mainMenuTL, "Exit to desktop", new Vector2(10, 60), Color.Black);
                     }
-             
+                spriteBatch.End();
             }
 
             #endregion
@@ -866,6 +860,7 @@ namespace It_is_a_scary_world
             // TODO: Add your drawing code here
 
             //Draws all GameObjects
+            spriteBatch.Begin();
             foreach (GameObject go in gameObjects)
             {
                 go.Draw(spriteBatch);

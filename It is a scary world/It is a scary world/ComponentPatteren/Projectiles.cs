@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace It_is_a_scary_world
 {
-    class Projectiles : Component, IUpdateable, ICollisionStay
+    class Projectiles : Component, IUpdateable, ICollisionStay, ICollisionEnter
     {
         private Animator animator;
 
@@ -63,10 +63,19 @@ namespace It_is_a_scary_world
         }
         public void OnCollisionStay(Collider other)
         {
-            if (other.gameObject.Tag == "Enemy" /*|| other.gameObject.Tag == "Wall"*/)
+            if (other.gameObject.Tag == "Enemy" || other.gameObject.Tag == "Wall" || other.gameObject.Tag == "Platfrom")
             {
-                GameWorld.Instance.objectsToRemove.Add(gameObject);
+                GameWorld.Instance.objectsToRemove.Add(gameObject);              
             }
+        }
+
+        public void OnCollisionEnter(Collider other)
+        {
+            if (other.gameObject.Tag == "Enemy")
+            {
+                (other.gameObject.GetComponent("Slime") as Slime).health -= (this.gameObject.GetComponent("Player") as Player).damage;
+            }
+
         }
     }
 }

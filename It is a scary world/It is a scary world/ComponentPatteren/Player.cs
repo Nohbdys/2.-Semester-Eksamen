@@ -51,15 +51,14 @@ namespace It_is_a_scary_world
         //     public Vector2 position { get; set; }
 
         #region Stats (player)
-        private int health = 1;
-        private int armor = 2;
-        private int gold;
+        public int health = 1;
+        public int armor = 2;
         private double exp;
         private double expToLevel = 100;
         private int level = 1;
         private int levelReward;
         private bool checkLevelReward;
-        private int damage = 100;
+        public int damage = 100;
         public float movementSpeed { get; set; } = 100;
         #endregion
 
@@ -136,6 +135,7 @@ namespace It_is_a_scary_world
 
                 if (levelReward == 5)
                 {
+                    doubleJump = true;
                     armor += 1;
                 }
                 #endregion
@@ -147,7 +147,7 @@ namespace It_is_a_scary_world
 
             if (health <= 0)
             {
-
+                
             }
 
             #endregion
@@ -246,7 +246,6 @@ namespace It_is_a_scary_world
                 GameWorld.Instance.runTileset = true;
                 (go.GetComponent("Gravity") as Gravity).isFalling = true;
             }
-
         }
 
         public void OnCollisionExit(Collider other)
@@ -271,17 +270,6 @@ namespace It_is_a_scary_world
         {
             
             Collider playerBox = (this.gameObject.GetComponent("Collider") as Collider);
-
-            /*
-            if (other.gameObject.Tag == "Platform")
-            {
-                if (playerBox.CollisionBox.Bottom >= other.CollisionBox.Top)
-                {
-                    (go.GetComponent("Gravity") as Gravity).grounded = true;
-                    platformTimer = 5;
-                }
-            }
-            */
             
             if (other.gameObject.Tag == "Wall")
             {       
@@ -305,11 +293,6 @@ namespace It_is_a_scary_world
                 }
             }
 
-            if (other.gameObject.Tag != "Wall")
-            {
-                leftWallCollision = false;
-                rightWallCollision = false;
-            }
             if (other.gameObject.Tag == "Platform")
             {
                 //TopCollision
@@ -330,9 +313,10 @@ namespace It_is_a_scary_world
         {
             if (GameWorld.Instance.currentGameState == GameState.InGame)
             {
-                spriteBatch.DrawString(mainMenuT, "Health:" + health, new Vector2(10, 10), Color.Black);
-                spriteBatch.DrawString(mainMenuT, "Armor:" + armor, new Vector2(10, 30), Color.Black);
-                spriteBatch.DrawString(mainMenuT, "Exp:" + exp + " / " + (int)Math.Ceiling(expToLevel), new Vector2(10, 60), Color.Black);
+                spriteBatch.DrawString(mainMenuT, "Level:" + level, new Vector2(30, 10), Color.Black);
+                spriteBatch.DrawString(mainMenuT, "Health:" + health, new Vector2(30, 30), Color.Black);
+                spriteBatch.DrawString(mainMenuT, "Armor:" + armor, new Vector2(30, 50), Color.Black);
+                spriteBatch.DrawString(mainMenuT, "Exp:" + exp + " / " + (int)Math.Ceiling(expToLevel), new Vector2(30, 80), Color.Black);
             }
         }
     }
