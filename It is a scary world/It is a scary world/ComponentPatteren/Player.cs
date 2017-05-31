@@ -25,6 +25,13 @@ namespace It_is_a_scary_world
         public bool leftWallCollision;
         //WallCollision
 
+        //Jump
+        public bool doubleJump = true;
+        public int maxJump = 15;
+        public int currentJump = 0;
+        public int jumpTimer;
+        //Jump
+
         //test
         private bool platformCheck;
         private int platformTimer;
@@ -153,6 +160,19 @@ namespace It_is_a_scary_world
             }
             #endregion
 
+            #region JumpTimer
+
+            if (jumpTimer > 0)
+            {
+                jumpTimer -= 1;
+            }
+            else if (jumpTimer < 0)
+            {
+                jumpTimer = 0;
+            }
+
+            #endregion
+
             if (canMove)
             {
                 if (keyState.IsKeyDown(Keys.W) || keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.D))
@@ -215,14 +235,17 @@ namespace It_is_a_scary_world
 
             if (other.gameObject.Tag == "Platform")
             {
+                //TopCollision
                 if (playerBox.CollisionBox.Bottom >= other.CollisionBox.Top)
                 {
+                    currentJump = 0;
                     platformCheck = true;
-                    //(go.GetComponent("Gravity") as Gravity).grounded = true;
                     (go.GetComponent("Gravity") as Gravity).isFalling = false;
                 }
-
-
+                if (playerBox.CollisionBox.Y >= other.CollisionBox.Y)
+                {
+                    (go.GetComponent("Gravity") as Gravity).isFalling = true;
+                }
             }
             if (other.gameObject.Tag == "Door")
             {
@@ -253,10 +276,10 @@ namespace It_is_a_scary_world
 
         public void OnCollisionStay(Collider other)
         {
-
-            /*
+            
             Collider playerBox = (this.gameObject.GetComponent("Collider") as Collider);
 
+            /*
             if (other.gameObject.Tag == "Platform")
             {
                 if (playerBox.CollisionBox.Bottom >= other.CollisionBox.Top)
@@ -265,24 +288,24 @@ namespace It_is_a_scary_world
                     platformTimer = 5;
                 }
             }
-
+            */
             
             if (other.gameObject.Tag == "Wall")
             {       
                   
                 //player left side collision
                 if (playerBox.CollisionBox.Left >= other.CollisionBox.Left &&
-                    playerBox.CollisionBox.Left <= other.CollisionBox.Right + 5 &&
-                    playerBox.CollisionBox.Top <= other.CollisionBox.Bottom - 10 &&
-                    playerBox.CollisionBox.Bottom >= other.CollisionBox.Top + 10)
+                    playerBox.CollisionBox.Left <= other.CollisionBox.Right &&
+                    playerBox.CollisionBox.Top <= other.CollisionBox.Bottom &&
+                    playerBox.CollisionBox.Bottom >= other.CollisionBox.Top)
                 {
                     rightWallCollision = true;
                 }
                 //player right side collision
                 if (playerBox.CollisionBox.Right <= other.CollisionBox.Right &&
-                    playerBox.CollisionBox.Right >= other.CollisionBox.Left - 5 &&
-                    playerBox.CollisionBox.Top <= other.CollisionBox.Bottom - 10 &&
-                    playerBox.CollisionBox.Bottom >= other.CollisionBox.Top + 10)
+                    playerBox.CollisionBox.Right >= other.CollisionBox.Left  &&
+                    playerBox.CollisionBox.Top <= other.CollisionBox.Bottom  &&
+                    playerBox.CollisionBox.Bottom >= other.CollisionBox.Top )
                 {
 
                     leftWallCollision = true;
@@ -294,7 +317,7 @@ namespace It_is_a_scary_world
                 leftWallCollision = false;
                 rightWallCollision = false;
             }
-            */
+            
         }
 
     }

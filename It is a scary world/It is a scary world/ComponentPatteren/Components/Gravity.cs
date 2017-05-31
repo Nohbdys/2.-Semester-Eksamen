@@ -71,8 +71,11 @@ namespace It_is_a_scary_world
 
             if (other.gameObject.Tag == "Platform")
             {               
-                velocity = Vector2.Zero;                
-                this.transform.position = new Vector2(this.transform.position.X, other.CollisionBox.Y - box.CollisionBox.Height + 3);               
+                velocity = Vector2.Zero;
+                if (box.CollisionBox.Y <= other.CollisionBox.Y)
+                {
+                    this.transform.position = new Vector2(this.transform.position.X, other.CollisionBox.Y - box.CollisionBox.Height + 3);
+                }           
             }
             
         }

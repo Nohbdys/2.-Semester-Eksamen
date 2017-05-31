@@ -6,7 +6,7 @@ using System;
 
 namespace It_is_a_scary_world
 {
-    public enum GameState { MainMenu, InGame}
+    public enum GameState { MainMenu, ShopMenu, InGame}
 
     /// <summary>
     /// This is the main type for your game.
@@ -43,18 +43,30 @@ namespace It_is_a_scary_world
 
         private bool removeEnemy;
 
-        //MainmenuTest (den er sat 2 steder til loadcontent og draw funktionerne
+        private bool firstRun;
+
+        //Mainmenu
         private SpriteFont mainMenuT;
         private SpriteFont mainMenuTL;
-        private int mainMenuID = 1;
-        private int mainMenuMinID = 1;
-        private int mainMenuMaxID = 3;
+        private int menuID = 1;
+        private int menuMinID = 1;
+        private int menuMaxID = 3;
 
-        private int mainMenuTimer = 1;
-        private int mainMenuTimerCheck = 0;
+        private int menuTimer = 1;
+        private int menuTimerCheck = 0;
         private int clickDelay = 0;
         private bool options = false;
-        //MainMenuTestSlut
+        //MainMenu
+
+        //Shop
+        private bool shopState;
+        private bool upgradeWeapon;
+        private bool upgradePlayer;
+        //Shop
+
+        private GameObject go;
+
+        GameState currentGameState = GameState.MainMenu;
 
         public static GameWorld Instance
         {
@@ -95,6 +107,9 @@ namespace It_is_a_scary_world
 
             Colliders = new List<Collider>();
 
+
+            //test map
+            
             //Adds a GameObject to the game
             Director director = new Director(new PlayerBuilder());
 
@@ -113,6 +128,12 @@ namespace It_is_a_scary_world
 
             int tileSet = rnd.Next(1, 3);
             int lastRun = tileSet;
+            //Wall 
+            gameObjects.Add(WallPool.Create(new Vector2(1000, 360), Content, 100, 400));
+            gameObjects.Add(WallPool.Create(new Vector2(400, 360), Content, 50,600));
+            
+            //Weapon
+            Director weapon = new Director(new WeaponBuilder());
 
             if (firstRun)
             {
@@ -120,6 +141,8 @@ namespace It_is_a_scary_world
                 firstRun = false;
             }
 
+            //Shop
+            Director shop = new Director(new ShopBuilder());
             if (lastRun == tileSet && !firstRun)
             {
                 tileSet++;
@@ -245,6 +268,9 @@ namespace It_is_a_scary_world
                     }
                 }
             }
+            gameObjects.Add(shop.Construct(new Vector2(0, 0)));
+
+            base.Initialize();
         }
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -309,6 +335,95 @@ namespace It_is_a_scary_world
         /// <summary>
         /// Remove This Later. ITs a Note
         /// </summary>
+
+        public void TileSet()
+        {
+            //Builders
+            Director director = new Director(new PlayerBuilder());
+
+
+            int tileSet = rnd.Next(1, 3);
+            int lastRun = tileSet;
+
+            if (firstRun)
+            {
+                tileSet = 0;
+                firstRun = false;
+            }
+
+            if (lastRun == tileSet && !firstRun)
+            {
+                tileSet++;
+            }
+
+            if (tileSet == 0)
+            {
+
+                gameObjects.Add(ObjectPool.Create(new Vector2(400, 450), Content, 1050, 50));
+
+                gameObjects.Add(ObjectPool.Create(new Vector2(0, 200), Content, 1050, 50));
+
+                gameObjects.Add(ObjectPool.Create(new Vector2(00, 700), Content, 1050, 50));
+
+
+                gameObjects.Add(director.Construct(new Vector2(500, 0)));
+
+
+                //ClientBounds
+                gameObjects.Add(WallPool.Create(new Vector2(0, 0), Content, 25, 50));
+                gameObjects.Add(WallPool.Create(new Vector2(0, 200), Content, 25, Window.ClientBounds.Bottom));
+
+
+            }
+            if (tileSet == 1)
+            {
+                gameObjects.Add(ObjectPool.Create(new Vector2(0, 660), Content, 400, 100));
+
+
+
+                gameObjects.Add(ObjectPool.Create(new Vector2(400, 660), Content, 400, 100));
+
+
+                gameObjects.Add(ObjectPool.Create(new Vector2(800, 660), Content, 400, 100));
+
+                gameObjects.Add(ObjectPool.Create(new Vector2(1200, 660), Content, 400, 100));
+
+
+                //Wall test
+
+            }
+            if (tileSet == 2)
+            {
+
+                gameObjects.Add(ObjectPool.Create(new Vector2(0, 660), Content, 400, 100));
+
+
+
+                gameObjects.Add(ObjectPool.Create(new Vector2(400, 660), Content, 400, 100));
+
+
+                gameObjects.Add(ObjectPool.Create(new Vector2(800, 660), Content, 400, 100));
+
+                gameObjects.Add(ObjectPool.Create(new Vector2(1200, 660), Content, 400, 100));
+
+            }
+            if (tileSet == 3)
+            {
+
+                gameObjects.Add(ObjectPool.Create(new Vector2(0, 660), Content, 400, 100));
+
+
+
+                gameObjects.Add(ObjectPool.Create(new Vector2(400, 660), Content, 400, 100));
+
+
+                gameObjects.Add(ObjectPool.Create(new Vector2(800, 660), Content, 400, 100));
+
+                gameObjects.Add(ObjectPool.Create(new Vector2(1200, 660), Content, 400, 100));
+
+
+            }
+        }
 
         private void SpawnEnemy()
         {
@@ -403,100 +518,313 @@ namespace It_is_a_scary_world
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            KeyboardState keyState = Keyboard.GetState();
+
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
 
-            //MainMenuTest
+            //Menues and clickdelays
             #region MainMenu
 
-            KeyboardState keyState = Keyboard.GetState();
-
-            if (keyState.IsKeyDown(Keys.Up) && mainMenuTimer == 1 && options == false)
+            if (currentGameState == GameState.MainMenu)
             {
-                mainMenuID -= 1;
-                mainMenuTimer = 0;
-            }
-            if (keyState.IsKeyDown(Keys.Down) && mainMenuTimer == 1 && options == false)
-            {
-                mainMenuID += 1;
-                mainMenuTimer = 0;
-            }
-
-            //Hvis man er i bunden af menuen og klikker ned kommer man op til toppen og omvendt
-            if (mainMenuID < mainMenuMinID)
-            {
-                mainMenuID = mainMenuMaxID;
-            }
-            else if (mainMenuID > mainMenuMaxID)
-            {
-                mainMenuID = mainMenuMinID;
-            }
-
-            //Et delay så man kan gå rundt i menuen i et normalt tempo
-            if (mainMenuTimer == 0)
-            {
-                mainMenuTimerCheck += 1;
-                if (mainMenuTimerCheck >= 15)
+                menuMaxID = 3;
+                if (keyState.IsKeyDown(Keys.Up) && menuTimer == 1 && options == false)
                 {
-                    mainMenuTimer = 1;
-                    mainMenuTimerCheck = 0;
+                    menuID -= 1;
+                    menuTimer = 0;
                 }
-            }
-
-            if (keyState.IsKeyDown(Keys.Enter) && clickDelay == 0)
-            {
-                if (mainMenuID == 1)
+                if (keyState.IsKeyDown(Keys.Down) && menuTimer == 1 && options == false)
                 {
-                    clickDelay = 30;
+                    menuID += 1;
+                    menuTimer = 0;
                 }
 
-                if (mainMenuID == 2 && options == false)
+                if (keyState.IsKeyDown(Keys.Enter) && clickDelay == 0)
                 {
-                    options = true;
-                    clickDelay = 30;
+                    if (menuID == 1)
+                    {
+                        currentGameState = GameState.InGame;
+                        //TileSet();
+                        clickDelay = 30;
+                    }
+
+                    if (menuID == 2 && options == false)
+                    {
+                        options = true;
+                        clickDelay = 30;
+                    }
+
+                    if (menuID == 2 && options == true)
+                    {
+                        options = false;
+                        clickDelay = 30;
+                    }
+
+                    if (menuID == 3)
+                    {
+                        Environment.Exit(0);
+                    }
                 }
 
-                if (mainMenuID == 2 && options == true)
+                if (options == false)
                 {
-                    options = false;
-                    clickDelay = 30;
-                }
+                    //Skriver menu teksten ud til skræmen
+                    if (menuID == 1)
+                    {
+                        spriteBatch.DrawString(mainMenuTL, "New Game", new Vector2(10, 10), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Options", new Vector2(10, 60), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Exit to desktop", new Vector2(10, 110), Color.Black);
+                    }
 
-                if (mainMenuID == 3)
-                {
-                    Environment.Exit(0);
-                }
-            }
+                    if (menuID == 2)
+                    {
+                        spriteBatch.DrawString(mainMenuT, "New Game", new Vector2(10, 10), Color.Black);
+                        spriteBatch.DrawString(mainMenuTL, "Options", new Vector2(10, 60), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Exit to desktop", new Vector2(10, 110), Color.Black);
+                    }
 
-            if (options == false)
-            {
-                //Skriver menu teksten ud til skræmen
-                if (mainMenuID == 1)
-                {
-                    spriteBatch.DrawString(mainMenuTL, "New Game", new Vector2(10, 10), Color.Black);
-                    spriteBatch.DrawString(mainMenuT, "Options", new Vector2(10, 60), Color.Black);
-                    spriteBatch.DrawString(mainMenuT, "Exit to desktop", new Vector2(10, 110), Color.Black);
-                }
-
-                if (mainMenuID == 2)
-                {
-                    spriteBatch.DrawString(mainMenuT, "New Game", new Vector2(10, 10), Color.Black);
-                    spriteBatch.DrawString(mainMenuTL, "Options", new Vector2(10, 60), Color.Black);
-                    spriteBatch.DrawString(mainMenuT, "Exit to desktop", new Vector2(10, 110), Color.Black);
-                }
-
-                if (mainMenuID == 3)
-                {
-                    spriteBatch.DrawString(mainMenuT, "New Game", new Vector2(10, 10), Color.Black);
-                    spriteBatch.DrawString(mainMenuT, "Options", new Vector2(10, 60), Color.Black);
-                    spriteBatch.DrawString(mainMenuTL, "Exit to desktop", new Vector2(10, 110), Color.Black);
+                    if (menuID == 3)
+                    {
+                        spriteBatch.DrawString(mainMenuT, "New Game", new Vector2(10, 10), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Options", new Vector2(10, 60), Color.Black);
+                        spriteBatch.DrawString(mainMenuTL, "Exit to desktop", new Vector2(10, 110), Color.Black);
+                    }
                 }
             }
-            
+
             #endregion
 
-            #region ClickDelay
+            #region Shop menu
+
+            if (currentGameState == GameState.InGame && keyState.IsKeyDown(Keys.P) && shopState == false)
+            {
+                menuID = 1;
+                shopState = true;
+                currentGameState = GameState.ShopMenu;
+            }
+
+            if (currentGameState == GameState.ShopMenu)
+            {
+                if (keyState.IsKeyDown(Keys.Up) && menuTimer == 1)
+                {
+                    menuID -= 1;
+                    menuTimer = 0;
+                }
+                if (keyState.IsKeyDown(Keys.Down) && menuTimer == 1)
+                {
+                    menuID += 1;
+                    menuTimer = 0;
+                }
+
+                foreach (GameObject go in gameObjects)
+                {
+                    if (go.Tag == "Shop")
+                    {
+
+                #region ShopMenu Standard(actions)
+                        if (keyState.IsKeyDown(Keys.Enter) && clickDelay == 0 && upgradePlayer == false && upgradeWeapon == false)
+                {
+                    if (menuID == 1 && upgradeWeapon == false)
+                    {
+                        menuID = 1;
+                        menuMaxID = 3;
+                        upgradeWeapon = true;
+                        clickDelay = 30;
+                    }
+
+                    if (menuID == 2 && upgradePlayer == false)
+                    {
+                        menuID = 1;
+                        menuMaxID = 4;
+                        upgradePlayer = true;
+                        clickDelay = 30;
+                    }
+
+                    if (menuID == 3)
+                    {
+                        currentGameState = GameState.InGame;
+                        shopState = false;
+                    }
+                }
+                #endregion
+
+                #region UpgradePlayer Menu (actions)
+                if (keyState.IsKeyDown(Keys.Enter) && clickDelay == 0 && upgradePlayer == true)
+                {
+                    if (menuID == 1)
+                    {
+                        clickDelay = 30;
+                        if ((go.GetComponent("Shop") as Shop).playerHealthUpgrade == true)
+                        {
+                            (go.GetComponent("Shop") as Shop).playerHealthPriceUp = true;
+                        }
+                    }
+
+                    if (menuID == 2)
+                    {
+                        clickDelay = 30;
+                    }
+
+                    if (menuID == 3)
+                    {
+                        clickDelay = 30;
+                        if ((go.GetComponent("Shop") as Shop).playerSpeedUpgrade == true)
+                        {
+                            (go.GetComponent("Shop") as Shop).playerSpeedPriceUp = true;
+                        }
+                    }
+
+                    if (menuID == 4)
+                    {
+                        menuID = 1;
+                        menuMaxID = 3;
+                        clickDelay = 30;
+                        upgradePlayer = false;
+                    }
+                }
+                #endregion
+
+                #region UpgradeWeapon Menu (actions)
+                if (keyState.IsKeyDown(Keys.Enter) && clickDelay == 0 && upgradeWeapon == true)
+                {
+                    if (menuID == 1)
+                    {
+                        clickDelay = 30;
+                        if ((go.GetComponent("Shop") as Shop).weaponDamageUpgrade == true)
+                        {
+                            (go.GetComponent("Shop") as Shop).weaponDamagePriceUp = true;
+                        }
+                    }
+
+                    if (menuID == 2)
+                    {
+                        clickDelay = 30;
+                        if ((go.GetComponent("Shop") as Shop).weaponAttackSpeedUpgrade == true)
+                        {
+                            (go.GetComponent("Shop") as Shop).weaponAttackSpeedPriceUp = true;
+                        }
+                    }
+
+                    if (menuID == 3)
+                    {
+                        menuID = 1;
+                        menuMaxID = 3;
+                        clickDelay = 30;
+                        upgradeWeapon = false;
+                    }
+                }
+                #endregion
+
+                #region ShopMenu (standard)
+                if (upgradePlayer == false && upgradeWeapon == false)
+                {
+                    if (menuID == 1)
+                    {
+                        spriteBatch.DrawString(mainMenuTL, "Upgrade Weapon", new Vector2(10, 10), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Upgrade Player", new Vector2(10, 60), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Close shop", new Vector2(10, 110), Color.Black);
+                    }
+
+                    if (menuID == 2)
+                    {
+                        spriteBatch.DrawString(mainMenuT, "Upgrade Weapon", new Vector2(10, 10), Color.Black);
+                        spriteBatch.DrawString(mainMenuTL, "Upgrade Player", new Vector2(10, 60), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Close shop", new Vector2(10, 110), Color.Black);
+                    }
+
+                    if (menuID == 3)
+                    {
+                        spriteBatch.DrawString(mainMenuT, "Upgrade Weapon", new Vector2(10, 10), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Upgrade Player", new Vector2(10, 60), Color.Black);
+                        spriteBatch.DrawString(mainMenuTL, "Close shop", new Vector2(10, 110), Color.Black);
+                    }
+                }
+                #endregion
+
+                #region UpgradePlayer menu
+                if (upgradePlayer == true)
+                {
+                    if (menuID == 1)
+                    {
+                        spriteBatch.DrawString(mainMenuT, "  -- Player --", new Vector2(10, 10), Color.Black);
+                        spriteBatch.DrawString(mainMenuTL, "Upgrade Health", new Vector2(10, 100), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Upgrade Damage", new Vector2(10, 160), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Upgrade Speed", new Vector2(10, 210), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Back", new Vector2(10, 260), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Price:" + ((go.GetComponent("Shop") as Shop).playerHealthPrice), new Vector2(10, 60), Color.Black);
+                    }
+
+                    if (menuID == 2)
+                    {
+                        spriteBatch.DrawString(mainMenuT, "  -- Player --", new Vector2(10, 10), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Upgrade Health", new Vector2(10, 100), Color.Black);
+                        spriteBatch.DrawString(mainMenuTL, "Upgrade Damage", new Vector2(10, 160), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Upgrade Speed", new Vector2(10, 210), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Back", new Vector2(10, 260), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Price:", new Vector2(10, 60), Color.Black);
+                    }
+
+                    if (menuID == 3)
+                    {
+                        spriteBatch.DrawString(mainMenuT, "  -- Player --", new Vector2(10, 10), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Upgrade Health", new Vector2(10, 100), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Upgrade Damage", new Vector2(10, 160), Color.Black);
+                        spriteBatch.DrawString(mainMenuTL, "Upgrade Speed", new Vector2(10, 210), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Back", new Vector2(10, 260), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Price:" + ((go.GetComponent("Shop") as Shop).playerSpeedPrice), new Vector2(10, 60), Color.Black);
+                    }
+                    if (menuID == 4)
+                    {
+                        spriteBatch.DrawString(mainMenuT, "  -- Player --", new Vector2(10, 10), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Upgrade Health", new Vector2(10, 100), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Upgrade Damage", new Vector2(10, 160), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Upgrade Speed", new Vector2(10, 210), Color.Black);
+                        spriteBatch.DrawString(mainMenuTL, "Back", new Vector2(10, 260), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Price:", new Vector2(10, 60), Color.Black);
+                    }
+                }
+                #endregion
+
+                #region UpgradeWeapon Menu
+                if (upgradeWeapon == true)
+                {
+                    if (menuID == 1)
+                    {
+                        spriteBatch.DrawString(mainMenuT, "  -- Weapon --", new Vector2(10, 10), Color.Black);
+                        spriteBatch.DrawString(mainMenuTL, "Upgrade Damage", new Vector2(10, 110), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Upgrade AttackSpeed", new Vector2(10, 160), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Back", new Vector2(10, 210), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Price:" + ((go.GetComponent("Shop") as Shop).weaponDamagePrice), new Vector2(10, 60), Color.Black);
+                    }
+
+                    if (menuID == 2)
+                    {
+                        spriteBatch.DrawString(mainMenuT, "  -- Weapon --", new Vector2(10, 10), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Upgrade Damage", new Vector2(10, 110), Color.Black);
+                        spriteBatch.DrawString(mainMenuTL, "Upgrade AttackSpeed", new Vector2(10, 160), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Back", new Vector2(10, 210), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Price:" + ((go.GetComponent("Shop") as Shop).weaponAttackSpeedPrice), new Vector2(10, 60), Color.Black);
+                    }
+                    if (menuID == 3)
+                    {
+                        spriteBatch.DrawString(mainMenuT, "  -- Weapon --", new Vector2(10, 10), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Upgrade Damage", new Vector2(10, 110), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Upgrade AttackSpeed", new Vector2(10, 160), Color.Black);
+                        spriteBatch.DrawString(mainMenuTL, "Back", new Vector2(10, 210), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Price:", new Vector2(10, 60), Color.Black);
+                    }
+                }
+                        #endregion
+
+                    }
+                }
+            }
+
+            #endregion
+
+            #region ClickDelay, MenuID check, MenuTimer
             //Delay før man kan klikke på enter igen
             if (clickDelay > 0)
             {
@@ -506,8 +834,29 @@ namespace It_is_a_scary_world
             {
                 clickDelay = 0;
             }
+
+            //Hvis man er i bunden af menuen og klikker ned kommer man op til toppen og omvendt
+            if (menuID < menuMinID)
+            {
+                menuID = menuMaxID;
+            }
+            else if (menuID > menuMaxID)
+            {
+                menuID = menuMinID;
+            }
+
+            //Et delay så man kan gå rundt i menuen i et normalt tempo
+            if (menuTimer == 0)
+            {
+                menuTimerCheck += 1;
+                if (menuTimerCheck >= 15)
+                {
+                    menuTimer = 1;
+                    menuTimerCheck = 0;
+                }
+            }
             #endregion
-            //MainMenuTestSlut
+            //Menues and clickdelays
 
             // TODO: Add your drawing code here
 
