@@ -46,9 +46,10 @@ namespace It_is_a_scary_world
 
             animator = (Animator)gameObject.GetComponent("Animator");
 
-            Texture2D sprite = content.Load<Texture2D>("BulletTest");
 
-            animator.CreateAnimation("IdleFront", new Animation(1, 0, 0, 25, 25, 0, Vector2.Zero, sprite));
+            Texture2D sprite = content.Load<Texture2D>("Fireball");
+
+            animator.CreateAnimation("IdleFront", new Animation(4, 0, 0, 18, 11, 4, Vector2.Zero, sprite));
 
             animator.PlayAnimation("IdleFront");
 

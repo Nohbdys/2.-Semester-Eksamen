@@ -27,7 +27,7 @@ namespace It_is_a_scary_world
         //WallCollision
 
         //Jump
-        public bool doubleJump = false;
+        public bool doubleJump = true;
         public int currentJump = 0;
         public int jumpTimer;
         //Jump
@@ -234,7 +234,7 @@ namespace It_is_a_scary_world
         public void OnCollisionEnter(Collider other)
         {
             //used to test (see) collision
-            (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
+       //     (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
 
             //Gives the players collisionbox
             Collider playerBox = (this.gameObject.GetComponent("Collider") as Collider);
@@ -307,8 +307,7 @@ namespace It_is_a_scary_world
 
             if (other.gameObject.Tag != "Wall")
             {
-                leftWallCollision = false;
-                rightWallCollision = false;
+
             }
             if (other.gameObject.Tag == "Platform")
             {
