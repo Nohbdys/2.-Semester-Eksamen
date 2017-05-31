@@ -15,7 +15,7 @@ namespace It_is_a_scary_world
         {
             gameObject = new GameObject();
 
-            gameObject.AddComponent(new SpriteRenderer(gameObject, "BulletTest", 1));
+            gameObject.AddComponent(new SpriteRenderer(gameObject, "Fireball", 1));
 
             gameObject.AddComponent(new Animator(gameObject));
 

@@ -135,13 +135,19 @@ namespace It_is_a_scary_world
             for (int i = 0; i < 15; i++)
             {
                 gameObjects.Add(ObjectPool.Create(new Vector2(2000, 2000), Content, 300, 50));
-                gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 25, 50));
+                gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 25, 48));
             }
             gameObjects.Add(DoorPool.Create(new Vector2(2000, 2000), Content, 11, 30));
             
 
-            //Builders
-            Director director = new Director(new PlayerBuilder());
+
+            //Wall test
+            //   gameObjects.Add(WallPool.Create(new Vector2(1000, 360), Content, 100, 400));
+            //   gameObjects.Add(WallPool.Create(new Vector2(400, 360), Content, 50, 600));
+
+            //ClientBounds
+
+
 
             foreach (GameObject go in gameObjects)
             {
@@ -151,8 +157,6 @@ namespace It_is_a_scary_world
                 }
             }
 
-            int tileSet = rnd.Next(1, 3);
-            int lastRun = tileSet;
 
             if (firstRun)
             {
@@ -249,6 +253,109 @@ namespace It_is_a_scary_world
                                 break;
 
                             case 3:
+                                go.transform.position = new Vector2(1176, 201);
+                                break;
+                            case 4:
+                                go.transform.position = new Vector2(299, 451);
+                                break;
+
+                            case 5:
+                                go.transform.position = new Vector2(00, 726);
+                                break;
+
+
+
+
+                            default:
+                                break;
+                        }
+                        wallNummer++;
+
+                    }
+                    if (go.Tag == "Door")
+                    {
+                        go.transform.position = new Vector2(100, 690);
+                    }
+
+                }
+
+                //    gameObjects.Add(WallPool.Create(new Vector2(1000, 360), Content));
+
+            }
+            if (tileSet == 1)
+            {
+                int wallNummer = 1;
+                int platformNummer = 1;
+                foreach (GameObject go in gameObjects)
+                {
+
+
+                    if (go.Tag == "Platform")
+                    {
+                        switch (platformNummer)
+                        {
+                            case 1:
+                                go.transform.position = new Vector2(0, 200);
+                                break;
+                            case 2:
+                                go.transform.position = new Vector2(300, 200);
+                                break;
+                            case 3:
+                                go.transform.position = new Vector2(600, 200);
+                                break;
+                            case 4:
+                                go.transform.position = new Vector2(900, 200);
+                                break;
+                            case 5:
+                                go.transform.position = new Vector2(1200, 450);
+                                break;
+                            case 6:
+                                go.transform.position = new Vector2(900, 450);
+                                break;
+                            case 7:
+                                go.transform.position = new Vector2(600, 450);
+                                break;
+                            case 8:
+                                go.transform.position = new Vector2(300, 450);
+                                break;
+                            case 9:
+                                go.transform.position = new Vector2(0, 725);
+                                break;
+                            case 10:
+                                go.transform.position = new Vector2(300, 725);
+                                break;
+                            case 11:
+                                go.transform.position = new Vector2(600, 725);
+                                break;
+                            case 12:
+                                go.transform.position = new Vector2(900, 725);
+                                break;
+                            case 13:
+                                go.transform.position = new Vector2(1200, 725);
+                                break;
+
+
+                            default:
+                                break;
+                        }
+                        platformNummer++;
+
+
+                    }
+                    if (go.Tag == "Wall")
+                    {
+
+                        switch (wallNummer)
+                        {
+                            case 1:
+                                go.transform.position = new Vector2(0, 0);
+                                break;
+
+                            case 2:
+                                go.transform.position = new Vector2(1380, 0);
+                                break;
+
+                            case 3:
                                 go.transform.position = new Vector2(1176, 200);
                                 break;
                             case 4:
@@ -258,80 +365,121 @@ namespace It_is_a_scary_world
                             case 5:
                                 go.transform.position = new Vector2(00, 725);
                                 break;
-
-
-
-
                             default:
                                 break;
                         }
-                       
                         wallNummer++;
 
-
                     }
-                }
-
-
-
-
-
-
-
-                //    gameObjects.Add(WallPool.Create(new Vector2(1000, 360), Content));
-
-            }
-            if (tileSet == 1)
-            {
-
-                newObjects.Add(ObjectPool.Create(new Vector2(0, 660), Content, 400, 100));
-
-
-
-                newObjects.Add(ObjectPool.Create(new Vector2(400, 660), Content, 400, 100));
-
-
-                newObjects.Add(ObjectPool.Create(new Vector2(800, 660), Content, 400, 100));
-
-                newObjects.Add(ObjectPool.Create(new Vector2(1200, 660), Content, 400, 100));
-
-                foreach (GameObject go in gameObjects)
-                {
-                    if (go.Tag == "Platform" || go.Tag == "Wall")
+                    if (go.Tag == "Door")
                     {
-                        go.transform.position = new Vector2(400, 400);
-
+                        go.transform.position = new Vector2(100, 690);
                     }
+
                     if (go.Tag == "Player")
                     {
                         go.transform.position = new Vector2(400, 400);
 
                     }
                 }
-                //Wall test
-
             }
+            //Wall test
+
+
             if (tileSet == 2)
             {
-
-                newObjects.Add(ObjectPool.Create(new Vector2(0, 660), Content, 400, 100));
-
-
-
-                newObjects.Add(ObjectPool.Create(new Vector2(400, 660), Content, 400, 100));
-
-
-                newObjects.Add(ObjectPool.Create(new Vector2(800, 660), Content, 400, 100));
-
-                newObjects.Add(ObjectPool.Create(new Vector2(1200, 660), Content, 400, 100));
-
+                int wallNummer = 1;
+                int platformNummer = 1;
                 foreach (GameObject go in gameObjects)
                 {
-                    if (go.Tag == "Platform" || go.Tag == "Wall")
+
+
+                    if (go.Tag == "Platform")
                     {
-                        objectsToRemove.Add(go);
+                        switch (platformNummer)
+                        {
+                            case 1:
+                                go.transform.position = new Vector2(0, 200);
+                                break;
+                            case 2:
+                                go.transform.position = new Vector2(300, 200);
+                                break;
+                            case 3:
+                                go.transform.position = new Vector2(600, 200);
+                                break;
+                            case 4:
+                                go.transform.position = new Vector2(900, 200);
+                                break;
+                            case 5:
+                                go.transform.position = new Vector2(1200, 450);
+                                break;
+                            case 6:
+                                go.transform.position = new Vector2(900, 450);
+                                break;
+                            case 7:
+                                go.transform.position = new Vector2(600, 450);
+                                break;
+                            case 8:
+                                go.transform.position = new Vector2(300, 450);
+                                break;
+                            case 9:
+                                go.transform.position = new Vector2(0, 725);
+                                break;
+                            case 10:
+                                go.transform.position = new Vector2(300, 725);
+                                break;
+                            case 11:
+                                go.transform.position = new Vector2(600, 725);
+                                break;
+                            case 12:
+                                go.transform.position = new Vector2(900, 725);
+                                break;
+                            case 13:
+                                go.transform.position = new Vector2(1200, 725);
+                                break;
+
+
+                            default:
+                                break;
+                        }
+                        platformNummer++;
+
 
                     }
+                    if (go.Tag == "Wall")
+                    {
+
+                        switch (wallNummer)
+                        {
+                            case 1:
+                                go.transform.position = new Vector2(0, 0);
+                                break;
+
+                            case 2:
+                                go.transform.position = new Vector2(1380, 0);
+                                break;
+
+                            case 3:
+                                go.transform.position = new Vector2(1176, 200);
+                                break;
+                            case 4:
+                                go.transform.position = new Vector2(298, 450);
+                                break;
+
+                            case 5:
+                                go.transform.position = new Vector2(00, 725);
+                                break;
+                            default:
+                                break;
+                        }
+                        wallNummer++;
+
+                    }
+                    if (go.Tag == "Door")
+                    {
+                        go.transform.position = new Vector2(100, 690);
+                    }
+
                     if (go.Tag == "Player")
                     {
                         go.transform.position = new Vector2(400, 400);
@@ -341,25 +489,98 @@ namespace It_is_a_scary_world
             }
             if (tileSet == 3)
             {
-
-                newObjects.Add(ObjectPool.Create(new Vector2(0, 660), Content, 400, 100));
-
-
-
-                newObjects.Add(ObjectPool.Create(new Vector2(400, 660), Content, 400, 100));
-
-
-                newObjects.Add(ObjectPool.Create(new Vector2(800, 660), Content, 400, 100));
-
-                newObjects.Add(ObjectPool.Create(new Vector2(1200, 660), Content, 400, 100));
-
+                int wallNummer = 1;
+                int platformNummer = 1;
                 foreach (GameObject go in gameObjects)
                 {
-                    if (go.Tag == "Platform" || go.Tag == "Wall")
+
+
+                    if (go.Tag == "Platform")
                     {
-                        objectsToRemove.Add(go);
+                        switch (platformNummer)
+                        {
+                            case 1:
+                                go.transform.position = new Vector2(0, 200);
+                                break;
+                            case 2:
+                                go.transform.position = new Vector2(300, 200);
+                                break;
+                            case 3:
+                                go.transform.position = new Vector2(600, 200);
+                                break;
+                            case 4:
+                                go.transform.position = new Vector2(900, 200);
+                                break;
+                            case 5:
+                                go.transform.position = new Vector2(1200, 450);
+                                break;
+                            case 6:
+                                go.transform.position = new Vector2(900, 450);
+                                break;
+                            case 7:
+                                go.transform.position = new Vector2(600, 450);
+                                break;
+                            case 8:
+                                go.transform.position = new Vector2(300, 450);
+                                break;
+                            case 9:
+                                go.transform.position = new Vector2(0, 725);
+                                break;
+                            case 10:
+                                go.transform.position = new Vector2(300, 725);
+                                break;
+                            case 11:
+                                go.transform.position = new Vector2(600, 725);
+                                break;
+                            case 12:
+                                go.transform.position = new Vector2(900, 725);
+                                break;
+                            case 13:
+                                go.transform.position = new Vector2(1200, 725);
+                                break;
+
+
+                            default:
+                                break;
+                        }
+                        platformNummer++;
+
 
                     }
+                    if (go.Tag == "Wall")
+                    {
+
+                        switch (wallNummer)
+                        {
+                            case 1:
+                                go.transform.position = new Vector2(0, 0);
+                                break;
+
+                            case 2:
+                                go.transform.position = new Vector2(1380, 0);
+                                break;
+
+                            case 3:
+                                go.transform.position = new Vector2(1176, 200);
+                                break;
+                            case 4:
+                                go.transform.position = new Vector2(298, 450);
+                                break;
+
+                            case 5:
+                                go.transform.position = new Vector2(00, 725);
+                                break;
+                            default:
+                                break;
+                        }
+                        wallNummer++;
+
+                    }
+                    if (go.Tag == "Door")
+                    {
+                        go.transform.position = new Vector2(100, 690);
+                    }
+
                     if (go.Tag == "Player")
                     {
                         go.transform.position = new Vector2(400, 400);
@@ -367,7 +588,6 @@ namespace It_is_a_scary_world
                     }
                 }
             }
-            gameObjects.Add(shop.Construct(new Vector2(0, 0)));
 
             base.Initialize();
         }
@@ -442,7 +662,7 @@ namespace It_is_a_scary_world
 
             if (Keyboard.GetState().IsKeyDown(Keys.M) && addEnemy)
             {
-                newObjects.Add(EnemyPool.Create(new Vector2(rnd.Next(0, 1000/*Window.ClientBounds.Width*/), rnd.Next(0, 600/*Window.ClientBounds.Height*/)), Content));
+                newObjects.Add(EnemyPool.Create(new Vector2( 400,  100), Content));
 
                 addEnemy = false;
             }
@@ -484,8 +704,8 @@ namespace It_is_a_scary_world
                 
                 if (go.Tag == "Player")
                 {
-                    float x = (go.GetComponent("Player") as Player).gameObject.transform.position.X + (50 - 10) / 2; //The attack's position on the X-axis, based on the Player object's position (should be in the middle)
-                    float y = (go.GetComponent("Player") as Player).gameObject.transform.position.Y - 30; //The attack's position on the Y-axis, based on the Player object's position (Edit last number to place it probably based on the Player object's sprite)
+                    float x = (go.GetComponent("Player") as Player).gameObject.transform.position.X + 20 / 2; //The attack's position on the X-axis, based on the Player object's position (should be in the middle)
+                    float y = (go.GetComponent("Player") as Player).gameObject.transform.position.Y +10; //The attack's position on the Y-axis, based on the Player object's position (Edit last number to place it probably based on the Player object's sprite)
 
                     newObjects.Add(BulletPool.Create(new Vector2(x, y), Content));
                     break;
@@ -545,12 +765,13 @@ namespace It_is_a_scary_world
 
            
 
+
             //Menues and clickdelays
             #region MainMenu
 
 
             if (currentGameState == GameState.MainMenu)
-                {
+            {
                 menuMaxID = 2;
                 if (keyState.IsKeyDown(Keys.Up) && menuTimer == 1 && options == false)
                 {
