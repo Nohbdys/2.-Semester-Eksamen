@@ -40,25 +40,22 @@ namespace It_is_a_scary_world
 
             animator = (Animator)gameObject.GetComponent("Animator");
 
-            Texture2D sprite = content.Load<Texture2D>("SlimeSheet");
+            Texture2D sprite = content.Load<Texture2D>("SkeletonWalk");
 
             direction = Front;
 
             //Adds the enemys animations
-            animator.CreateAnimation("IdleFront", new Animation(1, 0, 0, 100, 100, 0, Vector2.Zero, sprite));
-            animator.CreateAnimation("IdleLeft", new Animation(1, 0, 1, 100, 100, 0, Vector2.Zero, sprite));
-            animator.CreateAnimation("IdleRight", new Animation(1, 0, 2, 100, 100, 0, Vector2.Zero, sprite));
-            animator.CreateAnimation("IdleBack", new Animation(1, 0, 3, 100, 100, 0, Vector2.Zero, sprite));
-            animator.CreateAnimation("WalkFront", new Animation(4, 100, 0, 100, 100, 5, Vector2.Zero, sprite));
-            animator.CreateAnimation("WalkBack", new Animation(4, 100, 4, 100, 100, 5, Vector2.Zero, sprite));
-            animator.CreateAnimation("WalkLeft", new Animation(4, 200, 0, 100, 100, 5, Vector2.Zero, sprite));
-            animator.CreateAnimation("WalkRight", new Animation(4, 200, 4, 100, 100, 5, Vector2.Zero, sprite));
-            animator.CreateAnimation("DieBack", new Animation(4, 300, 0, 100, 100, 5, Vector2.Zero, sprite));
-            animator.CreateAnimation("DieFront", new Animation(4, 300, 4, 100, 100, 1, Vector2.Zero, sprite));
-            animator.CreateAnimation("DieLeft", new Animation(4, 400, 0, 100, 100, 5, Vector2.Zero, sprite));
-            animator.CreateAnimation("DieRight", new Animation(4, 400, 4, 100, 100, 5, Vector2.Zero, sprite));
+            animator.CreateAnimation("IdleFront", new Animation(4, 40, 0, 15, 40, 5, Vector2.Zero, sprite));
+            animator.CreateAnimation("IdleBack", new Animation(4, 0, 0, 15, 40, 5, Vector2.Zero, sprite));
+            animator.CreateAnimation("IdleLeft", new Animation(4, 40, 0, 15, 40, 5, Vector2.Zero, sprite));
+            animator.CreateAnimation("IdleRight", new Animation(4, 0, 0, 15, 40, 5, Vector2.Zero, sprite));
+            animator.CreateAnimation("WalkFront", new Animation(4, 40, 0, 15, 40, 5, Vector2.Zero, sprite));
+            animator.CreateAnimation("WalkBack", new Animation(4, 0, 0, 15, 40, 5, Vector2.Zero, sprite));
+            animator.CreateAnimation("WalkLeft", new Animation(4, 40, 0, 15, 40, 5, Vector2.Zero, sprite));
+            animator.CreateAnimation("WalkRight", new Animation(4, 0, 0, 15, 40, 5, Vector2.Zero, sprite));
 
-            animator.PlayAnimation("DieFront");
+
+            animator.PlayAnimation("WalkLeft");
 
             strategy = new Idle(animator);
         }
@@ -96,7 +93,7 @@ namespace It_is_a_scary_world
             {
                 strategy = new Idle(animator);
             }
-            
+
             strategy.Execute(ref direction);
             #endregion
         }
@@ -106,15 +103,15 @@ namespace It_is_a_scary_world
             if (other.gameObject.Tag == "Player")
             {
                 //GameWorld.Instance.objectsToRemove.Add(gameObject);
-                (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.White;               
+                (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.White;
             }
-              
-                if (other.gameObject.Tag == "Platform")
-                {
-                    (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
-                    (this.gameObject.GetComponent("Gravity") as Gravity).grounded = true;
-                    platformTimer = 5;           
-                }
+
+            if (other.gameObject.Tag == "Platform")
+            {
+                (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
+                (this.gameObject.GetComponent("Gravity") as Gravity).grounded = true;
+                platformTimer = 5;
+            }
         }
 
 

@@ -657,7 +657,7 @@ namespace It_is_a_scary_world
 
             if (Keyboard.GetState().IsKeyDown(Keys.M) && addEnemy)
             {
-                newObjects.Add(EnemyPool.Create(new Vector2(rnd.Next(0, 1000/*Window.ClientBounds.Width*/), rnd.Next(0, 600/*Window.ClientBounds.Height*/)), Content));
+                newObjects.Add(EnemyPool.Create(new Vector2( 400,  100), Content));
 
                 addEnemy = false;
             }
