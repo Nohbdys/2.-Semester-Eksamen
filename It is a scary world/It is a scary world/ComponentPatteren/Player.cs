@@ -233,20 +233,7 @@ namespace It_is_a_scary_world
             //Gives the players collisionbox
             Collider playerBox = (this.gameObject.GetComponent("Collider") as Collider);
 
-            if (other.gameObject.Tag == "Platform")
-            {
-                //TopCollision
-                if (playerBox.CollisionBox.Bottom >= other.CollisionBox.Top)
-                {
-                    currentJump = 0;
-                    platformCheck = true;
-                    (go.GetComponent("Gravity") as Gravity).isFalling = false;
-                }
-                if (playerBox.CollisionBox.Y >= other.CollisionBox.Y)
-                {
-                    (go.GetComponent("Gravity") as Gravity).isFalling = true;
-                }
-            }
+
             if (other.gameObject.Tag == "Door")
             {
 
@@ -317,8 +304,22 @@ namespace It_is_a_scary_world
                 leftWallCollision = false;
                 rightWallCollision = false;
             }
-            
+            if (other.gameObject.Tag == "Platform")
+            {
+                //TopCollision
+                if (transform.position.Y < other.gameObject.transform.position.Y)//.CollisionBox.Bottom >= other.CollisionBox.Top)
+                {
+                    currentJump = 0;
+                    platformCheck = true;
+                    (go.GetComponent("Gravity") as Gravity).isFalling = false;
+                }
+                if (playerBox.CollisionBox.Y >= other.CollisionBox.Y)
+                {
+                    (go.GetComponent("Gravity") as Gravity).isFalling = true;
+                }
+            }
         }
+
 
     }
 }

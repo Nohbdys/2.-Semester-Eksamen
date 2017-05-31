@@ -123,10 +123,8 @@ namespace It_is_a_scary_world
 
                     spriteRenderer.Sprite.GetData(0, animation.Rectangles[i], colors[i], 0, animation.Rectangles[i].Width * animation.Rectangles[i].Height);
                 }
-
                 tmpPixels.Add(pair.Key, colors);
             }
-
             return tmpPixels;
         }
 

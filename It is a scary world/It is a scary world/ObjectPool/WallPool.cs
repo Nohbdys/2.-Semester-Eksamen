@@ -20,11 +20,12 @@ namespace It_is_a_scary_world
         {
             if (inactive.Count > 0)
             {
+                
                 GameObject wall = inactive[0];
                 active.Add(wall);
                 inactive.RemoveAt(0);
                 
-                return wall;
+                return wall; 
             }
             else
             {
@@ -52,7 +53,7 @@ namespace It_is_a_scary_world
 
         private static void CleanUp()
         {
-            //(wall.GetComponent("Wall") as Wall).gameObject.transform.position.X = 4000;
+            
             //Reset data, remove references etc.
         }
     }
