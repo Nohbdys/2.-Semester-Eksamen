@@ -41,6 +41,7 @@
     <Compile Include="Animation.cs" />
     <Compile Include="Builder\BulletBuilder.cs" />
     <Compile Include="Builder\Director.cs" />
+    <Compile Include="Builder\DoorBuilder.cs" />
     <Compile Include="Builder\EnemyBuilder.cs" />
     <Compile Include="Builder\IBuilder.cs" />
     <Compile Include="Builder\PlayerBuilder.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="ComponentPatteren\Components\Component.cs" />
     <Compile Include="ComponentPatteren\Components\SpriteRenderer.cs" />
     <Compile Include="ComponentPatteren\Components\Transform.cs" />
+    <Compile Include="ComponentPatteren\Door.cs" />
     <Compile Include="ComponentPatteren\Enemies\Slime.cs" />
     <Compile Include="ComponentPatteren\GameObject.cs" />
     <Compile Include="ComponentPatteren\Components\Gravity.cs" />
@@ -56,6 +58,7 @@
     <Compile Include="ComponentPatteren\Platform.cs" />
     <Compile Include="ComponentPatteren\Projectiles.cs" />
     <Compile Include="ObjectPool\BulletPool.cs" />
+    <Compile Include="ObjectPool\DoorPool.cs" />
     <Compile Include="Shop.cs" />
     <Compile Include="Builder\ShopBuilder.cs" />
     <Compile Include="Strategy\Movement.cs" />
@@ -96,6 +99,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\CollisionTexture.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Door.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\HeroSheet.png">

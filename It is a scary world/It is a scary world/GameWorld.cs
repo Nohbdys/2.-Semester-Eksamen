@@ -43,8 +43,6 @@ namespace It_is_a_scary_world
 
         private bool removeEnemy;
 
-        private bool firstRun;
-
         //Mainmenu
         private SpriteFont mainMenuT;
         private SpriteFont mainMenuTL;
@@ -336,94 +334,7 @@ namespace It_is_a_scary_world
         /// Remove This Later. ITs a Note
         /// </summary>
 
-        public void TileSet()
-        {
-            //Builders
-            Director director = new Director(new PlayerBuilder());
 
-
-            int tileSet = rnd.Next(1, 3);
-            int lastRun = tileSet;
-
-            if (firstRun)
-            {
-                tileSet = 0;
-                firstRun = false;
-            }
-
-            if (lastRun == tileSet && !firstRun)
-            {
-                tileSet++;
-            }
-
-            if (tileSet == 0)
-            {
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(400, 450), Content, 1050, 50));
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(0, 200), Content, 1050, 50));
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(00, 700), Content, 1050, 50));
-
-
-                gameObjects.Add(director.Construct(new Vector2(500, 0)));
-
-
-                //ClientBounds
-                gameObjects.Add(WallPool.Create(new Vector2(0, 0), Content, 25, 50));
-                gameObjects.Add(WallPool.Create(new Vector2(0, 200), Content, 25, Window.ClientBounds.Bottom));
-
-
-            }
-            if (tileSet == 1)
-            {
-                gameObjects.Add(ObjectPool.Create(new Vector2(0, 660), Content, 400, 100));
-
-
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(400, 660), Content, 400, 100));
-
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(800, 660), Content, 400, 100));
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(1200, 660), Content, 400, 100));
-
-
-                //Wall test
-
-            }
-            if (tileSet == 2)
-            {
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(0, 660), Content, 400, 100));
-
-
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(400, 660), Content, 400, 100));
-
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(800, 660), Content, 400, 100));
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(1200, 660), Content, 400, 100));
-
-            }
-            if (tileSet == 3)
-            {
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(0, 660), Content, 400, 100));
-
-
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(400, 660), Content, 400, 100));
-
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(800, 660), Content, 400, 100));
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(1200, 660), Content, 400, 100));
-
-
-            }
-        }
 
         private void SpawnEnemy()
         {
