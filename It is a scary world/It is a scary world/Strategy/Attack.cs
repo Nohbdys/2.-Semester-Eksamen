@@ -17,7 +17,7 @@ namespace It_is_a_scary_world
 
         public void Execute(ref DIRECTION currentDirection)
         {
-            animator.PlayAnimation("Attack" + currentDirection);
+            animator.PlayAnimation("Attack");
         }
     }
 }

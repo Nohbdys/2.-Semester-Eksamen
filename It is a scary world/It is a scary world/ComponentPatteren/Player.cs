@@ -39,7 +39,7 @@ namespace It_is_a_scary_world
         /// </summary>
         private Animator animator;
 
-   //     public Vector2 position { get; set; }
+        //     public Vector2 position { get; set; }
 
         #region Stats (player)
         private int health = 1;
@@ -204,7 +204,7 @@ namespace It_is_a_scary_world
                 canMove = true;
             }
         }
-        
+
         public void OnCollisionEnter(Collider other)
         {
             //used to test (see) collision
@@ -221,12 +221,21 @@ namespace It_is_a_scary_world
                     //(go.GetComponent("Gravity") as Gravity).grounded = true;
                     (go.GetComponent("Gravity") as Gravity).isFalling = false;
                 }
+
+
             }
+            if (other.gameObject.Tag == "Door")
+            {
+
+                GameWorld.Instance.runTileset = true;
+                (go.GetComponent("Gravity") as Gravity).isFalling = true;
+            }
+
         }
 
         public void OnCollisionExit(Collider other)
         {
-            
+
             if (other.gameObject.Tag == "Wall")
             {
                 rightWallCollision = false;
@@ -237,11 +246,14 @@ namespace It_is_a_scary_world
                 (go.GetComponent("Gravity") as Gravity).isFalling = true;
                 (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.White;
             }
-            
+
+
+
         }
 
         public void OnCollisionStay(Collider other)
         {
+
             /*
             Collider playerBox = (this.gameObject.GetComponent("Collider") as Collider);
 
@@ -284,7 +296,7 @@ namespace It_is_a_scary_world
             }
             */
         }
-        
+
     }
 }
 

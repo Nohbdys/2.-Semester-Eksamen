@@ -13,6 +13,8 @@ namespace It_is_a_scary_world
     /// </summary>
     public class GameWorld : Game
     {
+        public bool runTileset;
+        private bool firstRun = true;
 
         GraphicsDeviceManager graphics;
 
@@ -98,26 +100,7 @@ namespace It_is_a_scary_world
 
             gameObjects.Add(director.Construct(new Vector2(500,0)));
 
-            //gameObjects.Add(EnemyPool.Create(new Vector2(400, 400), Content));
-
-            //Platforms
-            gameObjects.Add(ObjectPool.Create(new Vector2(0, 660), Content, 400, 100));
-           
-
-            
-            gameObjects.Add(ObjectPool.Create(new Vector2(400, 660), Content, 400, 100));
-            
-
-            gameObjects.Add(ObjectPool.Create(new Vector2(800, 660), Content, 400, 100));
-
-            gameObjects.Add(ObjectPool.Create(new Vector2(800, 360), Content, 400, 100));
-
-            //Wall 
-            //gameObjects.Add(WallPool.Create(new Vector2(1000, 360), Content, 100, 400));
-            //gameObjects.Add(WallPool.Create(new Vector2(400, 360), Content, 50,600));
-            
-            //Weapon
-            Director weapon = new Director(new WeaponBuilder());
+            TileSet();
 
             //gameObjects.Add(weapon.Construct(Vector2.Zero));
 
@@ -125,6 +108,144 @@ namespace It_is_a_scary_world
             base.Initialize();
         }
 
+        public void TileSet()
+        {
+
+            int tileSet = rnd.Next(1, 3);
+            int lastRun = tileSet;
+
+            if (firstRun)
+            {
+                tileSet = 0;
+                firstRun = false;
+            }
+
+            if (lastRun == tileSet && !firstRun)
+            {
+                tileSet++;
+            }
+
+            if (tileSet == 0)
+            {
+                foreach (GameObject go in gameObjects)
+                {
+                    if (go.Tag == "Platform" || go.Tag == "Wall")
+                    {
+                        objectsToRemove.Add(go);
+
+                    }
+                    if (go.Tag == "Player")
+                    {
+                        go.transform.position = new Vector2(400, 400);
+                        break;
+                    }
+                }
+                newObjects.Add(ObjectPool.Create(new Vector2(400, 450), Content, 1050, 50));
+
+                newObjects.Add(ObjectPool.Create(new Vector2(0, 200), Content, 1050, 50));
+
+                newObjects.Add(ObjectPool.Create(new Vector2(00, 700), Content, 1050, 50));
+
+
+                newObjects.Add(DoorPool.Create(new Vector2(100, 100), Content, 11, 30));
+
+                //Wall test
+                //   gameObjects.Add(WallPool.Create(new Vector2(1000, 360), Content, 100, 400));
+                //   gameObjects.Add(WallPool.Create(new Vector2(400, 360), Content, 50, 600));
+
+                //ClientBounds
+                newObjects.Add(WallPool.Create(new Vector2(0, 0), Content, 25, 50));
+                newObjects.Add(WallPool.Create(new Vector2(0, 200), Content, 25, Window.ClientBounds.Bottom));
+
+                //    gameObjects.Add(WallPool.Create(new Vector2(1000, 360), Content));
+
+            }
+            if (tileSet == 1)
+            {
+                newObjects.Add(ObjectPool.Create(new Vector2(0, 660), Content, 400, 100));
+
+
+
+                newObjects.Add(ObjectPool.Create(new Vector2(400, 660), Content, 400, 100));
+
+
+                newObjects.Add(ObjectPool.Create(new Vector2(800, 660), Content, 400, 100));
+
+                newObjects.Add(ObjectPool.Create(new Vector2(1200, 660), Content, 400, 100));
+
+                foreach (GameObject go in gameObjects)
+                {
+                    if (go.Tag == "Platform" || go.Tag == "Wall")
+                    {
+                        objectsToRemove.Add(go);
+                        
+                    }
+                    if (go.Tag == "Player")
+                    {
+                        go.transform.position = new Vector2(400, 400);
+                        
+                    }
+                }
+                //Wall test
+
+            }
+            if (tileSet == 2)
+            {
+
+                newObjects.Add(ObjectPool.Create(new Vector2(0, 660), Content, 400, 100));
+
+
+
+                newObjects.Add(ObjectPool.Create(new Vector2(400, 660), Content, 400, 100));
+
+
+                newObjects.Add(ObjectPool.Create(new Vector2(800, 660), Content, 400, 100));
+
+                newObjects.Add(ObjectPool.Create(new Vector2(1200, 660), Content, 400, 100));
+
+                foreach (GameObject go in gameObjects)
+                {
+                    if (go.Tag == "Platform" || go.Tag == "Wall")
+                    {
+                        objectsToRemove.Add(go);
+                        
+                    }
+                    if (go.Tag == "Player")
+                    {
+                        go.transform.position = new Vector2(400, 400);
+                        
+                    }
+                }
+            }
+            if (tileSet == 3)
+            {
+
+                newObjects.Add(ObjectPool.Create(new Vector2(0, 660), Content, 400, 100));
+
+
+
+                newObjects.Add(ObjectPool.Create(new Vector2(400, 660), Content, 400, 100));
+
+
+                newObjects.Add(ObjectPool.Create(new Vector2(800, 660), Content, 400, 100));
+
+                newObjects.Add(ObjectPool.Create(new Vector2(1200, 660), Content, 400, 100));
+
+                foreach (GameObject go in gameObjects)
+                {
+                    if (go.Tag == "Platform" || go.Tag == "Wall")
+                    {
+                        objectsToRemove.Add(go);
+                        
+                    }
+                    if (go.Tag == "Player")
+                    {
+                        go.transform.position = new Vector2(400, 400);
+                        
+                    }
+                }
+            }
+        }
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
@@ -178,7 +299,11 @@ namespace It_is_a_scary_world
             {
                 go.Update();
             }
-
+            if (runTileset)
+            {
+                TileSet();
+                runTileset = false;
+            }
             base.Update(gameTime);
         }
         /// <summary>
@@ -256,6 +381,10 @@ namespace It_is_a_scary_world
                 {
                     gameObjects.Remove(go);
                     EnemyPool.ReleaseObject(go);
+                    ObjectPool.ReleaseObject(go);
+                    WallPool.ReleaseObject(go);
+                    BulletPool.ReleaseObject(go);
+                    DoorPool.ReleaseObject(go);
                 }
 
                 objectsToRemove.Clear();

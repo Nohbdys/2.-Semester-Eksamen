@@ -272,3 +272,7 @@ C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\Casper branch\2.-Semester-Eks
 C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\Casper branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\MainMenu.xnb
 C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\Casper branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\MainMenuLarge.xnb
 C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\Casper branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\PlayerSheet.png
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\MainMenu.xnb
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\MainMenuLarge.xnb
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\PlayerSheet.png
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\Door.png
