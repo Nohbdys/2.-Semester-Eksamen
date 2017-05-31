@@ -6,12 +6,13 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
 using System.Drawing;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace It_is_a_scary_world
 {
     enum DIRECTION { Front, Back, Left, Right };
 
-    class Player : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit, ICollisionStay
+    class Player : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit, ICollisionStay, IDrawable
     {
         private IStrategy strategy;
 
@@ -26,11 +27,12 @@ namespace It_is_a_scary_world
         //WallCollision
 
         //Jump
-        public bool doubleJump = true;
-        public int maxJump = 15;
+        public bool doubleJump = false;
         public int currentJump = 0;
         public int jumpTimer;
         //Jump
+
+        private SpriteFont mainMenuT;
 
         //test
         private bool platformCheck;
@@ -95,7 +97,8 @@ namespace It_is_a_scary_world
             animator.PlayAnimation("IdleLeft");
 
             strategy = new Idle(animator);
-        }
+            }
+
 
         public void Update()
         {
@@ -212,6 +215,9 @@ namespace It_is_a_scary_world
             //Sets up a reference to the palyer's animator
             animator = (Animator)gameObject.GetComponent("Animator");
 
+            mainMenuT = content.Load<SpriteFont>("MainMenu");
+        
+
             //We can make our animations when we have a reference to the player's animator.
             CreateAnimations();
         }
@@ -310,7 +316,16 @@ namespace It_is_a_scary_world
             }
             
         }
-        
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            if (GameWorld.Instance.currentGameState == GameState.InGame)
+            {
+                spriteBatch.DrawString(mainMenuT, "Health:" + health, new Vector2(10, 10), Color.Black);
+                spriteBatch.DrawString(mainMenuT, "Armor:" + armor, new Vector2(10, 30), Color.Black);
+                spriteBatch.DrawString(mainMenuT, "Exp:" + exp + " / " + (int)Math.Ceiling(expToLevel), new Vector2(10, 60), Color.Black);
+            }
+        }
     }
 }
 

@@ -65,6 +65,8 @@ namespace It_is_a_scary_world
         {
             if (gold >= weaponDamagePrice)
             {
+                weaponDamageUpgrade = true;
+
                 if (weaponDamagePriceUp == true)
                 {
                     gold -= weaponDamagePrice;
@@ -73,11 +75,12 @@ namespace It_is_a_scary_world
                     weaponDamagePrice += weaponDamagePrice * 1.25;
                     weaponDamagePriceUp = false;
                 }
-                weaponDamageUpgrade = true;
             }
 
             if (gold >= weaponAttackSpeedPrice)
             {
+                weaponAttackSpeedUpgrade = true;
+
                 if (weaponAttackSpeedPriceUp == true)
                 {
                     gold -= weaponAttackSpeedPrice;
@@ -86,11 +89,12 @@ namespace It_is_a_scary_world
                     weaponAttackSpeedPrice += weaponAttackSpeedPrice * 1.25;
                     weaponAttackSpeedPriceUp = false;
                 }
-                weaponAttackSpeedUpgrade = true;
             }
 
             if (gold >= playerHealthPrice)
             {
+                playerHealthUpgrade = true;
+
                 if (playerHealthPriceUp == true)
                 {
                     gold -= playerHealthPrice;
@@ -99,11 +103,12 @@ namespace It_is_a_scary_world
                     playerHealthPrice += playerHealthPrice * 1.25;
                     playerHealthPriceUp = false;
                 }
-                playerHealthUpgrade = true;
             }
 
             if (gold >= playerSpeedPrice)
             {
+                playerSpeedUpgrade = true;
+
                 if (playerSpeedPriceUp == true)
                 {
                     gold -= playerSpeedPrice;
@@ -112,7 +117,6 @@ namespace It_is_a_scary_world
                     playerSpeedPrice += playerSpeedPrice * 1.25;
                     playerSpeedPriceUp = false;
                 }
-                playerSpeedUpgrade = true;
             }
         }
     }

@@ -64,7 +64,7 @@ namespace It_is_a_scary_world
 
         private GameObject go;
 
-        GameState currentGameState = GameState.MainMenu;
+        public GameState currentGameState = GameState.MainMenu;
 
         public static GameWorld Instance
         {
@@ -105,41 +105,17 @@ namespace It_is_a_scary_world
 
             Colliders = new List<Collider>();
 
+            //Player
 
-            //test map
-            
-            //Adds a GameObject to the game
             Director director = new Director(new PlayerBuilder());
 
-            gameObjects.Add(director.Construct(new Vector2(500,0)));
-
-            //gameObjects.Add(EnemyPool.Create(new Vector2(400, 400), Content));
-
-            //Platforms
-            gameObjects.Add(ObjectPool.Create(new Vector2(0, 660), Content, 400, 100));
-           
-
+            gameObjects.Add(director.Construct(new Vector2(- 100, 0)));
             
-            gameObjects.Add(ObjectPool.Create(new Vector2(400, 660), Content, 400, 100));
-            
-
-            gameObjects.Add(ObjectPool.Create(new Vector2(800, 660), Content, 400, 100));
-
-            gameObjects.Add(ObjectPool.Create(new Vector2(800, 360), Content, 400, 100));
-
-            //Wall 
-            gameObjects.Add(WallPool.Create(new Vector2(1000, 360), Content, 100, 400));
-            gameObjects.Add(WallPool.Create(new Vector2(400, 360), Content, 50,600));
-            
-            //Weapon
-            Director weapon = new Director(new WeaponBuilder());
-
-            //gameObjects.Add(weapon.Construct(Vector2.Zero));
-
             //Shop
             Director shop = new Director(new ShopBuilder());
 
             gameObjects.Add(shop.Construct(new Vector2(0, 0)));
+
 
             base.Initialize();
         }
@@ -209,6 +185,13 @@ namespace It_is_a_scary_world
             //Builders
             Director director = new Director(new PlayerBuilder());
 
+            foreach (GameObject go in gameObjects)
+            {
+                if (go.Tag == "Player")
+                {
+                    (go.GetComponent("Player") as Player).gameObject.transform.position = new Vector2(500, 0);
+                }
+            }
 
             int tileSet = rnd.Next(1, 3);
             int lastRun = tileSet;
@@ -245,6 +228,7 @@ namespace It_is_a_scary_world
             }
             if (tileSet == 1)
             {
+
                 gameObjects.Add(ObjectPool.Create(new Vector2(0, 660), Content, 400, 100));
 
 
@@ -391,9 +375,10 @@ namespace It_is_a_scary_world
             //Menues and clickdelays
             #region MainMenu
 
+
             if (currentGameState == GameState.MainMenu)
-            {
-                menuMaxID = 3;
+                {
+                menuMaxID = 2;
                 if (keyState.IsKeyDown(Keys.Up) && menuTimer == 1 && options == false)
                 {
                     menuID -= 1;
@@ -410,52 +395,29 @@ namespace It_is_a_scary_world
                     if (menuID == 1)
                     {
                         currentGameState = GameState.InGame;
-                        //TileSet();
+                        TileSet();
                         clickDelay = 30;
                     }
 
-                    if (menuID == 2 && options == false)
-                    {
-                        options = true;
-                        clickDelay = 30;
-                    }
-
-                    if (menuID == 2 && options == true)
-                    {
-                        options = false;
-                        clickDelay = 30;
-                    }
-
-                    if (menuID == 3)
+                    if (menuID == 2)
                     {
                         Environment.Exit(0);
                     }
                 }
 
-                if (options == false)
-                {
                     //Skriver menu teksten ud til skræmen
                     if (menuID == 1)
                     {
                         spriteBatch.DrawString(mainMenuTL, "New Game", new Vector2(10, 10), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Options", new Vector2(10, 60), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Exit to desktop", new Vector2(10, 110), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Exit to desktop", new Vector2(10, 60), Color.Black);
                     }
 
                     if (menuID == 2)
                     {
                         spriteBatch.DrawString(mainMenuT, "New Game", new Vector2(10, 10), Color.Black);
-                        spriteBatch.DrawString(mainMenuTL, "Options", new Vector2(10, 60), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Exit to desktop", new Vector2(10, 110), Color.Black);
+                        spriteBatch.DrawString(mainMenuTL, "Exit to desktop", new Vector2(10, 60), Color.Black);
                     }
-
-                    if (menuID == 3)
-                    {
-                        spriteBatch.DrawString(mainMenuT, "New Game", new Vector2(10, 10), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Options", new Vector2(10, 60), Color.Black);
-                        spriteBatch.DrawString(mainMenuTL, "Exit to desktop", new Vector2(10, 110), Color.Black);
-                    }
-                }
+             
             }
 
             #endregion
