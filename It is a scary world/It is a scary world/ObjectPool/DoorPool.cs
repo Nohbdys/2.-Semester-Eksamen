@@ -8,52 +8,50 @@ using Microsoft.Xna.Framework.Content;
 
 namespace It_is_a_scary_world
 {
-    class WallPool
+    class DoorPool
     {
         private static List<GameObject> inactive = new List<GameObject>();
 
         private static List<GameObject> active = new List<GameObject>();
 
-        private static Director director = new Director(new WallBuilder());
+        private static Director director = new Director(new DoorBuilder());
 
         public static GameObject Create(Vector2 position, ContentManager content, int xSize, int ySize)
         {
             if (inactive.Count > 0)
             {
-                
-                GameObject wall = inactive[0];
-                active.Add(wall);
+                GameObject door = inactive[0];
+                active.Add(door);
                 inactive.RemoveAt(0);
-                
-                return wall; 
+
+                return door;
             }
             else
             {
 
-                GameObject wall = director.Construct(position);
+                GameObject door = director.Construct(position);
 
-                (wall.GetComponent("Wall") as Wall).LoadContent(content, xSize, ySize);
+                (door.GetComponent("Door") as Door).LoadContent(content, xSize, ySize);
 
-                wall.LoadContent(content);
+                door.LoadContent(content);
 
-                active.Add(wall);
+                active.Add(door);
 
-                return wall;
+                return door;
             }
         }
 
-        public static void ReleaseObject(GameObject wall)
+        public static void ReleaseObject(GameObject door)
         {
             CleanUp();
 
-            inactive.Add(wall);
+            inactive.Add(door);
 
-            active.Remove(wall);
+            active.Remove(door);
         }
 
         private static void CleanUp()
         {
-            
             //Reset data, remove references etc.
         }
     }

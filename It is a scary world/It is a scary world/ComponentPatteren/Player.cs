@@ -48,7 +48,7 @@ namespace It_is_a_scary_world
         /// </summary>
         private Animator animator;
 
-   //     public Vector2 position { get; set; }
+        //     public Vector2 position { get; set; }
 
         #region Stats (player)
         private int health = 1;
@@ -230,7 +230,7 @@ namespace It_is_a_scary_world
                 canMove = true;
             }
         }
-        
+
         public void OnCollisionEnter(Collider other)
         {
             //used to test (see) collision
@@ -239,25 +239,19 @@ namespace It_is_a_scary_world
             //Gives the players collisionbox
             Collider playerBox = (this.gameObject.GetComponent("Collider") as Collider);
 
-            if (other.gameObject.Tag == "Platform")
+
+            if (other.gameObject.Tag == "Door")
             {
-                //TopCollision
-                if (playerBox.CollisionBox.Bottom >= other.CollisionBox.Top)
-                {
-                    currentJump = 0;
-                    platformCheck = true;
-                    (go.GetComponent("Gravity") as Gravity).isFalling = false;
-                }
-                if (playerBox.CollisionBox.Y >= other.CollisionBox.Y)
-                {
-                    (go.GetComponent("Gravity") as Gravity).isFalling = true;
-                }
+
+                GameWorld.Instance.runTileset = true;
+                (go.GetComponent("Gravity") as Gravity).isFalling = true;
             }
+
         }
 
         public void OnCollisionExit(Collider other)
         {
-            
+
             if (other.gameObject.Tag == "Wall")
             {
                 rightWallCollision = false;
@@ -268,7 +262,9 @@ namespace It_is_a_scary_world
                 (go.GetComponent("Gravity") as Gravity).isFalling = true;
                 (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.White;
             }
-            
+
+
+
         }
 
         public void OnCollisionStay(Collider other)
@@ -314,7 +310,20 @@ namespace It_is_a_scary_world
                 leftWallCollision = false;
                 rightWallCollision = false;
             }
-            
+            if (other.gameObject.Tag == "Platform")
+            {
+                //TopCollision
+                if (transform.position.Y < other.gameObject.transform.position.Y)//.CollisionBox.Bottom >= other.CollisionBox.Top)
+                {
+                    currentJump = 0;
+                    platformCheck = true;
+                    (go.GetComponent("Gravity") as Gravity).isFalling = false;
+                }
+                if (playerBox.CollisionBox.Y >= other.CollisionBox.Y)
+                {
+                    (go.GetComponent("Gravity") as Gravity).isFalling = true;
+                }
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)

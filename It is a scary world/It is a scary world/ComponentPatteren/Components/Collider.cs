@@ -123,10 +123,8 @@ namespace It_is_a_scary_world
 
                     spriteRenderer.Sprite.GetData(0, animation.Rectangles[i], colors[i], 0, animation.Rectangles[i].Width * animation.Rectangles[i].Height);
                 }
-
                 tmpPixels.Add(pair.Key, colors);
             }
-
             return tmpPixels;
         }
 
@@ -178,7 +176,7 @@ namespace It_is_a_scary_world
 
                     //Get the color of both pixels at this point 
                     Color colorA = CurrentPixels[firstIndex];
-                    if (CollisionBox.Width < 100)
+                    if (other.CurrentPixels.Length -1 > secondIndex)
                     {
                         Color colorB = other.CurrentPixels[secondIndex];
 

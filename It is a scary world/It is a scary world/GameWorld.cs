@@ -6,13 +6,15 @@ using System;
 
 namespace It_is_a_scary_world
 {
-    public enum GameState { MainMenu, ShopMenu, InGame}
+    public enum GameState { MainMenu, ShopMenu, InGame }
 
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
     public class GameWorld : Game
     {
+        public bool runTileset;
+        private bool firstRun = true;
 
         GraphicsDeviceManager graphics;
 
@@ -26,7 +28,7 @@ namespace It_is_a_scary_world
         /// Creates a list of GameObjects
         /// </summary>
         /// 
-        
+
         public List<GameObject> gameObjects;
 
         private List<GameObject> newObjects;
@@ -40,8 +42,6 @@ namespace It_is_a_scary_world
         private bool addEnemy;
 
         private bool removeEnemy;
-
-        private bool firstRun;
 
         //Mainmenu
         private SpriteFont mainMenuT;
@@ -111,15 +111,281 @@ namespace It_is_a_scary_world
 
             gameObjects.Add(director.Construct(new Vector2(- 100, 0)));
             
-            //Shop
-            Director shop = new Director(new ShopBuilder());
-
-            gameObjects.Add(shop.Construct(new Vector2(0, 0)));
 
 
             base.Initialize();
         }
 
+        public void TileSet()
+        {
+
+            int tileSet = rnd.Next(1, 3);
+            int lastRun = tileSet;
+
+
+            //boundaries
+            gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 25, Window.ClientBounds.Bottom));
+            gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 25, Window.ClientBounds.Bottom));
+
+            //MapTiles
+            for (int i = 0; i < 15; i++)
+            {
+                gameObjects.Add(ObjectPool.Create(new Vector2(2000, 2000), Content, 300, 50));
+                gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 25, 50));
+            }
+            gameObjects.Add(DoorPool.Create(new Vector2(2000, 2000), Content, 11, 30));
+
+
+            //Wall test
+            //   gameObjects.Add(WallPool.Create(new Vector2(1000, 360), Content, 100, 400));
+            //   gameObjects.Add(WallPool.Create(new Vector2(400, 360), Content, 50, 600));
+
+            //ClientBounds
+
+
+
+            //Weapon
+            Director weapon = new Director(new WeaponBuilder());
+
+            base.Update(gameTime);
+        }
+        /// <summary>
+        /// Remove This Later. ITs a Note
+        /// </summary>
+
+        public void TileSet()
+        {
+            //Builders
+            Director director = new Director(new PlayerBuilder());
+
+            foreach (GameObject go in gameObjects)
+            {
+                if (go.Tag == "Player")
+                {
+                    (go.GetComponent("Player") as Player).gameObject.transform.position = new Vector2(500, 0);
+                }
+            }
+
+            int tileSet = rnd.Next(1, 3);
+            int lastRun = tileSet;
+
+            if (firstRun)
+            {
+                tileSet = 0;
+                firstRun = false;
+            }
+
+            //Shop
+            Director shop = new Director(new ShopBuilder());
+            if (lastRun == tileSet && !firstRun)
+            {
+                tileSet++;
+            }
+
+            if (tileSet == 0)
+            {
+                foreach (GameObject go in gameObjects)
+                {
+
+                    if (go.Tag == "Player")
+                    {
+                        go.transform.position = new Vector2(50, 200);
+                        break;
+                    }
+                }
+                int wallNummer = 1;
+                int platformNummer = 1;
+                foreach (GameObject go in gameObjects)
+                {
+
+                    if (go.Tag == "Platform")
+                    {
+                        switch (platformNummer)
+                        {
+                            case 1:
+                                go.transform.position = new Vector2(0, 200);
+                                break;
+                            case 2:
+                                go.transform.position = new Vector2(300, 200);
+                                break;
+                            case 3:
+                                go.transform.position = new Vector2(600, 200);
+                                break;
+                            case 4:
+                                go.transform.position = new Vector2(900, 200);
+                                break;
+                            case 5:
+                                go.transform.position = new Vector2(1200, 450);
+                                break;
+                            case 6:
+                                go.transform.position = new Vector2(900, 450);
+                                break;
+                            case 7:
+                                go.transform.position = new Vector2(600, 450);
+                                break;
+                            case 8:
+                                go.transform.position = new Vector2(300, 450);
+                                break;
+                            case 9:
+                                go.transform.position = new Vector2(0, 725);
+                                break;
+                            case 10:
+                                go.transform.position = new Vector2(300, 725);
+                                break;
+                            case 11:
+                                go.transform.position = new Vector2(600, 725);
+                                break;
+                            case 12:
+                                go.transform.position = new Vector2(900, 725);
+                                break;
+                            case 13:
+                                go.transform.position = new Vector2(1200, 725);
+                                break;
+
+
+                            default:
+                                break;
+                        }
+                        platformNummer++;
+
+
+                    }
+                    if (go.Tag == "Wall")
+                    {
+
+                        switch (wallNummer)
+                        {
+                            case 1:
+                                go.transform.position = new Vector2(0, 0);
+                                break;
+
+                            case 2:
+                                go.transform.position = new Vector2(1380, 0);
+                                break;
+
+                            case 3:
+                                go.transform.position = new Vector2(1176, 200);
+                                break;
+                            case 4:
+                                go.transform.position = new Vector2(298, 450);
+                                break;
+
+                            case 5:
+                                go.transform.position = new Vector2(00, 725);
+                                break;
+
+
+
+
+                            default:
+                                break;
+                        }
+                       
+                        wallNummer++;
+
+
+                    }
+                }
+
+
+
+
+
+
+
+                //    gameObjects.Add(WallPool.Create(new Vector2(1000, 360), Content));
+
+            }
+            if (tileSet == 1)
+            {
+
+                newObjects.Add(ObjectPool.Create(new Vector2(0, 660), Content, 400, 100));
+
+
+
+                newObjects.Add(ObjectPool.Create(new Vector2(400, 660), Content, 400, 100));
+
+
+                newObjects.Add(ObjectPool.Create(new Vector2(800, 660), Content, 400, 100));
+
+                newObjects.Add(ObjectPool.Create(new Vector2(1200, 660), Content, 400, 100));
+
+                foreach (GameObject go in gameObjects)
+                {
+                    if (go.Tag == "Platform" || go.Tag == "Wall")
+                    {
+                        go.transform.position = new Vector2(400, 400);
+
+                    }
+                    if (go.Tag == "Player")
+                    {
+                        go.transform.position = new Vector2(400, 400);
+
+                    }
+                }
+                //Wall test
+
+            }
+            if (tileSet == 2)
+            {
+
+                newObjects.Add(ObjectPool.Create(new Vector2(0, 660), Content, 400, 100));
+
+
+
+                newObjects.Add(ObjectPool.Create(new Vector2(400, 660), Content, 400, 100));
+
+
+                newObjects.Add(ObjectPool.Create(new Vector2(800, 660), Content, 400, 100));
+
+                newObjects.Add(ObjectPool.Create(new Vector2(1200, 660), Content, 400, 100));
+
+                foreach (GameObject go in gameObjects)
+                {
+                    if (go.Tag == "Platform" || go.Tag == "Wall")
+                    {
+                        objectsToRemove.Add(go);
+
+                    }
+                    if (go.Tag == "Player")
+                    {
+                        go.transform.position = new Vector2(400, 400);
+
+                    }
+                }
+            }
+            if (tileSet == 3)
+            {
+
+                newObjects.Add(ObjectPool.Create(new Vector2(0, 660), Content, 400, 100));
+
+
+
+                newObjects.Add(ObjectPool.Create(new Vector2(400, 660), Content, 400, 100));
+
+
+                newObjects.Add(ObjectPool.Create(new Vector2(800, 660), Content, 400, 100));
+
+                newObjects.Add(ObjectPool.Create(new Vector2(1200, 660), Content, 400, 100));
+
+                foreach (GameObject go in gameObjects)
+                {
+                    if (go.Tag == "Platform" || go.Tag == "Wall")
+                    {
+                        objectsToRemove.Add(go);
+
+                    }
+                    if (go.Tag == "Player")
+                    {
+                        go.transform.position = new Vector2(400, 400);
+
+                    }
+                }
+            }
+            gameObjects.Add(shop.Construct(new Vector2(0, 0)));
+
+            base.Initialize();
+        }
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
@@ -173,109 +439,18 @@ namespace It_is_a_scary_world
             {
                 go.Update();
             }
-
+            if (runTileset)
+            {
+                TileSet();
+                runTileset = false;
+            }
             base.Update(gameTime);
         }
         /// <summary>
         /// Remove This Later. ITs a Note
         /// </summary>
 
-        public void TileSet()
-        {
-            //Builders
-            Director director = new Director(new PlayerBuilder());
 
-            foreach (GameObject go in gameObjects)
-            {
-                if (go.Tag == "Player")
-                {
-                    (go.GetComponent("Player") as Player).gameObject.transform.position = new Vector2(500, 0);
-                }
-            }
-
-            int tileSet = rnd.Next(1, 3);
-            int lastRun = tileSet;
-
-            if (firstRun)
-            {
-                tileSet = 0;
-                firstRun = false;
-            }
-
-            if (lastRun == tileSet && !firstRun)
-            {
-                tileSet++;
-            }
-
-            if (tileSet == 0)
-            {
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(400, 450), Content, 1050, 50));
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(0, 200), Content, 1050, 50));
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(00, 700), Content, 1050, 50));
-
-
-                gameObjects.Add(director.Construct(new Vector2(500, 0)));
-
-
-                //ClientBounds
-                gameObjects.Add(WallPool.Create(new Vector2(0, 0), Content, 25, 50));
-                gameObjects.Add(WallPool.Create(new Vector2(0, 200), Content, 25, Window.ClientBounds.Bottom));
-
-
-            }
-            if (tileSet == 1)
-            {
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(0, 660), Content, 400, 100));
-
-
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(400, 660), Content, 400, 100));
-
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(800, 660), Content, 400, 100));
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(1200, 660), Content, 400, 100));
-
-
-                //Wall test
-
-            }
-            if (tileSet == 2)
-            {
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(0, 660), Content, 400, 100));
-
-
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(400, 660), Content, 400, 100));
-
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(800, 660), Content, 400, 100));
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(1200, 660), Content, 400, 100));
-
-            }
-            if (tileSet == 3)
-            {
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(0, 660), Content, 400, 100));
-
-
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(400, 660), Content, 400, 100));
-
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(800, 660), Content, 400, 100));
-
-                gameObjects.Add(ObjectPool.Create(new Vector2(1200, 660), Content, 400, 100));
-
-
-            }
-        }
 
         private void SpawnEnemy()
         {
@@ -290,12 +465,12 @@ namespace It_is_a_scary_world
             {
                 addEnemy = true;
             }
-            
 
-                
+
+
             if (Keyboard.GetState().IsKeyDown(Keys.N) && removeEnemy)
             {
-                
+
                 foreach (GameObject go in gameObjects)
                 {
                     if (go.Tag == "Enemy")
@@ -348,6 +523,10 @@ namespace It_is_a_scary_world
                 {
                     gameObjects.Remove(go);
                     EnemyPool.ReleaseObject(go);
+                    ObjectPool.ReleaseObject(go);
+                    WallPool.ReleaseObject(go);
+                    BulletPool.ReleaseObject(go);
+                    DoorPool.ReleaseObject(go);
                 }
 
                 objectsToRemove.Clear();
@@ -449,199 +628,199 @@ namespace It_is_a_scary_world
                     if (go.Tag == "Shop")
                     {
 
-                #region ShopMenu Standard(actions)
+                        #region ShopMenu Standard(actions)
                         if (keyState.IsKeyDown(Keys.Enter) && clickDelay == 0 && upgradePlayer == false && upgradeWeapon == false)
-                {
-                    if (menuID == 1 && upgradeWeapon == false)
-                    {
-                        menuID = 1;
-                        menuMaxID = 3;
-                        upgradeWeapon = true;
-                        clickDelay = 30;
-                    }
-
-                    if (menuID == 2 && upgradePlayer == false)
-                    {
-                        menuID = 1;
-                        menuMaxID = 4;
-                        upgradePlayer = true;
-                        clickDelay = 30;
-                    }
-
-                    if (menuID == 3)
-                    {
-                        currentGameState = GameState.InGame;
-                        shopState = false;
-                    }
-                }
-                #endregion
-
-                #region UpgradePlayer Menu (actions)
-                if (keyState.IsKeyDown(Keys.Enter) && clickDelay == 0 && upgradePlayer == true)
-                {
-                    if (menuID == 1)
-                    {
-                        clickDelay = 30;
-                        if ((go.GetComponent("Shop") as Shop).playerHealthUpgrade == true)
                         {
-                            (go.GetComponent("Shop") as Shop).playerHealthPriceUp = true;
+                            if (menuID == 1 && upgradeWeapon == false)
+                            {
+                                menuID = 1;
+                                menuMaxID = 3;
+                                upgradeWeapon = true;
+                                clickDelay = 30;
+                            }
+
+                            if (menuID == 2 && upgradePlayer == false)
+                            {
+                                menuID = 1;
+                                menuMaxID = 4;
+                                upgradePlayer = true;
+                                clickDelay = 30;
+                            }
+
+                            if (menuID == 3)
+                            {
+                                currentGameState = GameState.InGame;
+                                shopState = false;
+                            }
                         }
-                    }
+                        #endregion
 
-                    if (menuID == 2)
-                    {
-                        clickDelay = 30;
-                    }
-
-                    if (menuID == 3)
-                    {
-                        clickDelay = 30;
-                        if ((go.GetComponent("Shop") as Shop).playerSpeedUpgrade == true)
+                        #region UpgradePlayer Menu (actions)
+                        if (keyState.IsKeyDown(Keys.Enter) && clickDelay == 0 && upgradePlayer == true)
                         {
-                            (go.GetComponent("Shop") as Shop).playerSpeedPriceUp = true;
+                            if (menuID == 1)
+                            {
+                                clickDelay = 30;
+                                if ((go.GetComponent("Shop") as Shop).playerHealthUpgrade == true)
+                                {
+                                    (go.GetComponent("Shop") as Shop).playerHealthPriceUp = true;
+                                }
+                            }
+
+                            if (menuID == 2)
+                            {
+                                clickDelay = 30;
+                            }
+
+                            if (menuID == 3)
+                            {
+                                clickDelay = 30;
+                                if ((go.GetComponent("Shop") as Shop).playerSpeedUpgrade == true)
+                                {
+                                    (go.GetComponent("Shop") as Shop).playerSpeedPriceUp = true;
+                                }
+                            }
+
+                            if (menuID == 4)
+                            {
+                                menuID = 1;
+                                menuMaxID = 3;
+                                clickDelay = 30;
+                                upgradePlayer = false;
+                            }
                         }
-                    }
+                        #endregion
 
-                    if (menuID == 4)
-                    {
-                        menuID = 1;
-                        menuMaxID = 3;
-                        clickDelay = 30;
-                        upgradePlayer = false;
-                    }
-                }
-                #endregion
-
-                #region UpgradeWeapon Menu (actions)
-                if (keyState.IsKeyDown(Keys.Enter) && clickDelay == 0 && upgradeWeapon == true)
-                {
-                    if (menuID == 1)
-                    {
-                        clickDelay = 30;
-                        if ((go.GetComponent("Shop") as Shop).weaponDamageUpgrade == true)
+                        #region UpgradeWeapon Menu (actions)
+                        if (keyState.IsKeyDown(Keys.Enter) && clickDelay == 0 && upgradeWeapon == true)
                         {
-                            (go.GetComponent("Shop") as Shop).weaponDamagePriceUp = true;
-                        }
-                    }
+                            if (menuID == 1)
+                            {
+                                clickDelay = 30;
+                                if ((go.GetComponent("Shop") as Shop).weaponDamageUpgrade == true)
+                                {
+                                    (go.GetComponent("Shop") as Shop).weaponDamagePriceUp = true;
+                                }
+                            }
 
-                    if (menuID == 2)
-                    {
-                        clickDelay = 30;
-                        if ((go.GetComponent("Shop") as Shop).weaponAttackSpeedUpgrade == true)
+                            if (menuID == 2)
+                            {
+                                clickDelay = 30;
+                                if ((go.GetComponent("Shop") as Shop).weaponAttackSpeedUpgrade == true)
+                                {
+                                    (go.GetComponent("Shop") as Shop).weaponAttackSpeedPriceUp = true;
+                                }
+                            }
+
+                            if (menuID == 3)
+                            {
+                                menuID = 1;
+                                menuMaxID = 3;
+                                clickDelay = 30;
+                                upgradeWeapon = false;
+                            }
+                        }
+                        #endregion
+
+                        #region ShopMenu (standard)
+                        if (upgradePlayer == false && upgradeWeapon == false)
                         {
-                            (go.GetComponent("Shop") as Shop).weaponAttackSpeedPriceUp = true;
+                            if (menuID == 1)
+                            {
+                                spriteBatch.DrawString(mainMenuTL, "Upgrade Weapon", new Vector2(10, 10), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade Player", new Vector2(10, 60), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Close shop", new Vector2(10, 110), Color.Black);
+                            }
+
+                            if (menuID == 2)
+                            {
+                                spriteBatch.DrawString(mainMenuT, "Upgrade Weapon", new Vector2(10, 10), Color.Black);
+                                spriteBatch.DrawString(mainMenuTL, "Upgrade Player", new Vector2(10, 60), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Close shop", new Vector2(10, 110), Color.Black);
+                            }
+
+                            if (menuID == 3)
+                            {
+                                spriteBatch.DrawString(mainMenuT, "Upgrade Weapon", new Vector2(10, 10), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade Player", new Vector2(10, 60), Color.Black);
+                                spriteBatch.DrawString(mainMenuTL, "Close shop", new Vector2(10, 110), Color.Black);
+                            }
                         }
-                    }
+                        #endregion
 
-                    if (menuID == 3)
-                    {
-                        menuID = 1;
-                        menuMaxID = 3;
-                        clickDelay = 30;
-                        upgradeWeapon = false;
-                    }
-                }
-                #endregion
+                        #region UpgradePlayer menu
+                        if (upgradePlayer == true)
+                        {
+                            if (menuID == 1)
+                            {
+                                spriteBatch.DrawString(mainMenuT, "  -- Player --", new Vector2(10, 10), Color.Black);
+                                spriteBatch.DrawString(mainMenuTL, "Upgrade Health", new Vector2(10, 100), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade Damage", new Vector2(10, 160), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade Speed", new Vector2(10, 210), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Back", new Vector2(10, 260), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Price:" + ((go.GetComponent("Shop") as Shop).playerHealthPrice), new Vector2(10, 60), Color.Black);
+                            }
 
-                #region ShopMenu (standard)
-                if (upgradePlayer == false && upgradeWeapon == false)
-                {
-                    if (menuID == 1)
-                    {
-                        spriteBatch.DrawString(mainMenuTL, "Upgrade Weapon", new Vector2(10, 10), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Upgrade Player", new Vector2(10, 60), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Close shop", new Vector2(10, 110), Color.Black);
-                    }
+                            if (menuID == 2)
+                            {
+                                spriteBatch.DrawString(mainMenuT, "  -- Player --", new Vector2(10, 10), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade Health", new Vector2(10, 100), Color.Black);
+                                spriteBatch.DrawString(mainMenuTL, "Upgrade Damage", new Vector2(10, 160), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade Speed", new Vector2(10, 210), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Back", new Vector2(10, 260), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Price:", new Vector2(10, 60), Color.Black);
+                            }
 
-                    if (menuID == 2)
-                    {
-                        spriteBatch.DrawString(mainMenuT, "Upgrade Weapon", new Vector2(10, 10), Color.Black);
-                        spriteBatch.DrawString(mainMenuTL, "Upgrade Player", new Vector2(10, 60), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Close shop", new Vector2(10, 110), Color.Black);
-                    }
+                            if (menuID == 3)
+                            {
+                                spriteBatch.DrawString(mainMenuT, "  -- Player --", new Vector2(10, 10), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade Health", new Vector2(10, 100), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade Damage", new Vector2(10, 160), Color.Black);
+                                spriteBatch.DrawString(mainMenuTL, "Upgrade Speed", new Vector2(10, 210), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Back", new Vector2(10, 260), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Price:" + ((go.GetComponent("Shop") as Shop).playerSpeedPrice), new Vector2(10, 60), Color.Black);
+                            }
+                            if (menuID == 4)
+                            {
+                                spriteBatch.DrawString(mainMenuT, "  -- Player --", new Vector2(10, 10), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade Health", new Vector2(10, 100), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade Damage", new Vector2(10, 160), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade Speed", new Vector2(10, 210), Color.Black);
+                                spriteBatch.DrawString(mainMenuTL, "Back", new Vector2(10, 260), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Price:", new Vector2(10, 60), Color.Black);
+                            }
+                        }
+                        #endregion
 
-                    if (menuID == 3)
-                    {
-                        spriteBatch.DrawString(mainMenuT, "Upgrade Weapon", new Vector2(10, 10), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Upgrade Player", new Vector2(10, 60), Color.Black);
-                        spriteBatch.DrawString(mainMenuTL, "Close shop", new Vector2(10, 110), Color.Black);
-                    }
-                }
-                #endregion
+                        #region UpgradeWeapon Menu
+                        if (upgradeWeapon == true)
+                        {
+                            if (menuID == 1)
+                            {
+                                spriteBatch.DrawString(mainMenuT, "  -- Weapon --", new Vector2(10, 10), Color.Black);
+                                spriteBatch.DrawString(mainMenuTL, "Upgrade Damage", new Vector2(10, 110), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade AttackSpeed", new Vector2(10, 160), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Back", new Vector2(10, 210), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Price:" + ((go.GetComponent("Shop") as Shop).weaponDamagePrice), new Vector2(10, 60), Color.Black);
+                            }
 
-                #region UpgradePlayer menu
-                if (upgradePlayer == true)
-                {
-                    if (menuID == 1)
-                    {
-                        spriteBatch.DrawString(mainMenuT, "  -- Player --", new Vector2(10, 10), Color.Black);
-                        spriteBatch.DrawString(mainMenuTL, "Upgrade Health", new Vector2(10, 100), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Upgrade Damage", new Vector2(10, 160), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Upgrade Speed", new Vector2(10, 210), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Back", new Vector2(10, 260), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Price:" + ((go.GetComponent("Shop") as Shop).playerHealthPrice), new Vector2(10, 60), Color.Black);
-                    }
-
-                    if (menuID == 2)
-                    {
-                        spriteBatch.DrawString(mainMenuT, "  -- Player --", new Vector2(10, 10), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Upgrade Health", new Vector2(10, 100), Color.Black);
-                        spriteBatch.DrawString(mainMenuTL, "Upgrade Damage", new Vector2(10, 160), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Upgrade Speed", new Vector2(10, 210), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Back", new Vector2(10, 260), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Price:", new Vector2(10, 60), Color.Black);
-                    }
-
-                    if (menuID == 3)
-                    {
-                        spriteBatch.DrawString(mainMenuT, "  -- Player --", new Vector2(10, 10), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Upgrade Health", new Vector2(10, 100), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Upgrade Damage", new Vector2(10, 160), Color.Black);
-                        spriteBatch.DrawString(mainMenuTL, "Upgrade Speed", new Vector2(10, 210), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Back", new Vector2(10, 260), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Price:" + ((go.GetComponent("Shop") as Shop).playerSpeedPrice), new Vector2(10, 60), Color.Black);
-                    }
-                    if (menuID == 4)
-                    {
-                        spriteBatch.DrawString(mainMenuT, "  -- Player --", new Vector2(10, 10), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Upgrade Health", new Vector2(10, 100), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Upgrade Damage", new Vector2(10, 160), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Upgrade Speed", new Vector2(10, 210), Color.Black);
-                        spriteBatch.DrawString(mainMenuTL, "Back", new Vector2(10, 260), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Price:", new Vector2(10, 60), Color.Black);
-                    }
-                }
-                #endregion
-
-                #region UpgradeWeapon Menu
-                if (upgradeWeapon == true)
-                {
-                    if (menuID == 1)
-                    {
-                        spriteBatch.DrawString(mainMenuT, "  -- Weapon --", new Vector2(10, 10), Color.Black);
-                        spriteBatch.DrawString(mainMenuTL, "Upgrade Damage", new Vector2(10, 110), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Upgrade AttackSpeed", new Vector2(10, 160), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Back", new Vector2(10, 210), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Price:" + ((go.GetComponent("Shop") as Shop).weaponDamagePrice), new Vector2(10, 60), Color.Black);
-                    }
-
-                    if (menuID == 2)
-                    {
-                        spriteBatch.DrawString(mainMenuT, "  -- Weapon --", new Vector2(10, 10), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Upgrade Damage", new Vector2(10, 110), Color.Black);
-                        spriteBatch.DrawString(mainMenuTL, "Upgrade AttackSpeed", new Vector2(10, 160), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Back", new Vector2(10, 210), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Price:" + ((go.GetComponent("Shop") as Shop).weaponAttackSpeedPrice), new Vector2(10, 60), Color.Black);
-                    }
-                    if (menuID == 3)
-                    {
-                        spriteBatch.DrawString(mainMenuT, "  -- Weapon --", new Vector2(10, 10), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Upgrade Damage", new Vector2(10, 110), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Upgrade AttackSpeed", new Vector2(10, 160), Color.Black);
-                        spriteBatch.DrawString(mainMenuTL, "Back", new Vector2(10, 210), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Price:", new Vector2(10, 60), Color.Black);
-                    }
-                }
+                            if (menuID == 2)
+                            {
+                                spriteBatch.DrawString(mainMenuT, "  -- Weapon --", new Vector2(10, 10), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade Damage", new Vector2(10, 110), Color.Black);
+                                spriteBatch.DrawString(mainMenuTL, "Upgrade AttackSpeed", new Vector2(10, 160), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Back", new Vector2(10, 210), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Price:" + ((go.GetComponent("Shop") as Shop).weaponAttackSpeedPrice), new Vector2(10, 60), Color.Black);
+                            }
+                            if (menuID == 3)
+                            {
+                                spriteBatch.DrawString(mainMenuT, "  -- Weapon --", new Vector2(10, 10), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade Damage", new Vector2(10, 110), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade AttackSpeed", new Vector2(10, 160), Color.Black);
+                                spriteBatch.DrawString(mainMenuTL, "Back", new Vector2(10, 210), Color.Black);
+                                spriteBatch.DrawString(mainMenuT, "Price:", new Vector2(10, 60), Color.Black);
+                            }
+                        }
                         #endregion
 
                     }
