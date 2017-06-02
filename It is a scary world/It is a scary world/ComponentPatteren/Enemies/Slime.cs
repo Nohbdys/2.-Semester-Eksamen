@@ -17,6 +17,7 @@ namespace It_is_a_scary_world
 
         private GameObject player;
 
+
         private IStrategy strategy;
 
         private int platformTimer;
@@ -106,6 +107,7 @@ namespace It_is_a_scary_world
 
             strategy.Execute(ref direction);
             #endregion
+
         }
 
         public void OnCollisionExit(Collider other)

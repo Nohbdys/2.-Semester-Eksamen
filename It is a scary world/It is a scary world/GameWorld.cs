@@ -122,8 +122,10 @@ namespace It_is_a_scary_world
 
         public void TileSet()
         {
-
-
+            int tileSet;
+            int lastRun;
+            tileSet = rnd.Next(1, 3);
+            lastRun = 1;
 
 
             
@@ -637,8 +639,9 @@ namespace It_is_a_scary_world
 
             SpawnEnemy();
             UpdateMouse();
-
-
+            ShopMenu.ShopUpgradeCheck();
+            
+            
             //Updates all GameObjects
             foreach (GameObject go in gameObjects)
             {

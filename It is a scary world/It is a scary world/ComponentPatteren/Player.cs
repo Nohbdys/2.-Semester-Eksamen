@@ -58,7 +58,7 @@ namespace It_is_a_scary_world
         private int level = 1;
         private int levelReward;
         private bool checkLevelReward;
-        public int damage = 100;
+        public int damage { get; set; } = 100;
         public float movementSpeed { get; set; } = 100;
         #endregion
 
