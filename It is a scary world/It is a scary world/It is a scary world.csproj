@@ -120,6 +120,9 @@
     <Content Include="Content\PlayerSheet.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Shopkeeper.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\SkeletonWalk.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

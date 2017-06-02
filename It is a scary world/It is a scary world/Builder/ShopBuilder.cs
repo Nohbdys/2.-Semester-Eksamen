@@ -15,11 +15,13 @@ namespace It_is_a_scary_world
         {
             gameObject = new GameObject();
 
-            gameObject.AddComponent(new SpriteRenderer(gameObject, "Katana", 1));
+            gameObject.AddComponent(new SpriteRenderer(gameObject, "Shopkeeper", 1));
 
             gameObject.AddComponent(new Animator(gameObject));
 
             gameObject.AddComponent(new Shop(gameObject, gameObject.transform));
+
+            gameObject.AddComponent(new Collider(gameObject));
 
             gameObject.transform.position = position;
 

@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace It_is_a_scary_world
 {
-    class Shop : Component, IUpdateable, ILoadable
+    class Shop : Component, IUpdateable, ILoadable, ICollisionStay, ICollisionExit
     {
         //Make them to players stats
         public double gold = 1000;
@@ -34,6 +34,7 @@ namespace It_is_a_scary_world
         public bool playerHealthUpgrade;
         public bool playerSpeedUpgrade;
 
+        public bool shopActive = false;
 
         private IStrategy strategy;
 
@@ -52,9 +53,9 @@ namespace It_is_a_scary_world
         {
             animator = (Animator)gameObject.GetComponent("Animator");
 
-            Texture2D sprite = content.Load<Texture2D>("Katana");
+            Texture2D sprite = content.Load<Texture2D>("Shopkeeper");
 
-            animator.CreateAnimation("IdleFront", new Animation(1, 0, 0, 10, 10, 0, Vector2.Zero, sprite));
+            animator.CreateAnimation("IdleFront", new Animation(1, 0, 0, 165, 190, 0, Vector2.Zero, sprite));
 
             animator.PlayAnimation("IdleFront");
 
@@ -117,6 +118,30 @@ namespace It_is_a_scary_world
                     playerSpeedPrice += playerSpeedPrice * 1.25;
                     playerSpeedPriceUp = false;
                 }
+            }
+        }
+
+        public void OnCollisionEnter(Collider other)
+        {
+            if (other.gameObject.Tag == "Player")
+            {
+                shopActive = true;
+            }
+        }
+
+        public void OnCollisionExit(Collider other)
+        {
+            if (other.gameObject.Tag == "Player")
+            {
+                shopActive = false;
+            }
+        }
+
+        public void OnCollisionStay(Collider other)
+        {
+            if (other.gameObject.Tag == "Player")
+            {
+                shopActive = true;
             }
         }
     }
