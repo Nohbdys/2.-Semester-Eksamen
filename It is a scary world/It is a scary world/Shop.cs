@@ -14,7 +14,7 @@ namespace It_is_a_scary_world
         //Make them to players stats
         public double gold = 1000;
 
-        private int weaponDamageLevel = 1;
+        public int weaponDamageLevel = 1;
         private int weaponAttackSpeedLevel = 1;
         private int playerHealthLevel = 1;
         private int playerSpeedLevel = 1;

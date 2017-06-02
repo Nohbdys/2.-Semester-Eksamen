@@ -142,6 +142,13 @@ namespace It_is_a_scary_world
                     (other.gameObject.GetComponent("Player") as Player).armor -= 1;
                 }
             }
+            if (other.gameObject.Tag == "Platform")
+            {
+                (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
+                (this.gameObject.GetComponent("Gravity") as Gravity).grounded = true;
+                (this.gameObject.GetComponent("Gravity") as Gravity).isFalling = false;
+                platformTimer = 5;
+            }
         }
 
         
