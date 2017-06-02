@@ -318,3 +318,11 @@ C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\2.-Semester-E
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\PlayerSheet.png
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\Fireball.png
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\SkeletonWalk.png
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\MainMenu.xnb
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\MainMenuLarge.xnb
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\Door.png
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\Fireball.png
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\PlayerSheet.png
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\SkeletonWalk.png
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\It is a scary world.exe.config
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\System.Data.SQLite.dll

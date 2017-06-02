@@ -13,6 +13,8 @@ namespace It_is_a_scary_world
     /// </summary>
     public class GameWorld : Game
     {
+        Database database = new Database();
+
         public bool runTileset;
         private bool firstRun = true;
 
@@ -96,6 +98,8 @@ namespace It_is_a_scary_world
         /// </summary>
         protected override void Initialize()
         {
+            //Creates and sets up the databases
+            database.databaseSetup();
             // TODO: Add your initialization logic here
             gameObjects = new List<GameObject>();
 
@@ -109,7 +113,7 @@ namespace It_is_a_scary_world
 
             Director director = new Director(new PlayerBuilder());
 
-            gameObjects.Add(director.Construct(new Vector2(- 100, 0)));
+            gameObjects.Add(director.Construct(new Vector2(-100, 0)));
 
             //Shop
             Director shop = new Director(new ShopBuilder());
@@ -124,21 +128,12 @@ namespace It_is_a_scary_world
         {
 
 
+            int tileSet = rnd.Next(1, 3);
+            int lastRun = tileSet;
 
 
-            
-            //boundaries
-            gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 25, Window.ClientBounds.Bottom));
-            gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 25, Window.ClientBounds.Bottom));
 
-            //MapTiles
-            for (int i = 0; i < 15; i++)
-            {
-                gameObjects.Add(ObjectPool.Create(new Vector2(2000, 2000), Content, 300, 50));
-                gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 25, 48));
-            }
-            gameObjects.Add(DoorPool.Create(new Vector2(2000, 2000), Content, 11, 30));
-            
+
 
 
             //Wall test
@@ -162,14 +157,33 @@ namespace It_is_a_scary_world
             {
                 tileSet = 0;
                 firstRun = false;
+
+                //boundaries
+                gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 25, Window.ClientBounds.Bottom));
+                gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 25, Window.ClientBounds.Bottom));
+
+                //MapTiles
+                for (int i = 0; i < 15; i++)
+                {
+                    gameObjects.Add(ObjectPool.Create(new Vector2(2000, 2000), Content, 300, 50));
+                    gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 25, 48));
+                }
+                gameObjects.Add(DoorPool.Create(new Vector2(2000, 2000), Content, 11, 30));
+
+                for (int i = 0; i < 10; i++)
+                {
+                    gameObjects.Add(BulletPool.Create(new Vector2(2000, 2000), Content));
+                }
+
             }
 
             //Shop
             Director shop = new Director(new ShopBuilder());
-            if (lastRun == tileSet && !firstRun)
+            while (lastRun == tileSet && !firstRun)
             {
-                tileSet++;
+                tileSet = rnd.Next(1,3);
             }
+
 
             if (tileSet == 0)
             {
@@ -274,13 +288,13 @@ namespace It_is_a_scary_world
                     }
                     if (go.Tag == "Door")
                     {
-                        go.transform.position = new Vector2(100, 690);
+                        go.transform.position = new Vector2(100, 50);
                     }
 
                 }
 
                 //    gameObjects.Add(WallPool.Create(new Vector2(1000, 360), Content));
-
+                firstRun = false;
             }
             if (tileSet == 1)
             {
@@ -295,13 +309,13 @@ namespace It_is_a_scary_world
                         switch (platformNummer)
                         {
                             case 1:
-                                go.transform.position = new Vector2(0, 200);
+                                go.transform.position = new Vector2(1200, 200);
                                 break;
                             case 2:
-                                go.transform.position = new Vector2(300, 200);
+                                go.transform.position = new Vector2(0, 200);
                                 break;
                             case 3:
-                                go.transform.position = new Vector2(600, 200);
+                                go.transform.position = new Vector2(500, 400);
                                 break;
                             case 4:
                                 go.transform.position = new Vector2(900, 200);
@@ -662,7 +676,7 @@ namespace It_is_a_scary_world
 
             if (Keyboard.GetState().IsKeyDown(Keys.M) && addEnemy)
             {
-                newObjects.Add(EnemyPool.Create(new Vector2( 400,  100), Content));
+                newObjects.Add(EnemyPool.Create(new Vector2(400, 100), Content));
 
                 addEnemy = false;
             }
@@ -701,7 +715,7 @@ namespace It_is_a_scary_world
         {
             foreach (GameObject go in gameObjects)
             {
-                
+                /*
                 if (go.Tag == "Player")
                 {
                     float x = (go.GetComponent("Player") as Player).gameObject.transform.position.X + 20 / 2; //The attack's position on the X-axis, based on the Player object's position (should be in the middle)
@@ -710,14 +724,18 @@ namespace It_is_a_scary_world
                     newObjects.Add(BulletPool.Create(new Vector2(x, y), Content));
                     break;
                 }
-                
-                /*
+                */
+
                 if (go.Tag == "Bullet")
                 {
-                    (go.GetComponent("Bullet") as Projectiles).gameObject.transform.position = new Vector2(0, 0);
+                    float x = (go.GetComponent("Player") as Player).gameObject.transform.position.X + 20 / 2; //The attack's position on the X-axis, based on the Player object's position (should be in the middle)
+                    float y = (go.GetComponent("Player") as Player).gameObject.transform.position.Y + 10; //The attack's position on the Y-axis, based on the Player object's position (Edit last number to place it probably based on the Player object's sprite)
+
+                    newObjects.Add(BulletPool.Create(new Vector2(x, y), Content));
+                    (go.GetComponent("Bullet") as Projectiles).gameObject.transform.position = new Vector2(x, y);
                     break;
                 }
-                */
+
             }
 
         }
@@ -763,7 +781,7 @@ namespace It_is_a_scary_world
 
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-           
+
 
 
             //Menues and clickdelays
@@ -801,16 +819,16 @@ namespace It_is_a_scary_world
                 spriteBatch.Begin();
                 //Skriver menu teksten ud til skræmen
                 if (menuID == 1)
-                    {
-                        spriteBatch.DrawString(mainMenuTL, "New Game", new Vector2(10, 10), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Exit to desktop", new Vector2(10, 60), Color.Black);
-                    }
+                {
+                    spriteBatch.DrawString(mainMenuTL, "New Game", new Vector2(10, 10), Color.Black);
+                    spriteBatch.DrawString(mainMenuT, "Exit to desktop", new Vector2(10, 60), Color.Black);
+                }
 
-                    if (menuID == 2)
-                    {
-                        spriteBatch.DrawString(mainMenuT, "New Game", new Vector2(10, 10), Color.Black);
-                        spriteBatch.DrawString(mainMenuTL, "Exit to desktop", new Vector2(10, 60), Color.Black);
-                    }
+                if (menuID == 2)
+                {
+                    spriteBatch.DrawString(mainMenuT, "New Game", new Vector2(10, 10), Color.Black);
+                    spriteBatch.DrawString(mainMenuTL, "Exit to desktop", new Vector2(10, 60), Color.Black);
+                }
                 spriteBatch.End();
             }
 
@@ -842,7 +860,6 @@ namespace It_is_a_scary_world
                 {
                     if (go.Tag == "Shop")
                     {
-
                         #region ShopMenu Standard(actions)
                         if (keyState.IsKeyDown(Keys.Enter) && clickDelay == 0 && upgradePlayer == false && upgradeWeapon == false)
                         {
