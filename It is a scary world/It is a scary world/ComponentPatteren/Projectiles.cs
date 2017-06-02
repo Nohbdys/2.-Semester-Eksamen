@@ -21,6 +21,7 @@ namespace It_is_a_scary_world
 
         public Projectiles(GameObject gameObject) : base(gameObject)
         {
+            this.go = gameObject;
             MouseState current_mouse = Mouse.GetState();
 
             int mouseX = current_mouse.X;
@@ -66,7 +67,7 @@ namespace It_is_a_scary_world
         {
             if (other.gameObject.Tag == "Enemy" || other.gameObject.Tag == "Wall" || other.gameObject.Tag == "Platfrom")
             {
-                GameWorld.Instance.objectsToRemove.Add(gameObject);
+                GameWorld.Instance.objectsToRemove.Add(gameObject);              
             }
         }
 
@@ -74,11 +75,8 @@ namespace It_is_a_scary_world
         {
             if (other.gameObject.Tag == "Enemy")
             {
-
-                (other.gameObject.GetComponent("Slime") as Slime).health -= 1;
-               
-
-                //  (other.gameObject.GetComponent("Slime") as Slime).health -= 5;//(go.gameObject.GetComponent("Player") as Player).damage;
+                (other.gameObject.GetComponent("Slime") as Slime).health -= (go.gameObject.GetComponent("Player") as Player).damage;      
+                 
             }
 
         }
