@@ -359,3 +359,5 @@ C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\Casper branch\2.-Semester-Eks
 C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\Casper branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\Fireball.png
 C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\Casper branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\Shopkeeper.jpg
 C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\Casper branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\SkeletonWalk.png
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\Casper branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\It is a scary world.exe.config
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\Casper branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\System.Data.SQLite.dll

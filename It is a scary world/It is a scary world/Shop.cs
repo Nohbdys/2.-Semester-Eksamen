@@ -16,22 +16,22 @@ namespace It_is_a_scary_world
 
         public int weaponDamageLevel = 1;
         private int weaponAttackSpeedLevel = 1;
-        private int playerHealthLevel = 1;
+        private int playerArmorLevel = 1;
         private int playerSpeedLevel = 1;
 
         public double weaponDamagePrice = 100;
         public double weaponAttackSpeedPrice = 100;
-        public double playerHealthPrice = 100;
+        public double playerArmorPrice = 100;
         public double playerSpeedPrice = 100;
 
         public bool weaponDamagePriceUp;
         public bool weaponAttackSpeedPriceUp;
-        public bool playerHealthPriceUp;
+        public bool playerArmorPriceUp;
         public bool playerSpeedPriceUp;
 
         public bool weaponDamageUpgrade;
         public bool weaponAttackSpeedUpgrade;
-        public bool playerHealthUpgrade;
+        public bool playerArmorUpgrade;
         public bool playerSpeedUpgrade;
 
         public bool shopActive = false;
@@ -92,17 +92,17 @@ namespace It_is_a_scary_world
                 }
             }
 
-            if (gold >= playerHealthPrice)
+            if (gold >= playerArmorPrice)
             {
-                playerHealthUpgrade = true;
+                playerArmorUpgrade = true;
 
-                if (playerHealthPriceUp == true)
+                if (playerArmorPriceUp == true)
                 {
-                    gold -= playerHealthPrice;
-                    playerHealthLevel += 1;
-                    playerHealthUpgrade = false;
-                    playerHealthPrice += playerHealthPrice * 1.25;
-                    playerHealthPriceUp = false;
+                    gold -= playerArmorPrice;
+                    playerArmorLevel += 1;
+                    playerArmorUpgrade = false;
+                    playerArmorPrice += playerArmorPrice * 1.25;
+                    playerArmorPriceUp = false;
                 }
             }
 

@@ -17,6 +17,8 @@ namespace It_is_a_scary_world
 
         private IStrategy strategy;
 
+        private int damage;
+
         Vector2 direction;
 
         public Projectiles(GameObject gameObject) : base(gameObject)
@@ -47,7 +49,6 @@ namespace It_is_a_scary_world
 
             animator = (Animator)gameObject.GetComponent("Animator");
 
-
             Texture2D sprite = content.Load<Texture2D>("Fireball");
 
             animator.CreateAnimation("IdleFront", new Animation(4, 0, 0, 18, 11, 4, Vector2.Zero, sprite));
@@ -59,24 +60,31 @@ namespace It_is_a_scary_world
 
         public void Update()
         {
-
+            foreach (GameObject go in GameWorld.Instance.gameObjects)
+            {
+                if (go.Tag == "Player")
+                {
+                    damage = (go.GetComponent("Player") as Player).damage;
+                }
+            }
             gameObject.transform.position += direction * 4; //The bullet moves towards the mouse's current position
 
         }
         public void OnCollisionStay(Collider other)
         {
+            /*
             if (other.gameObject.Tag == "Enemy" || other.gameObject.Tag == "Wall" || other.gameObject.Tag == "Platfrom")
             {
                 GameWorld.Instance.objectsToRemove.Add(gameObject);              
             }
+            */
         }
 
         public void OnCollisionEnter(Collider other)
         {
             if (other.gameObject.Tag == "Enemy")
             {
-                (other.gameObject.GetComponent("Slime") as Slime).health -= (go.gameObject.GetComponent("Player") as Player).damage;      
-                 
+                (other.gameObject.GetComponent("Slime") as Slime).health -= damage; 
             }
 
         }

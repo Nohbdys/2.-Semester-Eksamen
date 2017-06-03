@@ -17,7 +17,6 @@ namespace It_is_a_scary_world
 
         private GameObject player;
 
-
         private IStrategy strategy;
 
         private int platformTimer;
@@ -33,7 +32,7 @@ namespace It_is_a_scary_world
 
         #endregion
 
-        private Random rnd;
+        Random rnd = new Random();
 
         public Slime(GameObject gameObject) : base(gameObject)
         {
@@ -70,10 +69,29 @@ namespace It_is_a_scary_world
             #region Death
             if (health <= 0)
             {
-                int dropChance = rnd.Next(1, 3);
+
+                dropChance = rnd.Next(1, 3);
+
                 if (dropChance == 1)
                 {
-                    (this.gameObject.GetComponent("Shop") as Shop).gold += rnd.Next(25, 100);
+                    foreach (GameObject go in GameWorld.Instance.gameObjects)
+                    {
+                        if (go.Tag == "Shop")
+                        {
+                            (go.GetComponent("Shop") as Shop).gold += rnd.Next(25, 100);
+                            break;
+                        }
+                    }
+
+
+                }
+                foreach (GameObject go in GameWorld.Instance.gameObjects)
+                {   
+                    if (go.Tag == "Player")
+                    {
+                        (go.GetComponent("Player") as Player).exp += rnd.Next(25, 50);
+                        break;
+                    }
 
                 }
                 GameWorld.Instance.objectsToRemove.Add(gameObject);
@@ -125,11 +143,6 @@ namespace It_is_a_scary_world
 
         public void OnCollisionEnter(Collider other)
         {
-            if (other.gameObject.Tag == "Bullet")
-            {
-                GameWorld.Instance.objectsToRemove.Add(gameObject);
-            }
-
             if (other.gameObject.Tag == "Player")
             {
                 if ((other.gameObject.GetComponent("Player") as Player).armor <= 0)

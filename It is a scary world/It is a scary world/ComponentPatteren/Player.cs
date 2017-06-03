@@ -27,7 +27,7 @@ namespace It_is_a_scary_world
         //WallCollision
 
         //Jump
-        public bool doubleJump = true;
+        public bool doubleJump;
         public int currentJump = 0;
         public int jumpTimer;
         //Jump
@@ -53,12 +53,12 @@ namespace It_is_a_scary_world
         #region Stats (player)
         public int health = 1;
         public int armor = 2;
-        private double exp;
+        public double exp;
         private double expToLevel = 100;
         private int level = 1;
         private int levelReward;
         private bool checkLevelReward;
-        public int damage { get; set; } = 100;
+        public int damage { get; set; } = 25;
         public float movementSpeed { get; set; } = 100;
         #endregion
 
@@ -112,31 +112,15 @@ namespace It_is_a_scary_world
                 exp -= (int)Math.Ceiling(expToLevel);
                 expToLevel = (int)Math.Ceiling(expToLevel) * 1.2;
 
+                if (armor < 5)
+                {
+                    armor += 1;
+                }
+
                 #region LevelRewards 
-                if (levelReward == 1)
-                {
-                    armor += 1;
-                }
-
-                if (levelReward == 2)
-                {
-                    armor += 1;
-                }
-
-                if (levelReward == 3)
-                {
-                    armor += 1;
-                }
-
-                if (levelReward == 4)
-                {
-                    armor += 1;
-                }
-
                 if (levelReward == 5)
                 {
                     doubleJump = true;
-                    armor += 1;
                 }
                 #endregion
             }
@@ -147,7 +131,7 @@ namespace It_is_a_scary_world
 
             if (health <= 0)
             {
-                
+                  
             }
 
             #endregion
@@ -316,7 +300,20 @@ namespace It_is_a_scary_world
                 spriteBatch.DrawString(mainMenuT, "Level:" + level, new Vector2(30, 10), Color.Black);
                 spriteBatch.DrawString(mainMenuT, "Health:" + health, new Vector2(30, 30), Color.Black);
                 spriteBatch.DrawString(mainMenuT, "Armor:" + armor, new Vector2(30, 50), Color.Black);
-                spriteBatch.DrawString(mainMenuT, "Exp:" + exp + " / " + (int)Math.Ceiling(expToLevel), new Vector2(30, 80), Color.Black);
+                foreach (GameObject go in GameWorld.Instance.gameObjects)
+                {
+                    if (go.Tag == "Shop")
+                    {
+                        spriteBatch.DrawString(mainMenuT, "Gold:" + (go.GetComponent("Shop") as Shop).gold, new Vector2(30, 70), Color.DarkRed);
+                        break;
+                    }                  
+                }
+                spriteBatch.DrawString(mainMenuT, "Exp:" + exp + " / " + (int)Math.Ceiling(expToLevel), new Vector2(30, 100), Color.Black);
+
+                if (health <= 0)
+                {
+                    spriteBatch.DrawString(mainMenuT, "You died", new Vector2(500, 300), Color.DarkRed);
+                }
             }
         }
     }
