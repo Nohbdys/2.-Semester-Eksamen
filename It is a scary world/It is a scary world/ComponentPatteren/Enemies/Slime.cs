@@ -21,6 +21,8 @@ namespace It_is_a_scary_world
 
         private int platformTimer;
 
+        private GameObject go;
+
         #region Stats
 
         public int health = 100;
@@ -36,6 +38,7 @@ namespace It_is_a_scary_world
 
         public Slime(GameObject gameObject) : base(gameObject)
         {
+            this.go = gameObject;
             gameObject.Tag = "Enemy";
         }
         public void LoadContent(ContentManager content)
@@ -69,7 +72,7 @@ namespace It_is_a_scary_world
             #region Death
             if (health <= 0)
             {
-
+                go.transform.position = new Vector2(3500, 3500);
                 dropChance = rnd.Next(1, 3);
 
                 if (dropChance == 1)
@@ -109,6 +112,7 @@ namespace It_is_a_scary_world
             if (platformTimer <= 0)
             {
                 (this.gameObject.GetComponent("Gravity") as Gravity).grounded = false;
+                (this.gameObject.GetComponent("Gravity") as Gravity).isFalling = true;
             }
 
             #endregion
@@ -133,7 +137,6 @@ namespace It_is_a_scary_world
 
             if (other.gameObject.Tag == "Platform")
             {
-                (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
                 (this.gameObject.GetComponent("Gravity") as Gravity).grounded = true;
                 platformTimer = 5;
             }
@@ -157,10 +160,9 @@ namespace It_is_a_scary_world
             }
             if (other.gameObject.Tag == "Platform")
             {
-                (other.gameObject.GetComponent("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
                 (this.gameObject.GetComponent("Gravity") as Gravity).grounded = true;
                 (this.gameObject.GetComponent("Gravity") as Gravity).isFalling = false;
-                platformTimer = 5;
+                //platformTimer = 5;
             }
         }
 

@@ -67,6 +67,11 @@ namespace It_is_a_scary_world
         //TileSet
         private int tileSet;
         private int lastRun;
+        private int lastRunEnemySpawn;
+        private int enemySpawnLevel;
+
+        //test
+        private bool amp;
         //TileSet
 
         private GameObject go;
@@ -113,7 +118,7 @@ namespace It_is_a_scary_world
             Colliders = new List<Collider>();
 
             //Player
-
+/*
             Director director = new Director(new PlayerBuilder());
 
             gameObjects.Add(director.Construct(new Vector2(- 100, 0)));
@@ -122,7 +127,7 @@ namespace It_is_a_scary_world
             Director shop = new Director(new ShopBuilder());
 
             gameObjects.Add(shop.Construct(new Vector2(- 200, 0)));
-
+*/
 
             base.Initialize();
         }
@@ -130,13 +135,224 @@ namespace It_is_a_scary_world
         public void TileSet()
         {
             tileSet = rnd.Next(1, 3);
-            lastRun = 1;
+            enemySpawnLevel = rnd.Next(1, 3);
 
 
-            
+
+            #region ObjectRemove
+            //Used to reset every block because of collision problems even after a object is removed
+            foreach (GameObject go in gameObjects)
+            {
+                int wallNummer = 1;
+                int platformNummer = 1;
+                int enemyNumber = 1;
+
+                if (go.Tag == "Enemy")
+                {
+                    switch (enemyNumber)
+                    {
+                        case 1:
+                            go.transform.position = new Vector2(6000, 6000);
+                            break;
+                        case 2:
+                            go.transform.position = new Vector2(6000, 6000);
+                            break;
+                        case 3:
+                            go.transform.position = new Vector2(6000, 6000);
+                            break;
+                        case 4:
+                            go.transform.position = new Vector2(6000, 6000);
+                            break;
+                        case 5:
+                            go.transform.position = new Vector2(6000, 6000);
+                            break;
+                        default:
+                            break;
+                    }
+                    enemyNumber++;
+                }
+
+                if (go.Tag == "Platform")
+                {
+                    switch (platformNummer)
+                    {
+                        case 1:
+                            go.transform.position = new Vector2(4000, 4000);
+                            break;
+                        case 2:
+                            go.transform.position = new Vector2(4000, 4000);
+                            break;
+                        case 3:
+                            go.transform.position = new Vector2(4000, 4000);
+                            break;
+                        case 4:
+                            go.transform.position = new Vector2(4000, 4000);
+                            break;
+                        case 5:
+                            go.transform.position = new Vector2(4000, 4000);
+                            break;
+                        case 6:
+                            go.transform.position = new Vector2(4000, 4000);
+                            break;
+                        case 7:
+                            go.transform.position = new Vector2(4000, 4000);
+                            break;
+                        case 8:
+                            go.transform.position = new Vector2(4000, 4000);
+                            break;
+                        case 9:
+                            go.transform.position = new Vector2(4000, 4000);
+                            break;
+                        case 10:
+                            go.transform.position = new Vector2(4000, 4000);
+                            break;
+                        case 11:
+                            go.transform.position = new Vector2(4000, 4000);
+                            break;
+                        case 12:
+                            go.transform.position = new Vector2(4000, 4000);
+                            break;
+                        case 13:
+                            go.transform.position = new Vector2(4000, 4000);
+                            break;
+                        case 14:
+                            go.transform.position = new Vector2(4000, 4000);
+                            break;
+                        case 15:
+                            go.transform.position = new Vector2(4000, 4000);
+                            break;
+                        case 16:
+                            go.transform.position = new Vector2(4000, 4000);
+                            break;
+                        case 17:
+                            go.transform.position = new Vector2(4000, 4000);
+                            break;
+                        case 18:
+                            go.transform.position = new Vector2(4000, 4000);
+                            break;
+                        case 19:
+                            go.transform.position = new Vector2(4000, 4000);
+                            break;
+                        case 20:
+                            go.transform.position = new Vector2(4000, 4000);
+                            break;
+
+                        default:
+                            break;
+                    }
+                    platformNummer++;
+
+
+                }
+                if (go.Tag == "Wall")
+                {
+                    switch (wallNummer)
+                    {
+                        case 1:
+                            go.transform.position = new Vector2(5000, 5000);
+                            break;
+                        case 2:
+                            go.transform.position = new Vector2(5000, 5000);
+                            break;
+                        case 3:
+                            go.transform.position = new Vector2(5000, 5000);
+                            break;
+                        case 4:
+                            go.transform.position = new Vector2(5000, 5000);
+                            break;
+                        case 5:
+                            go.transform.position = new Vector2(5000, 5000);
+                            break;
+                        case 6:
+                            go.transform.position = new Vector2(5000, 5000);
+                            break;
+                        case 7:
+                            go.transform.position = new Vector2(5000, 5000);
+                            break;
+                        case 8:
+                            go.transform.position = new Vector2(5000, 5000);
+                            break;
+                        case 9:
+                            go.transform.position = new Vector2(5000, 5000);
+                            break;
+                        case 10:
+                            go.transform.position = new Vector2(5000, 5000);
+                            break;
+                        case 11:
+                            go.transform.position = new Vector2(5000, 5000);
+                            break;
+                        case 12:
+                            go.transform.position = new Vector2(5000, 5000);
+                            break;
+                        case 13:
+                            go.transform.position = new Vector2(5000, 5000);
+                            break;
+                        case 14:
+                            go.transform.position = new Vector2(5000, 5000);
+                            break;
+                        case 15:
+                            go.transform.position = new Vector2(5000, 5000);
+                            break;
+                        case 16:
+                            go.transform.position = new Vector2(5000, 5000);
+                            break;
+                        case 17:
+                            go.transform.position = new Vector2(5000, 5000);
+                            break;
+                        case 18:
+                            go.transform.position = new Vector2(5000, 5000);
+                            break;
+                        case 19:
+                            go.transform.position = new Vector2(5000, 5000);
+                            break;
+                        case 20:
+                            go.transform.position = new Vector2(5000, 5000);
+                            break;
+
+                        default:
+                            break;
+
+                    }
+                    wallNummer++;
+
+                }
+                if (go.Tag == "Door")
+                {
+                    go.transform.position = new Vector2(5000, 5000);
+                }
+
+                if (go.Tag == "Player")
+                {
+                    go.transform.position = new Vector2(5000, 5000);
+
+                }
+                if (go.Tag == "Shop")
+                {
+                    go.transform.position = new Vector2(5000, 5000);
+                }
+            }
+
+            gameObjects.Clear();
+            #endregion
+
+
+            //Player
+            Director director = new Director(new PlayerBuilder());
+
+            gameObjects.Add(director.Construct(new Vector2(-1000, 0)));
+
+            //Shop
+            Director shop = new Director(new ShopBuilder());
+
+            gameObjects.Add(shop.Construct(new Vector2(-2000, 0)));
+
             //boundaries
+            //Case wall 1-4 is long walls case 5 is special wall used in tileset 3 and 5+ is walls designed to platforms
             gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 25, Window.ClientBounds.Bottom));
             gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 25, Window.ClientBounds.Bottom));
+            gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 25, Window.ClientBounds.Bottom));
+            gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 25, Window.ClientBounds.Bottom));
+            gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 25, 250));
 
             //MapTiles
             for (int i = 0; i < 15; i++)
@@ -147,11 +363,12 @@ namespace It_is_a_scary_world
             gameObjects.Add(DoorPool.Create(new Vector2(2000, 2000), Content, 11, 30));
 
             //Enemies
-            gameObjects.Add(EnemyPool.Create(new Vector2(500, 200), Content));
-
-            //Wall test
-            //   gameObjects.Add(WallPool.Create(new Vector2(1000, 360), Content, 100, 400));
-            //   gameObjects.Add(WallPool.Create(new Vector2(400, 360), Content, 50, 600));
+            for (int i = 0; i < 5; i++)
+            {
+                gameObjects.Add(ObjectPool.Create(new Vector2(2000, 2000), Content, 75, 25));
+                gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 73, 23));
+                gameObjects.Add(EnemyPool.Create(new Vector2(3000, 3000), Content));
+            }
 
             //ClientBounds
 
@@ -160,150 +377,107 @@ namespace It_is_a_scary_world
                 if (go.Tag == "Player")
                 {
                     (go.GetComponent("Player") as Player).gameObject.transform.position = new Vector2(500, 0);
+                    break;
                 }
             }
 
-
-            if (firstRun)
-            {
-                tileSet = 0;
-                firstRun = false;
-            }
-
-            //Shop
-            Director shop = new Director(new ShopBuilder());
             if (lastRun == tileSet && !firstRun)
             {
                 tileSet++;
+                if (tileSet > 3)
+                {
+                    tileSet = 1;
+                }
             }
 
-            if (tileSet == 0)
+            if (lastRunEnemySpawn == enemySpawnLevel && !firstRun)
             {
-                foreach (GameObject go in gameObjects)
+                enemySpawnLevel++;
+                if (enemySpawnLevel > 3)
                 {
-                    if (go.Tag == "Player")
-                    {
-                        go.transform.position = new Vector2(50, 200);
-                        break;
-                    }
+                    enemySpawnLevel = 1;
                 }
-
-                foreach (GameObject go in gameObjects)
-                {
-                    if (go.Tag == "Shop")
-                    {
-                        go.transform.position = new Vector2(1100, 535);
-                        break;
-                    }
-                }
-
-                int wallNummer = 1;
-                int platformNummer = 1;
-                foreach (GameObject go in gameObjects)
-                {
-
-                    if (go.Tag == "Platform")
-                    {
-                        switch (platformNummer)
-                        {
-                            case 1:
-                                go.transform.position = new Vector2(0, 200);
-                                break;
-                            case 2:
-                                go.transform.position = new Vector2(300, 200);
-                                break;
-                            case 3:
-                                go.transform.position = new Vector2(600, 200);
-                                break;
-                            case 4:
-                                go.transform.position = new Vector2(900, 200);
-                                break;
-                            case 5:
-                                go.transform.position = new Vector2(1200, 450);
-                                break;
-                            case 6:
-                                go.transform.position = new Vector2(900, 450);
-                                break;
-                            case 7:
-                                go.transform.position = new Vector2(600, 450);
-                                break;
-                            case 8:
-                                go.transform.position = new Vector2(300, 450);
-                                break;
-                            case 9:
-                                go.transform.position = new Vector2(0, 725);
-                                break;
-                            case 10:
-                                go.transform.position = new Vector2(300, 725);
-                                break;
-                            case 11:
-                                go.transform.position = new Vector2(600, 725);
-                                break;
-                            case 12:
-                                go.transform.position = new Vector2(900, 725);
-                                break;
-                            case 13:
-                                go.transform.position = new Vector2(1200, 725);
-                                break;
-
-
-                            default:
-                                break;
-                        }
-                        platformNummer++;
-
-
-                    }
-                    if (go.Tag == "Wall")
-                    {
-
-                        switch (wallNummer)
-                        {
-                            case 1:
-                                go.transform.position = new Vector2(0, 0);
-                                break;
-
-                            case 2:
-                                go.transform.position = new Vector2(1380, 0);
-                                break;
-
-                            case 3:
-                                go.transform.position = new Vector2(1176, 201);
-                                break;
-                            case 4:
-                                go.transform.position = new Vector2(299, 451);
-                                break;
-
-                            case 5:
-                                go.transform.position = new Vector2(00, 726);
-                                break;
-
-
-
-
-                            default:
-                                break;
-                        }
-                        wallNummer++;
-
-                    }
-                    if (go.Tag == "Door")
-                    {
-                        go.transform.position = new Vector2(100, 690);
-                    }
-
-                }
-
-                //    gameObjects.Add(WallPool.Create(new Vector2(1000, 360), Content));
-
             }
+
+            if (firstRun == true)
+            {
+                tileSet = 1;
+                enemySpawnLevel = 1;
+                firstRun = false;
+            }
+            
+            #region Tileset 1
             if (tileSet == 1)
             {
+                lastRun = 1;
+                lastRunEnemySpawn = enemySpawnLevel;
                 int wallNummer = 1;
                 int platformNummer = 1;
+                int enemyNumber = 1;
                 foreach (GameObject go in gameObjects)
                 {
+                    if (go.Tag == "Enemy" && enemySpawnLevel == 1)
+                    {
+                        switch (enemyNumber)
+                        {
+                            case 1:
+                                go.transform.position = new Vector2(300, 150);
+                                break;
+                            case 2:
+                                go.transform.position = new Vector2(600, 150);
+                                break;
+                            case 3:
+                                go.transform.position = new Vector2(900, 400);
+                                break;
+                            case 4:
+                                go.transform.position = new Vector2(100, 675);
+                                break;
+                            default:
+                                break;
+                        }
+                        enemyNumber++;                               
+                    }
 
+                    if (go.Tag == "Enemy" && enemySpawnLevel == 2)
+                    {
+                        switch (enemyNumber)
+                        {
+                            case 1:
+                                go.transform.position = new Vector2(500, 150);
+                                break;
+                            case 2:
+                                go.transform.position = new Vector2(500, 400);
+                                break;
+                            case 3:
+                                go.transform.position = new Vector2(400, 675);
+                                break;
+                            case 4:
+                                go.transform.position = new Vector2(600, 675);
+                                break;
+                            default:
+                                break;
+                        }
+                        enemyNumber++;
+                    }
+
+                    if (go.Tag == "Enemy" && enemySpawnLevel == 3)
+                    {
+                        switch (enemyNumber)
+                        {
+                            case 1:
+                                go.transform.position = new Vector2(400, 150);
+                                break;
+                            case 2:
+                                go.transform.position = new Vector2(600, 400);
+                                break;
+                            case 3:
+                                go.transform.position = new Vector2(800, 675);
+                                break;
+                            default:
+                                break;
+                        }
+                        enemyNumber++;
+                    }
 
                     if (go.Tag == "Platform")
                     {
@@ -370,17 +544,15 @@ namespace It_is_a_scary_world
                                 go.transform.position = new Vector2(1380, 0);
                                 break;
 
-                            case 3:
-                                go.transform.position = new Vector2(1176, 200);
+                            case 6:
+                                go.transform.position = new Vector2(1176, 201);
                                 break;
-                            case 4:
-                                go.transform.position = new Vector2(298, 450);
+                            case 7:
+                                go.transform.position = new Vector2(299, 451);
                                 break;
 
-                            case 5:
-                                go.transform.position = new Vector2(00, 725);
-                                break;
-                            default:
+                            case 8:
+                                go.transform.position = new Vector2(00, 726);
                                 break;
                         }
                         wallNummer++;
@@ -393,21 +565,91 @@ namespace It_is_a_scary_world
 
                     if (go.Tag == "Player")
                     {
-                        go.transform.position = new Vector2(400, 400);
+                        go.transform.position = new Vector2(50, 200);
 
+                    }
+                    if (go.Tag == "Shop")
+                    {
+                        go.transform.position = new Vector2(1100, 535);
                     }
                 }
             }
             //Wall test
 
+            #endregion
 
+            #region Tileset 2
             if (tileSet == 2)
             {
+                lastRun = 2;
+                lastRunEnemySpawn = enemySpawnLevel;
                 int wallNummer = 1;
                 int platformNummer = 1;
+                int enemyNumber = 1;
                 foreach (GameObject go in gameObjects)
                 {
+                    if (go.Tag == "Enemy" && enemySpawnLevel == 1)
+                    {
+                        switch (enemyNumber)
+                        {
+                            case 1:
+                                go.transform.position = new Vector2(950, 150);
+                                break;
+                            case 2:
+                                go.transform.position = new Vector2(1100, 150);
+                                break;
+                            case 3:
+                                go.transform.position = new Vector2(450, 400);
+                                break;
+                            case 4:
+                                go.transform.position = new Vector2(750, 400);
+                                break;
+                            case 5:
+                                go.transform.position = new Vector2(600, 675);
+                                break;
+                        }
+                        enemyNumber++;
+                    }
 
+                    if (go.Tag == "Enemy" && enemySpawnLevel == 2)
+                    {
+                        switch (enemyNumber)
+                        {
+                            case 1:
+                                go.transform.position = new Vector2(1050, 150);
+                                break;
+                            case 2:
+                                go.transform.position = new Vector2(700, 400);
+                                break;
+                            case 3:
+                                go.transform.position = new Vector2(450, 675);
+                                break;
+                            case 4:
+                                go.transform.position = new Vector2(750, 675);
+                                break;
+                        }
+                        enemyNumber++;
+                    }
+
+                    if (go.Tag == "Enemy" && enemySpawnLevel == 3)
+                    {
+                        switch (enemyNumber)
+                        {
+                            case 1:
+                                go.transform.position = new Vector2(1200, 150);
+                                break;
+                            case 2:
+                                go.transform.position = new Vector2(1000, 400);
+                                break;
+                            case 3:
+                                go.transform.position = new Vector2(700, 675);
+                                break;
+                            case 4:
+                                go.transform.position = new Vector2(1100, 675);
+                                break;
+                        }
+                        enemyNumber++;
+                    }
 
                     if (go.Tag == "Platform")
                     {
@@ -417,40 +659,46 @@ namespace It_is_a_scary_world
                                 go.transform.position = new Vector2(0, 200);
                                 break;
                             case 2:
-                                go.transform.position = new Vector2(300, 200);
-                                break;
-                            case 3:
-                                go.transform.position = new Vector2(600, 200);
-                                break;
-                            case 4:
                                 go.transform.position = new Vector2(900, 200);
                                 break;
-                            case 5:
-                                go.transform.position = new Vector2(1200, 450);
+                            case 3:
+                                go.transform.position = new Vector2(1200, 200);
                                 break;
-                            case 6:
+                            case 4:
                                 go.transform.position = new Vector2(900, 450);
                                 break;
-                            case 7:
+                            case 5:
                                 go.transform.position = new Vector2(600, 450);
                                 break;
-                            case 8:
+                            case 6:
                                 go.transform.position = new Vector2(300, 450);
                                 break;
-                            case 9:
+                            case 7:
                                 go.transform.position = new Vector2(0, 725);
                                 break;
-                            case 10:
+                            case 8:
                                 go.transform.position = new Vector2(300, 725);
                                 break;
-                            case 11:
+                            case 9:
                                 go.transform.position = new Vector2(600, 725);
                                 break;
-                            case 12:
+                            case 10:
                                 go.transform.position = new Vector2(900, 725);
                                 break;
-                            case 13:
+                            case 11:
                                 go.transform.position = new Vector2(1200, 725);
+                                break;
+                            case 16:
+                                go.transform.position = new Vector2(1225, 525);
+                                break;
+                            case 17:
+                                go.transform.position = new Vector2(1325, 600);
+                                break;
+                            case 18:
+                                go.transform.position = new Vector2(700, 350);
+                                break;
+                            case 19:
+                                go.transform.position = new Vector2(800, 250);
                                 break;
 
 
@@ -466,6 +714,7 @@ namespace It_is_a_scary_world
 
                         switch (wallNummer)
                         {
+                            
                             case 1:
                                 go.transform.position = new Vector2(0, 0);
                                 break;
@@ -475,14 +724,19 @@ namespace It_is_a_scary_world
                                 break;
 
                             case 3:
+                                go.transform.position = new Vector2(600, -425);
+                                break;
+
+                            case 6:
                                 go.transform.position = new Vector2(1176, 200);
                                 break;
-                            case 4:
+
+                            case 7:
                                 go.transform.position = new Vector2(298, 450);
                                 break;
 
-                            case 5:
-                                go.transform.position = new Vector2(00, 725);
+                            case 8:
+                                go.transform.position = new Vector2(0, 725);
                                 break;
                             default:
                                 break;
@@ -492,23 +746,99 @@ namespace It_is_a_scary_world
                     }
                     if (go.Tag == "Door")
                     {
-                        go.transform.position = new Vector2(100, 690);
+                        go.transform.position = new Vector2(1300, 165);
                     }
 
                     if (go.Tag == "Player")
                     {
-                        go.transform.position = new Vector2(400, 400);
+                        go.transform.position = new Vector2(50, 200);
+                    }
 
+                    if (go.Tag == "Shop")
+                    {
+                        go.transform.position = new Vector2(-1000, -1000);
                     }
                 }
             }
+            #endregion
+
+            #region Tileset 3
             if (tileSet == 3)
             {
+                lastRun = 3;
+                lastRunEnemySpawn = enemySpawnLevel;
                 int wallNummer = 1;
                 int platformNummer = 1;
+                int enemyNumber = 1;
                 foreach (GameObject go in gameObjects)
                 {
+                    if (go.Tag == "Enemy" && enemySpawnLevel == 1)
+                    {
+                        switch (enemyNumber)
+                        {
+                            case 1:
+                                go.transform.position = new Vector2(100, 150);
+                                break;
+                            case 2:
+                                go.transform.position = new Vector2(800, 150);
+                                break;
+                            case 3:
+                                go.transform.position = new Vector2(450, 400);
+                                break;
+                            case 4:
+                                go.transform.position = new Vector2(750, 400);
+                                break;
+                            case 5:
+                                go.transform.position = new Vector2(600, 675);
+                                break;
+                            default:
+                                break;
+                        }
+                        enemyNumber++;
+                    }
 
+                    if (go.Tag == "Enemy" && enemySpawnLevel == 2)
+                    {
+                        switch (enemyNumber)
+                        {
+                            case 1:
+                                go.transform.position = new Vector2(800, 150);
+                                break;
+                            case 2:
+                                go.transform.position = new Vector2(450, 400);
+                                break;
+                            case 3:
+                                go.transform.position = new Vector2(200, 675);
+                                break;
+                            case 4:
+                                go.transform.position = new Vector2(800, 675);
+                                break;
+                        }
+                        enemyNumber++;
+                    }
+
+                    if (go.Tag == "Enemy" && enemySpawnLevel == 3)
+                    {
+                        switch (enemyNumber)
+                        {
+                            case 1:
+                                go.transform.position = new Vector2(700, 150);
+                                break;
+                            case 2:
+                                go.transform.position = new Vector2(1300, 400);
+                                break;
+                            case 3:
+                                go.transform.position = new Vector2(450, 400);
+                                break;
+                            case 4:
+                                go.transform.position = new Vector2(750, 675);
+                                break;
+                            case 5:
+                                go.transform.position = new Vector2(550, 675);
+                                break;
+                        }
+                        enemyNumber++;
+                    }
 
                     if (go.Tag == "Platform")
                     {
@@ -518,40 +848,52 @@ namespace It_is_a_scary_world
                                 go.transform.position = new Vector2(0, 200);
                                 break;
                             case 2:
-                                go.transform.position = new Vector2(300, 200);
-                                break;
-                            case 3:
                                 go.transform.position = new Vector2(600, 200);
                                 break;
-                            case 4:
+                            case 3:
                                 go.transform.position = new Vector2(900, 200);
+                                break;
+                            case 4:
+                                go.transform.position = new Vector2(1200, 200);
                                 break;
                             case 5:
                                 go.transform.position = new Vector2(1200, 450);
                                 break;
                             case 6:
-                                go.transform.position = new Vector2(900, 450);
-                                break;
-                            case 7:
                                 go.transform.position = new Vector2(600, 450);
                                 break;
-                            case 8:
+                            case 7:
                                 go.transform.position = new Vector2(300, 450);
                                 break;
-                            case 9:
+                            case 8:
                                 go.transform.position = new Vector2(0, 725);
                                 break;
-                            case 10:
+                            case 9:
                                 go.transform.position = new Vector2(300, 725);
                                 break;
-                            case 11:
+                            case 10:
                                 go.transform.position = new Vector2(600, 725);
                                 break;
-                            case 12:
+                            case 11:
                                 go.transform.position = new Vector2(900, 725);
                                 break;
-                            case 13:
+                            case 12:
                                 go.transform.position = new Vector2(1200, 725);
+                                break;
+                            case 16:
+                                go.transform.position = new Vector2(900, 525);
+                                break;
+                            case 17:
+                                go.transform.position = new Vector2(1000, 600);
+                                break;
+                            case 18:
+                                go.transform.position = new Vector2(1100, 525);
+                                break;
+                            case 19:
+                                go.transform.position = new Vector2(900, 675);
+                                break;
+                            case 20:
+                                go.transform.position = new Vector2(1100, 675);
                                 break;
 
 
@@ -574,16 +916,19 @@ namespace It_is_a_scary_world
                             case 2:
                                 go.transform.position = new Vector2(1380, 0);
                                 break;
+                            case 5:
+                                go.transform.position = new Vector2(600, 200);
+                                break;
 
-                            case 3:
+                            case 6:
                                 go.transform.position = new Vector2(1176, 200);
                                 break;
-                            case 4:
+                            case 7:
                                 go.transform.position = new Vector2(298, 450);
                                 break;
 
-                            case 5:
-                                go.transform.position = new Vector2(00, 725);
+                            case 8:
+                                go.transform.position = new Vector2(0, 725);
                                 break;
                             default:
                                 break;
@@ -593,16 +938,21 @@ namespace It_is_a_scary_world
                     }
                     if (go.Tag == "Door")
                     {
-                        go.transform.position = new Vector2(100, 690);
+                        go.transform.position = new Vector2(1350, 400);
                     }
 
                     if (go.Tag == "Player")
                     {
-                        go.transform.position = new Vector2(400, 400);
+                        go.transform.position = new Vector2(1200, 200);
+                    }
 
+                    if (go.Tag == "Shop")
+                    {
+                        go.transform.position = new Vector2(-1000, -1000);
                     }
                 }
             }
+            #endregion
 
             base.Initialize();
         }
@@ -652,6 +1002,18 @@ namespace It_is_a_scary_world
 
             SpawnEnemy();
             UpdateMouse();
+
+            if (keyState.IsKeyDown(Keys.L) && amp == false)
+            {
+                TileSet();
+                
+                amp = true;
+            }
+
+            if (keyState.IsKeyDown(Keys.K))
+            {
+                amp = false;
+            }
 
             //Updates all GameObjects
             foreach (GameObject go in gameObjects)
@@ -714,8 +1076,7 @@ namespace It_is_a_scary_world
         public void SpawnBullet()
         {
             foreach (GameObject go in gameObjects)
-            {
-                
+            {                
                 if (go.Tag == "Player")
                 {
                     float x = (go.GetComponent("Player") as Player).gameObject.transform.position.X + 20 / 2; //The attack's position on the X-axis, based on the Player object's position (should be in the middle)
@@ -750,11 +1111,13 @@ namespace It_is_a_scary_world
                 foreach (GameObject go in objectsToRemove)
                 {
                     gameObjects.Remove(go);
+                    /*
                     EnemyPool.ReleaseObject(go);
                     ObjectPool.ReleaseObject(go);
                     WallPool.ReleaseObject(go);
                     BulletPool.ReleaseObject(go);
                     DoorPool.ReleaseObject(go);
+                    */
                 }
 
                 objectsToRemove.Clear();

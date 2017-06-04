@@ -21,6 +21,8 @@ namespace It_is_a_scary_world
 
         Vector2 direction;
 
+        private int bulletTime;
+
         public Projectiles(GameObject gameObject) : base(gameObject)
         {
             this.go = gameObject;
@@ -60,6 +62,12 @@ namespace It_is_a_scary_world
 
         public void Update()
         {
+            bulletTime += 1;
+
+            if (bulletTime > 40)
+            {
+                GameWorld.Instance.objectsToRemove.Add(gameObject);
+            }
             foreach (GameObject go in GameWorld.Instance.gameObjects)
             {
                 if (go.Tag == "Player")
@@ -72,12 +80,12 @@ namespace It_is_a_scary_world
         }
         public void OnCollisionStay(Collider other)
         {
-            /*
-            if (other.gameObject.Tag == "Enemy" || other.gameObject.Tag == "Wall" || other.gameObject.Tag == "Platfrom")
+            
+            if (other.gameObject.Tag == "Enemy" || other.gameObject.Tag == "Wall" || other.gameObject.Tag == "Platform")
             {
                 GameWorld.Instance.objectsToRemove.Add(gameObject);              
             }
-            */
+            
         }
 
         public void OnCollisionEnter(Collider other)

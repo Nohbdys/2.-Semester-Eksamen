@@ -131,7 +131,7 @@ namespace It_is_a_scary_world
 
             if (health <= 0)
             {
-                  
+                Death();    
             }
 
             #endregion
@@ -315,6 +315,11 @@ namespace It_is_a_scary_world
                     spriteBatch.DrawString(mainMenuT, "You died", new Vector2(500, 300), Color.DarkRed);
                 }
             }
+        }
+
+        public void Death()
+        {
+
         }
     }
 }
