@@ -69,9 +69,6 @@ namespace It_is_a_scary_world
         private int lastRun;
         private int lastRunEnemySpawn;
         private int enemySpawnLevel;
-
-        //test
-        private bool amp;
         //TileSet
 
         private GameObject go;
@@ -1002,18 +999,6 @@ namespace It_is_a_scary_world
 
             SpawnEnemy();
             UpdateMouse();
-
-            if (keyState.IsKeyDown(Keys.L) && amp == false)
-            {
-                TileSet();
-                
-                amp = true;
-            }
-
-            if (keyState.IsKeyDown(Keys.K))
-            {
-                amp = false;
-            }
 
             //Updates all GameObjects
             foreach (GameObject go in gameObjects)
