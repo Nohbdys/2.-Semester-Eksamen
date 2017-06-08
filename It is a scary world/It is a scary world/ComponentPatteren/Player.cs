@@ -105,7 +105,7 @@ namespace It_is_a_scary_world
 
             #region LevelSystem and perks
 
-            if ((int)Math.Ceiling(exp) >= (int)Math.Ceiling(expToLevel))
+            if ((int)Math.Ceiling(exp) >= (int)Math.Ceiling(expToLevel) && level < 50)
             {
                 level += 1;
                 levelReward += 1;
