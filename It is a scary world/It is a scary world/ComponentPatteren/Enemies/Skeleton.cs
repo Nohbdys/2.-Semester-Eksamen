@@ -6,12 +6,19 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using static It_is_a_scary_world.DIRECTION;
+using System.Threading;
 
 namespace It_is_a_scary_world
 {
-    class Slime : Component, IUpdateable, ICollisionEnter, ICollisionExit
+    class Skeleton : Component, IUpdateable, ICollisionEnter, ICollisionExit
     {
         private DIRECTION direction;
+
+        
+
+        private bool activeThread;
+
+        private bool firstRun = false;
 
         private Animator animator;
 
@@ -36,7 +43,7 @@ namespace It_is_a_scary_world
 
         Random rnd = new Random();
 
-        public Slime(GameObject gameObject) : base(gameObject)
+        public Skeleton(GameObject gameObject) : base(gameObject)
         {
             this.go = gameObject;
             gameObject.Tag = "Enemy";
@@ -69,67 +76,99 @@ namespace It_is_a_scary_world
 
         public void Update()
         {
-            #region Death
-            if (health <= 0)
+            
+            if (!activeThread)
             {
-                go.transform.position = new Vector2(3500, 3500);
-                dropChance = rnd.Next(1, 3);
+                Thread t = new Thread(ThreadUpdate);
 
-                if (dropChance == 1)
+                if (health < 0)
                 {
+                    t.Abort();
+                }
+    
+                t.IsBackground = true;
+
+
+
+                t.Start();
+
+                activeThread = true;
+
+            }
+
+
+        }
+
+
+        private void ThreadUpdate()
+        {
+            while (true)
+            {
+
+                Thread.Sleep(17);
+
+                #region Death
+                if (health <= 0)
+                {
+                    go.transform.position = new Vector2(3500, 3500);
+                    dropChance = rnd.Next(1, 3);
+
+                    if (dropChance == 1)
+                    {
+                        foreach (GameObject go in GameWorld.Instance.gameObjects)
+                        {
+                            if (go.Tag == "Shop")
+                            {
+                                (go.GetComponent("Shop") as Shop).gold += rnd.Next(25, 100);
+                                break;
+                            }
+                        }
+
+
+                    }
                     foreach (GameObject go in GameWorld.Instance.gameObjects)
                     {
-                        if (go.Tag == "Shop")
+                        if (go.Tag == "Player")
                         {
-                            (go.GetComponent("Shop") as Shop).gold += rnd.Next(25, 100);
+                            (go.GetComponent("Player") as Player).exp += rnd.Next(25, 50);
                             break;
                         }
+
                     }
-
-
+                    activeThread = false;
+                    GameWorld.Instance.objectsToRemove.Add(gameObject);
                 }
-                foreach (GameObject go in GameWorld.Instance.gameObjects)
-                {   
-                    if (go.Tag == "Player")
-                    {
-                        (go.GetComponent("Player") as Player).exp += rnd.Next(25, 50);
-                        break;
-                    }
+                #endregion
 
+                #region Platform collision check
+
+                //Used to check if the Skeleton is colliding with the platform
+                //PlatformTimer is in collisionEnter
+                if (platformTimer > 0)
+                {
+                    platformTimer -= 1;
                 }
-                GameWorld.Instance.objectsToRemove.Add(gameObject);
+                if (platformTimer <= 0)
+                {
+                    (this.gameObject.GetComponent("Gravity") as Gravity).grounded = false;
+                    (this.gameObject.GetComponent("Gravity") as Gravity).isFalling = true;
+                }
+
+                #endregion
+
+                #region FollowTarget / idle
+                if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 200 && !(strategy is FollowTarget))
+                {
+                    strategy = new FollowTarget(player.transform, gameObject.transform, animator);
+                }
+                else if (Vector2.Distance(gameObject.transform.position, player.transform.position) > 200 && !(strategy is Idle))
+                {
+                    strategy = new Idle(animator);
+                }
+
+                strategy.Execute(ref direction);
+                #endregion
             }
-            #endregion
-
-            #region Platform collision check
-
-            //Used to check if the slime is colliding with the platform
-            //PlatformTimer is in collisionEnter
-            if (platformTimer > 0)
-            {
-                platformTimer -= 1;
-            }
-            if (platformTimer <= 0)
-            {
-                (this.gameObject.GetComponent("Gravity") as Gravity).grounded = false;
-                (this.gameObject.GetComponent("Gravity") as Gravity).isFalling = true;
-            }
-
-            #endregion
-
-            #region FollowTarget / idle
-            if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 200 && !(strategy is FollowTarget))
-            {
-                strategy = new FollowTarget(player.transform, gameObject.transform, animator);
-            }
-            else if (Vector2.Distance(gameObject.transform.position, player.transform.position) > 200 && !(strategy is Idle))
-            {
-                strategy = new Idle(animator);
-            }
-
-            strategy.Execute(ref direction);
-            #endregion
-
         }
 
         public void OnCollisionExit(Collider other)
@@ -166,6 +205,6 @@ namespace It_is_a_scary_world
             }
         }
 
-        
+
     }
 }

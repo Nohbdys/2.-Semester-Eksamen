@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/admin/Desktop/EksamensProjekt2semester/Branch/Casper Branch/2.-Semester-Eksamen/It is a scary world/It is a scary world/Content/MainMenuLarge.spritefont</SourceFile>
-  <SourceTime>2017-06-07T14:09:46.0167666+02:00</SourceTime>
-  <DestFile>C:/Users/admin/Desktop/EksamensProjekt2semester/Branch/Casper Branch/2.-Semester-Eksamen/It is a scary world/It is a scary world/Content/bin/Windows/MainMenuLarge.xnb</DestFile>
-  <DestTime>2017-06-07T14:11:26.2009887+02:00</DestTime>
+  <SourceFile>C:/Users/Oliver/Desktop/Tortoise Git/2. Semester eksamen/2.-Semester-Eksamen/It is a scary world/It is a scary world/Content/MainMenuLarge.spritefont</SourceFile>
+  <SourceTime>2017-06-08T22:36:41.6673292+02:00</SourceTime>
+  <DestFile>C:/Users/Oliver/Desktop/Tortoise Git/2. Semester eksamen/2.-Semester-Eksamen/It is a scary world/It is a scary world/Content/bin/Windows/MainMenuLarge.xnb</DestFile>
+  <DestTime>2017-06-08T22:41:59.0355546+02:00</DestTime>
   <Importer>FontDescriptionImporter</Importer>
   <ImporterTime>2016-03-30T08:36:08+02:00</ImporterTime>
   <Processor>FontDescriptionProcessor</Processor>

@@ -34,7 +34,7 @@ namespace It_is_a_scary_world
                 {
                     GameObject enemy = director.Construct(position);
 
-                    (enemy.GetComponent("Slime") as Slime).LoadContent(content);
+                    (enemy.GetComponent("Skeleton") as Skeleton).LoadContent(content);
 
                     enemy.LoadContent(content);
 
@@ -46,7 +46,7 @@ namespace It_is_a_scary_world
                 {
                     GameObject enemy = director.Construct(position);
 
-                    (enemy.GetComponent("Slime") as Slime).LoadContent(content);
+                    (enemy.GetComponent("Skeleton") as Skeleton).LoadContent(content);
 
                     enemy.LoadContent(content);
 

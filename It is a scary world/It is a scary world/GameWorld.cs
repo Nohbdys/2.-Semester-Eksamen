@@ -1003,6 +1003,9 @@ namespace It_is_a_scary_world
             //Updates all GameObjects
             foreach (GameObject go in gameObjects)
             {
+                
+
+                
                 go.Update();
             }
             if (runTileset)

@@ -92,7 +92,7 @@ namespace It_is_a_scary_world
         {
             if (other.gameObject.Tag == "Enemy")
             {
-                (other.gameObject.GetComponent("Slime") as Slime).health -= damage; 
+                (other.gameObject.GetComponent("Skeleton") as Skeleton).health -= damage; 
             }
 
         }

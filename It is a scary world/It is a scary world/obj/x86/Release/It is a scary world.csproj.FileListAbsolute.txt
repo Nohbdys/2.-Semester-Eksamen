@@ -66,3 +66,15 @@ C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester
 C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Release\SharpDX.RawInput.xml
 C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Release\SharpDX.Direct3D9.xml
 C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\obj\x86\Release\It is a scary world.csprojResolveAssemblyReference.cache
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Release\It is a scary world.exe.config
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Release\Content\MainMenu.xnb
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Release\Content\MainMenuLarge.xnb
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Release\Content\BulletTest.png
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Release\Content\Door.png
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Release\Content\Fireball.png
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Release\Content\Katana.png
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Release\Content\Platform.png
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Release\Content\PlayerSheet.png
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Release\Content\Shopkeeper.jpg
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Release\Content\SkeletonWalk.png
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Release\System.Data.SQLite.dll

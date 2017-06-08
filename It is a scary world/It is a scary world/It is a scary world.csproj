@@ -52,7 +52,7 @@
     <Compile Include="ComponentPatteren\Components\SpriteRenderer.cs" />
     <Compile Include="ComponentPatteren\Components\Transform.cs" />
     <Compile Include="ComponentPatteren\Door.cs" />
-    <Compile Include="ComponentPatteren\Enemies\Slime.cs" />
+    <Compile Include="ComponentPatteren\Enemies\Skeleton.cs" />
     <Compile Include="ComponentPatteren\GameObject.cs" />
     <Compile Include="ComponentPatteren\Components\Gravity.cs" />
     <Compile Include="Builder\PlatformBuilder.cs" />

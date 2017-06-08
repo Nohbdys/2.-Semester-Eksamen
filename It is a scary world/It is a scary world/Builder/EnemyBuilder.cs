@@ -19,7 +19,7 @@ namespace It_is_a_scary_world
 
             gameObject.AddComponent(new Animator(gameObject));
 
-            gameObject.AddComponent(new Slime(gameObject));
+            gameObject.AddComponent(new Skeleton(gameObject));
 
             gameObject.AddComponent(new Collider(gameObject) { UsePixelCollision = true });
 
