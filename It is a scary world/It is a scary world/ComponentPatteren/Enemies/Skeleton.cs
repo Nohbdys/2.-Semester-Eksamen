@@ -14,7 +14,7 @@ namespace It_is_a_scary_world
     {
         private DIRECTION direction;
 
-        
+        private bool isDead;
 
         private bool activeThread;
 
@@ -108,8 +108,9 @@ namespace It_is_a_scary_world
                 Thread.Sleep(17);
 
                 #region Death
-                if (health <= 0)
+                if (health <= 0 && isDead == false)
                 {
+                    isDead = true;
                     go.transform.position = new Vector2(3500, 3500);
                     dropChance = rnd.Next(1, 3);
 
