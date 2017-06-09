@@ -78,3 +78,6 @@ C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\2.-Semester-Eksamen\It 
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Release\Content\Shopkeeper.jpg
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Release\Content\SkeletonWalk.png
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Release\System.Data.SQLite.dll
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\Casper branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Release\It is a scary world.exe.config
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\Casper branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\obj\x86\Release\It is a scary world.exe
+C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\Casper branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\obj\x86\Release\It is a scary world.pdb
