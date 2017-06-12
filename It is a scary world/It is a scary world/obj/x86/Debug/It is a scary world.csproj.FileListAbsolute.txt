@@ -178,9 +178,7 @@ C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\2.-Semester-Eksamen CasperBra
 C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\obj\x86\Debug\It is a scary world.exe
 C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\obj\x86\Debug\It is a scary world.pdb
 C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\CollisionTexture.png
-C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\HeroSheet.png
 C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\Platform.png
-C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\SlimeSheet.png
 C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\It is a scary world.exe
 C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\It is a scary world.pdb
 C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\MonoGame.Framework.dll
@@ -205,8 +203,6 @@ C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester
 C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\SharpDX.Direct3D9.xml
 C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\obj\x86\Debug\It is a scary world.csprojResolveAssemblyReference.cache
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Master Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\BulletTest.png
-C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\BulletTest.png
-C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\Katana.png
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\obj\x86\Debug\It is a scary world.exe
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\obj\x86\Debug\It is a scary world.pdb
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\BulletTest.png
@@ -416,3 +412,5 @@ C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\Casper new stuff\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\SharpDX.Direct3D9.xml
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\Casper new stuff\2.-Semester-Eksamen\It is a scary world\It is a scary world\obj\x86\Debug\It is a scary world.csprojResolveAssemblyReference.cache
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\Casper new stuff\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\Wall.png
+C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\Background.png
+C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\Wall.png

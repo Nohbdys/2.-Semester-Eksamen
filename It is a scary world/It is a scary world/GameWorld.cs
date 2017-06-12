@@ -24,6 +24,9 @@ namespace It_is_a_scary_world
 
         public float deltaTime { get; private set; }
 
+        //Background
+        private Texture2D background;
+
         /// <summary>
         /// Creates a list of GameObjects
         /// </summary>
@@ -106,6 +109,10 @@ namespace It_is_a_scary_world
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+
+            //Background
+            background = Content.Load<Texture2D>("Background");
+
             gameObjects = new List<GameObject>();
 
             newObjects = new List<GameObject>();
@@ -1139,7 +1146,9 @@ namespace It_is_a_scary_world
 
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-           
+            spriteBatch.Begin();
+            spriteBatch.Draw(background, new Vector2(0, 0), Color.White);
+            spriteBatch.End();
 
 
             //Menues and clickdelays
