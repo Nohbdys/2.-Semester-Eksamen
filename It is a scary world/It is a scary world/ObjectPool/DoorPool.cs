@@ -16,7 +16,7 @@ namespace It_is_a_scary_world
 
         private static Director director = new Director(new DoorBuilder());
 
-        public static GameObject Create(Vector2 position, ContentManager content, int xSize, int ySize)
+        public static GameObject Create(Vector2 position, ContentManager content)
         {
             if (inactive.Count > 0)
             {
@@ -31,7 +31,7 @@ namespace It_is_a_scary_world
 
                 GameObject door = director.Construct(position);
 
-                (door.GetComponent("Door") as Door).LoadContent(content, xSize, ySize);
+                (door.GetComponent("Door") as Door).LoadContent(content);
 
                 door.LoadContent(content);
 

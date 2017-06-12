@@ -158,11 +158,11 @@ namespace It_is_a_scary_world
                 #endregion
 
                 #region FollowTarget / idle
-                if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 200 && !(strategy is FollowTarget))
+                if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 240 && !(strategy is FollowTarget))
                 {
                     strategy = new FollowTarget(player.transform, gameObject.transform, animator);
                 }
-                else if (Vector2.Distance(gameObject.transform.position, player.transform.position) > 200 && !(strategy is Idle))
+                else if (Vector2.Distance(gameObject.transform.position, player.transform.position) > 240 && !(strategy is Idle))
                 {
                     strategy = new Idle(animator);
                 }

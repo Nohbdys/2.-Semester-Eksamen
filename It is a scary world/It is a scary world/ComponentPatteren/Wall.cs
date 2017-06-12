@@ -19,13 +19,13 @@ namespace It_is_a_scary_world
             gameObject.Tag = "Wall";
         }
 
-        public void LoadContent(ContentManager content, int xSize, int ySize)
+        public void LoadContent(ContentManager content)
         {
             animator = (Animator)gameObject.GetComponent("Animator");
 
-            Texture2D sprite = content.Load<Texture2D>("Platform");
+            Texture2D sprite = content.Load<Texture2D>("Wall");
 
-            animator.CreateAnimation("IdleFront", new Animation(1, 0, 0, xSize, ySize, 0, Vector2.Zero, sprite));
+            animator.CreateAnimation("IdleFront", new Animation(1, 0, 0, 23, 243, 0, Vector2.Zero, sprite));
 
             animator.PlayAnimation("IdleFront");
 

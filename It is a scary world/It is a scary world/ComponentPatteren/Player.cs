@@ -77,7 +77,11 @@ namespace It_is_a_scary_world
             SpriteRenderer spriteRenderer = (SpriteRenderer)gameObject.GetComponent("SpriteRenderer");
 
             animator.CreateAnimation("IdleFront", new Animation(2, 0, 0, 29, 43, 3, Vector2.Zero, spriteRenderer.Sprite));
-            animator.CreateAnimation("Attack", new Animation(2, 0, 0, 29, 43, 12, Vector2.Zero, spriteRenderer.Sprite));
+
+            animator.CreateAnimation("AttackRight", new Animation(3, 129, 0, 31, 43, 9, Vector2.Zero, spriteRenderer.Sprite));
+            animator.CreateAnimation("AttackLeft", new Animation(3, 172, 0, 31, 43, 9, Vector2.Zero, spriteRenderer.Sprite));
+            animator.CreateAnimation("AttackFront", new Animation(3, 129, 0, 31, 43, 9, Vector2.Zero, spriteRenderer.Sprite));
+            animator.CreateAnimation("AttackBack", new Animation(3, 172, 0, 31, 43, 9, Vector2.Zero, spriteRenderer.Sprite));
 
             animator.CreateAnimation("IdleBack", new Animation(2, 0, 0, 29, 43, 3, Vector2.Zero, spriteRenderer.Sprite));
 

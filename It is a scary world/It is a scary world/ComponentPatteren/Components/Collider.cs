@@ -177,11 +177,13 @@ namespace It_is_a_scary_world
                     int secondIndex = (x - other.CollisionBox.Left) + (y - other.CollisionBox.Top) * other.CollisionBox.Width;
 
                     //Get the color of both pixels at this point 
-                    Color colorA = CurrentPixels[firstIndex];
-                    if (other.CurrentPixels.Length -1 > secondIndex)
+                    
+                    if (other.CurrentPixels.Length -1 > secondIndex && CurrentPixels.Length -1 > firstIndex)
                     {
-                        Color colorB = other.CurrentPixels[secondIndex];
+                        Color colorA = CurrentPixels[firstIndex];
 
+                        Color colorB = other.CurrentPixels[secondIndex];
+                        
                         if (colorA.A != 0 && colorB.A != 0)
                         {
                             //Then an intersection has been found

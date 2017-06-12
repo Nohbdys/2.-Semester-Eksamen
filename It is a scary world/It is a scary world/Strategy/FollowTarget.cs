@@ -43,13 +43,13 @@ namespace It_is_a_scary_world
             //Enemy followtarget x-axis
             if (target.position.X <= transform.position.X)
             {
-                translation += new Vector2(-1, 0);
+                translation += new Vector2(-1.5f, 0);
                 currentDirection = Left;
             }
 
             if (target.position.X >= transform.position.X)
             {
-                translation += new Vector2(1, 0);
+                translation += new Vector2(1.5f, 0);
                 currentDirection = Right;
             }
 

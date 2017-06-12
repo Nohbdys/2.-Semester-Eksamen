@@ -345,28 +345,25 @@ namespace It_is_a_scary_world
 
             //boundaries
             //Case wall 1-4 is long walls case 5 is special wall used in tileset 3 and 5+ is walls designed to platforms
-            gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 25, Window.ClientBounds.Bottom));
-            gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 25, Window.ClientBounds.Bottom));
-            gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 25, Window.ClientBounds.Bottom));
-            gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 25, Window.ClientBounds.Bottom));
-            gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 25, 250));
+
 
             //MapTiles
             for (int i = 0; i < 15; i++)
             {
-                gameObjects.Add(ObjectPool.Create(new Vector2(2000, 2000), Content, 300, 50));
-                gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 25, 48));
+                gameObjects.Add(ObjectPool.Create(new Vector2(2000, 2000), Content));
             }
-            gameObjects.Add(DoorPool.Create(new Vector2(2000, 2000), Content, 11, 30));
+            for (int i = 0; i < 15; i++)
+            {
+                gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content));
+            }
+            gameObjects.Add(DoorPool.Create(new Vector2(2000, 2000), Content));
 
             //Enemies
             for (int i = 0; i < 5; i++)
             {
-                gameObjects.Add(ObjectPool.Create(new Vector2(2000, 2000), Content, 75, 25));
-                gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content, 73, 23));
                 gameObjects.Add(EnemyPool.Create(new Vector2(3000, 3000), Content));
             }
-
+            
             //ClientBounds
 
             foreach (GameObject go in gameObjects)
@@ -484,13 +481,13 @@ namespace It_is_a_scary_world
                                 go.transform.position = new Vector2(0, 200);                                
                                 break;
                             case 2:
-                                go.transform.position = new Vector2(300, 200);
+                                go.transform.position = new Vector2(450, 200);
                                 break;
                             case 3:
-                                go.transform.position = new Vector2(600, 200);
+                                go.transform.position = new Vector2(800, 200);
                                 break;
                             case 4:
-                                go.transform.position = new Vector2(900, 200);
+                                go.transform.position = new Vector2(800, 200);
                                 break;
                             case 5:
                                 go.transform.position = new Vector2(1200, 450);
@@ -534,22 +531,38 @@ namespace It_is_a_scary_world
                         switch (wallNummer)
                         {
                             case 1:
-                                go.transform.position = new Vector2(0, 0);
+                                go.transform.position = new Vector2(-8, 0);
                                 break;
 
                             case 2:
-                                go.transform.position = new Vector2(1380, 0);
+                                go.transform.position = new Vector2(1386, 0);
+                                break;
+
+                            case 3:
+                                go.transform.position = new Vector2(-8, 241);
+                                break;
+
+                            case 4:
+                                go.transform.position = new Vector2(1386, 241);
+                                break;
+
+                            case 5:
+                                go.transform.position = new Vector2(-8, 482);
                                 break;
 
                             case 6:
-                                go.transform.position = new Vector2(1176, 201);
-                                break;
-                            case 7:
-                                go.transform.position = new Vector2(299, 451);
+                                go.transform.position = new Vector2(1386, 482);
                                 break;
 
+                            case 7:
+                                go.transform.position = new Vector2(1176, 2001);
+                                break;
                             case 8:
-                                go.transform.position = new Vector2(00, 726);
+                                go.transform.position = new Vector2(299, 2451);
+                                break;
+
+                            case 9:
+                                go.transform.position = new Vector2(00, 2726);
                                 break;
                         }
                         wallNummer++;
@@ -557,7 +570,7 @@ namespace It_is_a_scary_world
                     }
                     if (go.Tag == "Door")
                     {
-                        go.transform.position = new Vector2(100, 690);
+                        go.transform.position = new Vector2(100, 669);
                     }
 
                     if (go.Tag == "Player")
@@ -1003,11 +1016,9 @@ namespace It_is_a_scary_world
             //Updates all GameObjects
             foreach (GameObject go in gameObjects)
             {
-                
-
-                
                 go.Update();
             }
+
             if (runTileset)
             {
                 TileSet();

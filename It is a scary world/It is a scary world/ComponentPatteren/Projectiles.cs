@@ -64,7 +64,7 @@ namespace It_is_a_scary_world
         {
             bulletTime += 1;
 
-            if (bulletTime > 40)
+            if (bulletTime > 80)
             {
                 GameWorld.Instance.objectsToRemove.Add(gameObject);
             }
