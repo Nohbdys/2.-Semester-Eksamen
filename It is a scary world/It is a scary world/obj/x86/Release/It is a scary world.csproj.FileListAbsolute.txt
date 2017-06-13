@@ -117,3 +117,5 @@ C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\Casper new stuff\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Release\SharpDX.RawInput.xml
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\Casper new stuff\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Release\SharpDX.Direct3D9.xml
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\Casper new stuff\2.-Semester-Eksamen\It is a scary world\It is a scary world\obj\x86\Release\It is a scary world.csprojResolveAssemblyReference.cache
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\Casper new stuff\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Release\Content\Background.png
+C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\Casper new stuff\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Release\Content\Wall.png

@@ -355,11 +355,15 @@ namespace It_is_a_scary_world
 
 
             //MapTiles
+            for (int i = 0; i < 6; i++)
+            {
+                gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content));
+            }
             for (int i = 0; i < 15; i++)
             {
                 gameObjects.Add(ObjectPool.Create(new Vector2(2000, 2000), Content));
             }
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < 6; i++)
             {
                 gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content));
             }
