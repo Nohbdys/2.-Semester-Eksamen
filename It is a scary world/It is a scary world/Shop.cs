@@ -73,7 +73,7 @@ namespace It_is_a_scary_world
                     gold -= weaponDamagePrice;
                     weaponDamageLevel += 1;
                     weaponDamageUpgrade = false;
-                    weaponDamagePrice += weaponDamagePrice * 1.25;
+                    weaponDamagePrice += (int)Math.Ceiling((weaponDamagePrice * 1.25));
                     weaponDamagePriceUp = false;
                 }
             }
@@ -87,7 +87,7 @@ namespace It_is_a_scary_world
                     gold -= weaponAttackSpeedPrice;
                     weaponAttackSpeedLevel += 1;
                     weaponAttackSpeedUpgrade = false;
-                    weaponAttackSpeedPrice += weaponAttackSpeedPrice * 1.25;
+                    weaponAttackSpeedPrice += (int)Math.Ceiling((weaponAttackSpeedPrice * 1.25));
                     weaponAttackSpeedPriceUp = false;
                 }
             }
@@ -101,7 +101,7 @@ namespace It_is_a_scary_world
                     gold -= playerArmorPrice;
                     playerArmorLevel += 1;
                     playerArmorUpgrade = false;
-                    playerArmorPrice += playerArmorPrice * 1.25;
+                    playerArmorPrice += (int)Math.Ceiling((playerArmorPrice * 1.25));
                     playerArmorPriceUp = false;
                 }
             }
@@ -115,7 +115,7 @@ namespace It_is_a_scary_world
                     gold -= playerSpeedPrice;
                     playerSpeedLevel += 1;
                     playerSpeedUpgrade = false;
-                    playerSpeedPrice += playerSpeedPrice * 1.25;
+                    playerSpeedPrice += (int)Math.Ceiling((playerSpeedPrice * 1.25));
                     playerSpeedPriceUp = false;
                 }
             }

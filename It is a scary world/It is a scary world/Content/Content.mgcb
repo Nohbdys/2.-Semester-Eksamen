@@ -25,3 +25,9 @@
 /processorParam:TextureFormat=Compressed
 /build:MainMenuLarge.spritefont
 
+#begin MainMenuMedium.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:MainMenuMedium.spritefont
+

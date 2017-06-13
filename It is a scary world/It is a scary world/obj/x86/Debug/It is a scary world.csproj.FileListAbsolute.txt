@@ -415,3 +415,4 @@ C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch
 C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\Background.png
 C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\Wall.png
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\Casper new stuff\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\Background.png
+C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\MainMenuMedium.xnb

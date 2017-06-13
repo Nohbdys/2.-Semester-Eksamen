@@ -61,6 +61,7 @@
     <Compile Include="Database.cs" />
     <Compile Include="ObjectPool\BulletPool.cs" />
     <Compile Include="ObjectPool\DoorPool.cs" />
+    <Compile Include="Strategy\Pause.cs" />
     <Compile Include="Shop.cs" />
     <Compile Include="Builder\ShopBuilder.cs" />
     <Compile Include="Strategy\Movement.cs" />
@@ -137,6 +138,7 @@
     <None Include="app.config" />
     <None Include="Content\MainMenu.spritefont" />
     <None Include="Content\MainMenuLarge.spritefont" />
+    <None Include="Content\MainMenuMedium.spritefont" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

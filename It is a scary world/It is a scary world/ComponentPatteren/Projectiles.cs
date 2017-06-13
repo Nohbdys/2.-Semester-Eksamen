@@ -17,9 +17,11 @@ namespace It_is_a_scary_world
 
         private IStrategy strategy;
 
+        private DIRECTION direction;
+
         private int damage;
 
-        Vector2 direction;
+        Vector2 directions;
 
         private int bulletTime;
 
@@ -35,11 +37,11 @@ namespace It_is_a_scary_world
             {
                 if (gol.Tag == "Player")
                 {
-                    direction = new Vector2(mouseX, mouseY) - (gol.GetComponent("Player") as Player).gameObject.transform.position; //The bullet is shot in the direction of the mouse's current position
+                    directions = new Vector2(mouseX, mouseY) - (gol.GetComponent("Player") as Player).gameObject.transform.position; //The bullet is shot in the direction of the mouse's current position
                     break;
                 }
             }
-            direction.Normalize();
+            directions.Normalize();
 
             gameObject.Tag = "Bullet";
         }
@@ -55,6 +57,8 @@ namespace It_is_a_scary_world
 
             animator.CreateAnimation("IdleFront", new Animation(4, 0, 0, 18, 11, 4, Vector2.Zero, sprite));
 
+            animator.CreateAnimation("Pause", new Animation(1, 0, 0, 18, 11, 0, Vector2.Zero, sprite));
+
             animator.PlayAnimation("IdleFront");
 
             strategy = new Idle(animator);
@@ -62,21 +66,33 @@ namespace It_is_a_scary_world
 
         public void Update()
         {
-            bulletTime += 1;
+            if (GameWorld.Instance.currentGameState == GameState.InGame)
+            {
+                strategy = new Idle(animator);
 
-            if (bulletTime > 80)
-            {
-                GameWorld.Instance.objectsToRemove.Add(gameObject);
-            }
-            foreach (GameObject go in GameWorld.Instance.gameObjects)
-            {
-                if (go.Tag == "Player")
+                bulletTime += 1;
+
+                if (bulletTime > 80)
                 {
-                    damage = (go.GetComponent("Player") as Player).damage;
+                    GameWorld.Instance.objectsToRemove.Add(gameObject);
                 }
-            }
-            gameObject.transform.position += direction * 4; //The bullet moves towards the mouse's current position
+                foreach (GameObject go in GameWorld.Instance.gameObjects)
+                {
+                    if (go.Tag == "Player")
+                    {
+                        damage = (go.GetComponent("Player") as Player).damage;
+                    }
+                }
+                gameObject.transform.position += directions * 4; //The bullet moves towards the mouse's current position
 
+                strategy.Execute(ref direction);
+            }
+            if (GameWorld.Instance.currentGameState == GameState.ShopMenu)
+            {
+                strategy = new Pause(animator);
+
+                strategy.Execute(ref direction);
+            }
         }
         public void OnCollisionStay(Collider other)
         {

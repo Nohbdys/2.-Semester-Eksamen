@@ -48,6 +48,7 @@ namespace It_is_a_scary_world
 
         //Mainmenu
         private SpriteFont mainMenuT;
+        private SpriteFont mainMenuTM;
         private SpriteFont mainMenuTL;
         private int menuID = 1;
         private int menuMinID = 1;
@@ -121,27 +122,44 @@ namespace It_is_a_scary_world
 
             Colliders = new List<Collider>();
 
+
+            SetupWorld();
+
+            base.Initialize();
+        }
+
+        public void SetupWorld()
+        {
             //Player
-/*
             Director director = new Director(new PlayerBuilder());
 
-            gameObjects.Add(director.Construct(new Vector2(- 100, 0)));
+            gameObjects.Add(director.Construct(new Vector2(-1000, 0)));
 
             //Shop
             Director shop = new Director(new ShopBuilder());
 
-            gameObjects.Add(shop.Construct(new Vector2(- 200, 0)));
-*/
+            gameObjects.Add(shop.Construct(new Vector2(-2000, 0)));
 
-            base.Initialize();
+            //MapTiles
+            for (int i = 0; i < 6; i++)
+            {
+                gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content));
+            }
+            for (int i = 0; i < 15; i++)
+            {
+                gameObjects.Add(ObjectPool.Create(new Vector2(2000, 2000), Content));
+            }
+            for (int i = 0; i < 6; i++)
+            {
+                gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content));
+            }
+            gameObjects.Add(DoorPool.Create(new Vector2(2000, 2000), Content));
         }
 
         public void TileSet()
         {
             tileSet = rnd.Next(1, 3);
             enemySpawnLevel = rnd.Next(1, 3);
-
-
 
             #region ObjectRemove
             //Used to reset every block because of collision problems even after a object is removed
@@ -335,39 +353,7 @@ namespace It_is_a_scary_world
                     go.transform.position = new Vector2(5000, 5000);
                 }
             }
-
-            gameObjects.Clear();
             #endregion
-
-
-            //Player
-            Director director = new Director(new PlayerBuilder());
-
-            gameObjects.Add(director.Construct(new Vector2(-1000, 0)));
-
-            //Shop
-            Director shop = new Director(new ShopBuilder());
-
-            gameObjects.Add(shop.Construct(new Vector2(-2000, 0)));
-
-            //boundaries
-            //Case wall 1-4 is long walls case 5 is special wall used in tileset 3 and 5+ is walls designed to platforms
-
-
-            //MapTiles
-            for (int i = 0; i < 6; i++)
-            {
-                gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content));
-            }
-            for (int i = 0; i < 15; i++)
-            {
-                gameObjects.Add(ObjectPool.Create(new Vector2(2000, 2000), Content));
-            }
-            for (int i = 0; i < 6; i++)
-            {
-                gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content));
-            }
-            gameObjects.Add(DoorPool.Create(new Vector2(2000, 2000), Content));
 
             //Enemies
             for (int i = 0; i < 5; i++)
@@ -376,16 +362,6 @@ namespace It_is_a_scary_world
             }
             
             //ClientBounds
-
-            foreach (GameObject go in gameObjects)
-            {
-                if (go.Tag == "Player")
-                {
-                    (go.GetComponent("Player") as Player).gameObject.transform.position = new Vector2(500, 0);
-                    break;
-                }
-            }
-
             if (lastRun == tileSet && !firstRun)
             {
                 tileSet++;
@@ -987,8 +963,9 @@ namespace It_is_a_scary_world
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
 
-            //MainMenuTest
+            //MainMenu
             mainMenuT = Content.Load<SpriteFont>("MainMenu");
+            mainMenuTM = Content.Load<SpriteFont>("MainMenuMedium");
             mainMenuTL = Content.Load<SpriteFont>("MainMenuLarge");
 
             // TODO: use this.Content to load your game content here
@@ -1150,14 +1127,23 @@ namespace It_is_a_scary_world
 
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+
+
             spriteBatch.Begin();
             spriteBatch.Draw(background, new Vector2(0, 0), Color.White);
             spriteBatch.End();
 
+            //Draws all GameObjects
+            spriteBatch.Begin();
+            foreach (GameObject go in gameObjects)
+            {
+                go.Draw(spriteBatch);
+            }
+
+            spriteBatch.End();
 
             //Menues and clickdelays
             #region MainMenu
-
 
             if (currentGameState == GameState.MainMenu)
             {
@@ -1191,26 +1177,26 @@ namespace It_is_a_scary_world
                 //Skriver menu teksten ud til skræmen
                     if (menuID == 1 && saves == 0)
                     {
-                        spriteBatch.DrawString(mainMenuTL, "New Game", new Vector2(10, 10), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Exit to desktop", new Vector2(10, 60), Color.Black);
+                        spriteBatch.DrawString(mainMenuTL, "New Game", new Vector2(600, 250), Color.White);
+                        spriteBatch.DrawString(mainMenuT, "Exit to desktop", new Vector2(600, 300), Color.White);
                     }
 
                     if (menuID == 2 && saves == 0)
                     {
-                        spriteBatch.DrawString(mainMenuT, "New Game", new Vector2(10, 10), Color.Black);
-                        spriteBatch.DrawString(mainMenuTL, "Exit to desktop", new Vector2(10, 60), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "New Game", new Vector2(600, 250), Color.White);
+                        spriteBatch.DrawString(mainMenuTL, "Exit to desktop", new Vector2(600, 300), Color.White);
                     }
 
                     if (menuID == 1 && saves == 1)
                     {
-                        spriteBatch.DrawString(mainMenuTL, "Continue", new Vector2(10, 10), Color.Black);
-                        spriteBatch.DrawString(mainMenuT, "Exit to desktop", new Vector2(10, 60), Color.Black);
+                        spriteBatch.DrawString(mainMenuTL, "Continue", new Vector2(600, 250), Color.White);
+                        spriteBatch.DrawString(mainMenuT, "Exit to desktop", new Vector2(600, 300), Color.White);
                     }
 
                     if (menuID == 2 && saves == 1)
                     {
-                        spriteBatch.DrawString(mainMenuT, "Continue", new Vector2(10, 10), Color.Black);
-                        spriteBatch.DrawString(mainMenuTL, "Exit to desktop", new Vector2(10, 60), Color.Black);
+                        spriteBatch.DrawString(mainMenuT, "Continue", new Vector2(600, 250), Color.White);
+                        spriteBatch.DrawString(mainMenuTL, "Exit to desktop", new Vector2(600, 300), Color.White);
                     }
                 spriteBatch.End();
             }
@@ -1223,7 +1209,7 @@ namespace It_is_a_scary_world
             {
                 if (go.Tag == "Shop")
                 {
-                    if (currentGameState == GameState.InGame && keyState.IsKeyDown(Keys.P) && shopState == false && (go.GetComponent("Shop") as Shop).shopActive == true)
+                    if (currentGameState == GameState.InGame && keyState.IsKeyDown(Keys.P) /*&& shopState == false && (go.GetComponent("Shop") as Shop).shopActive == true*/)
                     {
                         menuID = 1;
                         menuMaxID = 3;
@@ -1265,7 +1251,7 @@ namespace It_is_a_scary_world
                             if (menuID == 2 && upgradePlayer == false)
                             {
                                 menuID = 1;
-                                menuMaxID = 4;
+                                menuMaxID = 3;
                                 upgradePlayer = true;
                                 clickDelay = 30;
                             }
@@ -1294,18 +1280,13 @@ namespace It_is_a_scary_world
                             if (menuID == 2)
                             {
                                 clickDelay = 30;
-                            }
-
-                            if (menuID == 3)
-                            {
-                                clickDelay = 30;
                                 if ((go.GetComponent("Shop") as Shop).playerSpeedUpgrade == true)
                                 {
                                     (go.GetComponent("Shop") as Shop).playerSpeedPriceUp = true;
                                 }
                             }
 
-                            if (menuID == 4)
+                            if (menuID == 3)
                             {
                                 menuID = 1;
                                 menuMaxID = 3;
@@ -1352,23 +1333,26 @@ namespace It_is_a_scary_world
                             spriteBatch.Begin();
                             if (menuID == 1)
                             {
-                                spriteBatch.DrawString(mainMenuTL, "Upgrade Weapon", new Vector2(30, 10), Color.Black);
-                                spriteBatch.DrawString(mainMenuT, "Upgrade Player", new Vector2(30, 60), Color.Black);
-                                spriteBatch.DrawString(mainMenuT, "Close shop", new Vector2(30, 110), Color.Black);
+                                spriteBatch.DrawString(mainMenuTM, " -- ShopMenu --", new Vector2(600, 250), Color.White);                 
+                                spriteBatch.DrawString(mainMenuTL, "Upgrade Weapon", new Vector2(600, 300), Color.White);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade Player", new Vector2(600, 350), Color.White);
+                                spriteBatch.DrawString(mainMenuT, "Close shop", new Vector2(600, 400), Color.White);
                             }
 
                             if (menuID == 2)
                             {
-                                spriteBatch.DrawString(mainMenuT, "Upgrade Weapon", new Vector2(30, 10), Color.Black);
-                                spriteBatch.DrawString(mainMenuTL, "Upgrade Player", new Vector2(30, 60), Color.Black);
-                                spriteBatch.DrawString(mainMenuT, "Close shop", new Vector2(30, 110), Color.Black);
+                                spriteBatch.DrawString(mainMenuTM, " -- ShopMenu --", new Vector2(600, 250), Color.White);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade Weapon", new Vector2(600, 300), Color.White);
+                                spriteBatch.DrawString(mainMenuTL, "Upgrade Player", new Vector2(600, 350), Color.White);
+                                spriteBatch.DrawString(mainMenuT, "Close shop", new Vector2(600, 400), Color.White);
                             }
 
                             if (menuID == 3)
                             {
-                                spriteBatch.DrawString(mainMenuT, "Upgrade Weapon", new Vector2(30, 10), Color.Black);
-                                spriteBatch.DrawString(mainMenuT, "Upgrade Player", new Vector2(30, 60), Color.Black);
-                                spriteBatch.DrawString(mainMenuTL, "Close shop", new Vector2(30, 110), Color.Black);
+                                spriteBatch.DrawString(mainMenuTM, " -- ShopMenu --", new Vector2(600, 250), Color.White);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade Weapon", new Vector2(600, 300), Color.White);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade Player", new Vector2(600, 350), Color.White);
+                                spriteBatch.DrawString(mainMenuTL, "Close shop", new Vector2(600, 400), Color.White);
                             }
                             spriteBatch.End();
                         }
@@ -1380,37 +1364,28 @@ namespace It_is_a_scary_world
                             spriteBatch.Begin();
                             if (menuID == 1)
                             {
-                                spriteBatch.DrawString(mainMenuT, "  -- Player --", new Vector2(30, 10), Color.Black, 0, Vector2.Zero, 0, SpriteEffects.None, -10f);
-                                spriteBatch.DrawString(mainMenuTL, "Upgrade Armor", new Vector2(30, 100), Color.Black, 0, Vector2.Zero, 0, SpriteEffects.None, -10f);
-                                spriteBatch.DrawString(mainMenuT, "Upgrade Speed", new Vector2(30, 160), Color.Black, 0, Vector2.Zero, 0, SpriteEffects.None, -10f);
-                                spriteBatch.DrawString(mainMenuT, "Back", new Vector2(30, 210), Color.Black, 0, Vector2.Zero, 0, SpriteEffects.None, -10f);
-                                spriteBatch.DrawString(mainMenuT, "Price:" + ((go.GetComponent("Shop") as Shop).playerArmorPrice), new Vector2(30, 60), Color.Black, 0, Vector2.Zero, 0, SpriteEffects.None, -10f);
+                                spriteBatch.DrawString(mainMenuTM, "  -- Player --", new Vector2(600, 250), Color.White);
+                                spriteBatch.DrawString(mainMenuTM, "Price:" + ((go.GetComponent("Shop") as Shop).playerArmorPrice), new Vector2(600, 280), Color.White);
+                                spriteBatch.DrawString(mainMenuTL, "Upgrade Armor", new Vector2(600, 320), Color.White);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade Speed", new Vector2(600, 360), Color.White);
+                                spriteBatch.DrawString(mainMenuT, "Back", new Vector2(600, 400), Color.White);
                             }
 
                             if (menuID == 2)
                             {
-                                spriteBatch.DrawString(mainMenuT, "  -- Player --", new Vector2(30, 10), Color.Black);
-                                spriteBatch.DrawString(mainMenuT, "Upgrade Armor", new Vector2(30, 100), Color.Black);
-                                spriteBatch.DrawString(mainMenuT, "Upgrade Speed", new Vector2(30, 160), Color.Black);
-                                spriteBatch.DrawString(mainMenuT, "Back", new Vector2(30, 210), Color.Black);
-                                spriteBatch.DrawString(mainMenuT, "Price:", new Vector2(30, 60), Color.Black);
+                                spriteBatch.DrawString(mainMenuTM, "  -- Player --", new Vector2(600, 250), Color.White);
+                                spriteBatch.DrawString(mainMenuTM, "Price:" + ((go.GetComponent("Shop") as Shop).playerSpeedPrice), new Vector2(600, 280), Color.White);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade Armor", new Vector2(600, 320), Color.White);
+                                spriteBatch.DrawString(mainMenuTL, "Upgrade Speed", new Vector2(600, 360), Color.White);
+                                spriteBatch.DrawString(mainMenuT, "Back", new Vector2(600, 400), Color.White);
                             }
-
                             if (menuID == 3)
                             {
-                                spriteBatch.DrawString(mainMenuT, "  -- Player --", new Vector2(30, 10), Color.Black);
-                                spriteBatch.DrawString(mainMenuT, "Upgrade Armor", new Vector2(30, 100), Color.Black);
-                                spriteBatch.DrawString(mainMenuTL, "Upgrade Speed", new Vector2(30, 160), Color.Black);
-                                spriteBatch.DrawString(mainMenuT, "Back", new Vector2(30, 210), Color.Black);
-                                spriteBatch.DrawString(mainMenuT, "Price:" + ((go.GetComponent("Shop") as Shop).playerSpeedPrice), new Vector2(30, 60), Color.Black);
-                            }
-                            if (menuID == 4)
-                            {
-                                spriteBatch.DrawString(mainMenuT, "  -- Player --", new Vector2(30, 10), Color.Black);
-                                spriteBatch.DrawString(mainMenuT, "Upgrade Armor", new Vector2(30, 100), Color.Black);
-                                spriteBatch.DrawString(mainMenuT, "Upgrade Speed", new Vector2(30, 160), Color.Black);
-                                spriteBatch.DrawString(mainMenuTL, "Back", new Vector2(30, 210), Color.Black);
-                                spriteBatch.DrawString(mainMenuT, "Price:", new Vector2(30, 60), Color.Black);
+                                spriteBatch.DrawString(mainMenuTM, "  -- Player --", new Vector2(600, 250), Color.White);
+                                spriteBatch.DrawString(mainMenuTM, "Price:" , new Vector2(600, 280), Color.White);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade Armor", new Vector2(600, 320), Color.White);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade Speed", new Vector2(600, 360), Color.White);
+                                spriteBatch.DrawString(mainMenuTL, "Back", new Vector2(600, 400), Color.White);
                             }
                             spriteBatch.End();
                         }
@@ -1422,28 +1397,28 @@ namespace It_is_a_scary_world
                             spriteBatch.Begin();
                             if (menuID == 1)
                             {
-                                spriteBatch.DrawString(mainMenuT, "  -- Weapon --", new Vector2(30, 10), Color.Black);
-                                spriteBatch.DrawString(mainMenuTL, "Upgrade Damage", new Vector2(30, 110), Color.Black);
-                                spriteBatch.DrawString(mainMenuT, "Upgrade AttackSpeed", new Vector2(30, 160), Color.Black);
-                                spriteBatch.DrawString(mainMenuT, "Back", new Vector2(30, 210), Color.Black);
-                                spriteBatch.DrawString(mainMenuT, "Price:" + ((go.GetComponent("Shop") as Shop).weaponDamagePrice), new Vector2(30, 60), Color.Black);
+                                spriteBatch.DrawString(mainMenuTM, "  -- Weapon --", new Vector2(600, 250), Color.White);
+                                spriteBatch.DrawString(mainMenuTM, "Price:" + ((go.GetComponent("Shop") as Shop).weaponDamagePrice), new Vector2(600, 280), Color.White);
+                                spriteBatch.DrawString(mainMenuTL, "Upgrade Damage", new Vector2(600, 320), Color.White);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade AttackSpeed", new Vector2(600, 360), Color.White);
+                                spriteBatch.DrawString(mainMenuT, "Back", new Vector2(600, 400), Color.White);                               
                             }
 
                             if (menuID == 2)
                             {
-                                spriteBatch.DrawString(mainMenuT, "  -- Weapon --", new Vector2(30, 10), Color.Black);
-                                spriteBatch.DrawString(mainMenuT, "Upgrade Damage", new Vector2(30, 110), Color.Black);
-                                spriteBatch.DrawString(mainMenuTL, "Upgrade AttackSpeed", new Vector2(30, 160), Color.Black);
-                                spriteBatch.DrawString(mainMenuT, "Back", new Vector2(30, 210), Color.Black);
-                                spriteBatch.DrawString(mainMenuT, "Price:" + ((go.GetComponent("Shop") as Shop).weaponAttackSpeedPrice), new Vector2(30, 60), Color.Black);
+                                spriteBatch.DrawString(mainMenuTM, "  -- Weapon --", new Vector2(600, 250), Color.White);
+                                spriteBatch.DrawString(mainMenuTM, "Price:" + ((go.GetComponent("Shop") as Shop).weaponAttackSpeedPrice), new Vector2(600, 280), Color.White);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade Damage", new Vector2(600, 320), Color.White);
+                                spriteBatch.DrawString(mainMenuTL, "Upgrade AttackSpeed", new Vector2(600, 360), Color.White);
+                                spriteBatch.DrawString(mainMenuT, "Back", new Vector2(600, 400), Color.White);
                             }
                             if (menuID == 3)
                             {
-                                spriteBatch.DrawString(mainMenuT, "  -- Weapon --", new Vector2(30, 10), Color.Black);
-                                spriteBatch.DrawString(mainMenuT, "Upgrade Damage", new Vector2(30, 110), Color.Black);
-                                spriteBatch.DrawString(mainMenuT, "Upgrade AttackSpeed", new Vector2(30, 160), Color.Black);
-                                spriteBatch.DrawString(mainMenuTL, "Back", new Vector2(30, 210), Color.Black);
-                                spriteBatch.DrawString(mainMenuT, "Price:", new Vector2(30, 60), Color.Black);
+                                spriteBatch.DrawString(mainMenuTM, "  -- Weapon --", new Vector2(600, 250), Color.White);
+                                spriteBatch.DrawString(mainMenuTM, "Price:" , new Vector2(600, 280), Color.White);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade Damage", new Vector2(600, 320), Color.White);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade AttackSpeed", new Vector2(600, 360), Color.White);
+                                spriteBatch.DrawString(mainMenuTL, "Back", new Vector2(600, 400), Color.White);
                             }
                             spriteBatch.End();
                         }
@@ -1488,17 +1463,6 @@ namespace It_is_a_scary_world
             }
             #endregion
             //Menues and clickdelays
-
-            // TODO: Add your drawing code here
-
-            //Draws all GameObjects
-            spriteBatch.Begin();
-            foreach (GameObject go in gameObjects)
-            {
-                go.Draw(spriteBatch);
-            }
-
-            spriteBatch.End();
 
             base.Draw(gameTime);
         }

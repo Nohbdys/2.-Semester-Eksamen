@@ -87,13 +87,14 @@ namespace It_is_a_scary_world
 
             animator.CreateAnimation("WalkFront", new Animation(5, 86, 0, 29, 43, 5, Vector2.Zero, spriteRenderer.Sprite));
             animator.CreateAnimation("WalkBack", new Animation(5, 43, 0, 29, 43, 5, Vector2.Zero, spriteRenderer.Sprite));
-            //
 
             animator.CreateAnimation("IdleLeft", new Animation(2, 0, 0, 29, 43, 6, Vector2.Zero, spriteRenderer.Sprite));
             animator.CreateAnimation("IdleRight", new Animation(2, 0, 0, 29, 43, 3, Vector2.Zero, spriteRenderer.Sprite));
 
             animator.CreateAnimation("WalkLeft", new Animation(5, 86, 0, 29, 43, 5, Vector2.Zero, spriteRenderer.Sprite));
             animator.CreateAnimation("WalkRight", new Animation(5, 43, 0, 29, 43, 5, Vector2.Zero, spriteRenderer.Sprite));
+
+            animator.CreateAnimation("Pause", new Animation(1, 0, 0, 29, 43, 0, Vector2.Zero, spriteRenderer.Sprite));
 
             //Plays an animation to make sure that we have an animation to play
             //If we don't do this we will get an exception
@@ -105,91 +106,102 @@ namespace It_is_a_scary_world
 
         public void Update()
         {
-            KeyboardState keyState = Keyboard.GetState();
-
-            #region LevelSystem and perks
-
-            if ((int)Math.Ceiling(exp) >= (int)Math.Ceiling(expToLevel) && level < 50)
+            if (GameWorld.Instance.currentGameState == GameState.InGame)
             {
-                level += 1;
-                levelReward += 1;
-                exp -= (int)Math.Ceiling(expToLevel);
-                expToLevel = (int)Math.Ceiling(expToLevel) * 1.2;
+                KeyboardState keyState = Keyboard.GetState();
 
-                if (armor < 5)
+                #region LevelSystem and perks
+
+                if ((int)Math.Ceiling(exp) >= (int)Math.Ceiling(expToLevel) && level < 50)
                 {
-                    armor += 1;
+                    level += 1;
+                    levelReward += 1;
+                    exp -= (int)Math.Ceiling(expToLevel);
+                    expToLevel = (int)Math.Ceiling(expToLevel) * 1.2;
+
+                    if (armor < 5)
+                    {
+                        armor += 1;
+                    }
+
+                    #region LevelRewards 
+                    if (levelReward == 5)
+                    {
+                        doubleJump = true;
+                    }
+                    #endregion
                 }
 
-                #region LevelRewards 
-                if (levelReward == 5)
+                #endregion
+
+                #region Death
+
+                if (health <= 0)
                 {
-                    doubleJump = true;
+                    Death();
+                }
+
+                #endregion
+
+                #region Checks collision with platform
+                if (platformTimer > 0)
+                {
+                    platformTimer -= 1;
+                }
+                else if (platformTimer <= 0)
+                {
+                    platformCheck = false;
                 }
                 #endregion
-            }
 
-            #endregion
+                #region JumpTimer
 
-            #region Death
-
-            if (health <= 0)
-            {
-                Death();    
-            }
-
-            #endregion
-
-            #region Checks collision with platform
-            if (platformTimer > 0)
-            {
-                platformTimer -= 1;
-            }
-            else if (platformTimer <= 0)
-            {
-                platformCheck = false;
-            }
-            #endregion
-
-            #region JumpTimer
-
-            if (jumpTimer > 0)
-            {
-                jumpTimer -= 1;
-            }
-            else if (jumpTimer < 0)
-            {
-                jumpTimer = 0;
-            }
-
-            #endregion
-
-            if (canMove)
-            {
-                if (keyState.IsKeyDown(Keys.W) || keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.D))
+                if (jumpTimer > 0)
                 {
-                    if (!(strategy is Movement))
+                    jumpTimer -= 1;
+                }
+                else if (jumpTimer < 0)
+                {
+                    jumpTimer = 0;
+                }
+
+                #endregion
+
+                if (canMove)
+                {
+                    if (keyState.IsKeyDown(Keys.W) || keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.D))
                     {
-                        //There is made a new movement every time so i need to add dobulejump currentjump and maxjump to constructer 
-                        strategy = new Movement(gameObject.transform, animator, gameObject);
+                        if (!(strategy is Movement))
+                        {
+                            //There is made a new movement every time so i need to add dobulejump currentjump and maxjump to constructer 
+                            strategy = new Movement(gameObject.transform, animator, gameObject);
+                        }
                     }
-                }
-                else
-                {
-                    strategy = new Idle(animator);
+                    else
+                    {
+                        strategy = new Idle(animator);
+                    }
+
+                    if (keyState.IsKeyDown(Keys.Space))
+                    {
+                        strategy = new Attack(animator);
+                        canMove = false;
+
+                        GameWorld.Instance.SpawnBullet();
+                    }
+
+                    strategy.Execute(ref direction);
                 }
 
-                if (keyState.IsKeyDown(Keys.Space))
-                {
-                    strategy = new Attack(animator);
-                    canMove = false;
-
-                    GameWorld.Instance.SpawnBullet();
-                }
+            }
+            
+            if (GameWorld.Instance.currentGameState == GameState.ShopMenu)
+            {
+                strategy = new Pause(animator);
 
                 strategy.Execute(ref direction);
             }
-
+            
         }
 
 
@@ -301,22 +313,22 @@ namespace It_is_a_scary_world
         {
             if (GameWorld.Instance.currentGameState == GameState.InGame)
             {
-                spriteBatch.DrawString(mainMenuT, "Level:" + level, new Vector2(30, 10), Color.Black);
-                spriteBatch.DrawString(mainMenuT, "Health:" + health, new Vector2(30, 30), Color.Black);
-                spriteBatch.DrawString(mainMenuT, "Armor:" + armor, new Vector2(30, 50), Color.Black);
+                spriteBatch.DrawString(mainMenuT, "Level:" + level, new Vector2(30, 10), Color.White);
+                spriteBatch.DrawString(mainMenuT, "Health:" + health, new Vector2(30, 30), Color.White);
+                spriteBatch.DrawString(mainMenuT, "Armor:" + armor, new Vector2(30, 50), Color.White);
                 foreach (GameObject go in GameWorld.Instance.gameObjects)
                 {
                     if (go.Tag == "Shop")
                     {
-                        spriteBatch.DrawString(mainMenuT, "Gold:" + (go.GetComponent("Shop") as Shop).gold, new Vector2(30, 70), Color.DarkRed);
+                        spriteBatch.DrawString(mainMenuT, "Gold:" + (go.GetComponent("Shop") as Shop).gold, new Vector2(30, 70), Color.White);
                         break;
                     }                  
                 }
-                spriteBatch.DrawString(mainMenuT, "Exp:" + exp + " / " + (int)Math.Ceiling(expToLevel), new Vector2(30, 100), Color.Black);
+                spriteBatch.DrawString(mainMenuT, "Exp:" + exp + " / " + (int)Math.Ceiling(expToLevel), new Vector2(30, 100), Color.White);
 
                 if (health <= 0)
                 {
-                    spriteBatch.DrawString(mainMenuT, "You died", new Vector2(500, 300), Color.DarkRed);
+                    spriteBatch.DrawString(mainMenuT, "You died", new Vector2(500, 300), Color.White);
                 }
             }
         }

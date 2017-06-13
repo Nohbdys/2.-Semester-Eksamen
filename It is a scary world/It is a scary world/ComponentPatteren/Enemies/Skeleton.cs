@@ -68,6 +68,8 @@ namespace It_is_a_scary_world
             animator.CreateAnimation("WalkLeft", new Animation(4, 40, 0, 15, 40, 5, Vector2.Zero, sprite));
             animator.CreateAnimation("WalkRight", new Animation(4, 0, 0, 15, 40, 5, Vector2.Zero, sprite));
 
+            animator.CreateAnimation("Pause", new Animation(1, 40, 0, 15, 40, 0, Vector2.Zero, sprite));
+
 
             animator.PlayAnimation("WalkLeft");
 
@@ -102,73 +104,84 @@ namespace It_is_a_scary_world
 
         private void ThreadUpdate()
         {
-            while (true)
-            {
 
-                Thread.Sleep(17);
-
-                #region Death
-                if (health <= 0 && isDead == false)
+                while (true)
                 {
-                    isDead = true;
-                    go.transform.position = new Vector2(3500, 3500);
-                    dropChance = rnd.Next(1, 3);
-
-                    if (dropChance == 1)
+                    if (GameWorld.Instance.currentGameState == GameState.InGame)
                     {
+                        Thread.Sleep(17);
+
+                        #region Death
+                    if (health <= 0 && isDead == false)
+                    {
+                        isDead = true;
+                        go.transform.position = new Vector2(3500, 3500);
+                        dropChance = rnd.Next(1, 3);
+
+                        if (dropChance == 1)
+                        {
+                            foreach (GameObject go in GameWorld.Instance.gameObjects)
+                            {
+                                if (go.Tag == "Shop")
+                                {
+                                    (go.GetComponent("Shop") as Shop).gold += rnd.Next(25, 100);
+                                    break;
+                                }
+                            }
+
+
+                        }
                         foreach (GameObject go in GameWorld.Instance.gameObjects)
                         {
-                            if (go.Tag == "Shop")
+                            if (go.Tag == "Player")
                             {
-                                (go.GetComponent("Shop") as Shop).gold += rnd.Next(25, 100);
+                                (go.GetComponent("Player") as Player).exp += rnd.Next(25, 50);
                                 break;
                             }
+
                         }
-
-
+                        activeThread = false;
+                        GameWorld.Instance.objectsToRemove.Add(gameObject);
                     }
-                    foreach (GameObject go in GameWorld.Instance.gameObjects)
+                    #endregion
+
+                        #region Platform collision check
+
+                    //Used to check if the Skeleton is colliding with the platform
+                    //PlatformTimer is in collisionEnter
+                    if (platformTimer > 0)
                     {
-                        if (go.Tag == "Player")
-                        {
-                            (go.GetComponent("Player") as Player).exp += rnd.Next(25, 50);
-                            break;
-                        }
-
+                        platformTimer -= 1;
                     }
-                    activeThread = false;
-                    GameWorld.Instance.objectsToRemove.Add(gameObject);
-                }
-                #endregion
+                    if (platformTimer <= 0)
+                    {
+                        (this.gameObject.GetComponent("Gravity") as Gravity).grounded = false;
+                        (this.gameObject.GetComponent("Gravity") as Gravity).isFalling = true;
+                    }
 
-                #region Platform collision check
+                    #endregion
 
-                //Used to check if the Skeleton is colliding with the platform
-                //PlatformTimer is in collisionEnter
-                if (platformTimer > 0)
-                {
-                    platformTimer -= 1;
-                }
-                if (platformTimer <= 0)
-                {
-                    (this.gameObject.GetComponent("Gravity") as Gravity).grounded = false;
-                    (this.gameObject.GetComponent("Gravity") as Gravity).isFalling = true;
-                }
+                        #region FollowTarget / idle
+                    if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 240 && !(strategy is FollowTarget))
+                    {
+                        strategy = new FollowTarget(player.transform, gameObject.transform, animator);
+                    }
+                    else if (Vector2.Distance(gameObject.transform.position, player.transform.position) > 240 && !(strategy is Idle))
+                    {
+                        strategy = new Idle(animator);
+                    }
 
-                #endregion
+                    strategy.Execute(ref direction);
+                    #endregion
+                    }
+                    if (GameWorld.Instance.currentGameState == GameState.ShopMenu)
+                    {
+                        Thread.Sleep(17);
 
-                #region FollowTarget / idle
-                if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 240 && !(strategy is FollowTarget))
-                {
-                    strategy = new FollowTarget(player.transform, gameObject.transform, animator);
-                }
-                else if (Vector2.Distance(gameObject.transform.position, player.transform.position) > 240 && !(strategy is Idle))
-                {
-                    strategy = new Idle(animator);
-                }
+                        strategy = new Pause(animator);
 
-                strategy.Execute(ref direction);
-                #endregion
+                        strategy.Execute(ref direction);
+                    }
             }
         }
 
