@@ -78,21 +78,21 @@ namespace It_is_a_scary_world
 
             animator.CreateAnimation("IdleFront", new Animation(2, 0, 0, 29, 43, 3, Vector2.Zero, spriteRenderer.Sprite));
 
-            animator.CreateAnimation("AttackRight", new Animation(3, 129, 0, 31, 43, 9, Vector2.Zero, spriteRenderer.Sprite));
-            animator.CreateAnimation("AttackLeft", new Animation(3, 172, 0, 31, 43, 9, Vector2.Zero, spriteRenderer.Sprite));
-            animator.CreateAnimation("AttackFront", new Animation(3, 129, 0, 31, 43, 9, Vector2.Zero, spriteRenderer.Sprite));
-            animator.CreateAnimation("AttackBack", new Animation(3, 172, 0, 31, 43, 9, Vector2.Zero, spriteRenderer.Sprite));
+            animator.CreateAnimation("AttackRight", new Animation(3, 129, 0, 31, 43, 12, Vector2.Zero, spriteRenderer.Sprite));
+            animator.CreateAnimation("AttackLeft", new Animation(3, 172, 0, 31, 43, 12, Vector2.Zero, spriteRenderer.Sprite));
+            animator.CreateAnimation("AttackFront", new Animation(3, 129, 0, 31, 43, 12, Vector2.Zero, spriteRenderer.Sprite));
+            animator.CreateAnimation("AttackBack", new Animation(3, 172, 0, 31, 43, 12, Vector2.Zero, spriteRenderer.Sprite));
 
             animator.CreateAnimation("IdleBack", new Animation(2, 0, 0, 29, 43, 3, Vector2.Zero, spriteRenderer.Sprite));
 
-            animator.CreateAnimation("WalkFront", new Animation(5, 86, 0, 29, 43, 5, Vector2.Zero, spriteRenderer.Sprite));
-            animator.CreateAnimation("WalkBack", new Animation(5, 43, 0, 29, 43, 5, Vector2.Zero, spriteRenderer.Sprite));
+            animator.CreateAnimation("WalkFront", new Animation(5, 86, 0, 29, 43, 8, Vector2.Zero, spriteRenderer.Sprite));
+            animator.CreateAnimation("WalkBack", new Animation(5, 43, 0, 29, 43, 8, Vector2.Zero, spriteRenderer.Sprite));
 
-            animator.CreateAnimation("IdleLeft", new Animation(2, 0, 0, 29, 43, 6, Vector2.Zero, spriteRenderer.Sprite));
-            animator.CreateAnimation("IdleRight", new Animation(2, 0, 0, 29, 43, 3, Vector2.Zero, spriteRenderer.Sprite));
+            animator.CreateAnimation("IdleLeft", new Animation(2, 0, 0, 29, 43, 7, Vector2.Zero, spriteRenderer.Sprite));
+            animator.CreateAnimation("IdleRight", new Animation(2, 0, 0, 29, 43, 7, Vector2.Zero, spriteRenderer.Sprite));
 
-            animator.CreateAnimation("WalkLeft", new Animation(5, 86, 0, 29, 43, 5, Vector2.Zero, spriteRenderer.Sprite));
-            animator.CreateAnimation("WalkRight", new Animation(5, 43, 0, 29, 43, 5, Vector2.Zero, spriteRenderer.Sprite));
+            animator.CreateAnimation("WalkLeft", new Animation(5, 86, 0, 29, 43, 8, Vector2.Zero, spriteRenderer.Sprite));
+            animator.CreateAnimation("WalkRight", new Animation(5, 43, 0, 29, 43, 8, Vector2.Zero, spriteRenderer.Sprite));
 
             animator.CreateAnimation("Pause", new Animation(1, 0, 0, 29, 43, 0, Vector2.Zero, spriteRenderer.Sprite));
 

@@ -15,7 +15,9 @@ namespace It_is_a_scary_world
 
         private static List<GameObject> active = new List<GameObject>();
 
-        private static Director director = new Director(new EnemyBuilder());
+        private static Director director1 = new Director(new EnemyBuilder());
+
+        private static Director director2 = new Director(new GhostBuilder());
 
         public static GameObject Create(Vector2 position, ContentManager content)
         {
@@ -30,9 +32,9 @@ namespace It_is_a_scary_world
             }
             else
             {
-                if (rnd.Next(0, 1) == 1)
+                if (rnd.Next(0, 2) == 1)
                 {
-                    GameObject enemy = director.Construct(position);
+                    GameObject enemy = director1.Construct(position);
 
                     (enemy.GetComponent("Skeleton") as Skeleton).LoadContent(content);
 
@@ -44,9 +46,9 @@ namespace It_is_a_scary_world
                 }
                 else
                 {
-                    GameObject enemy = director.Construct(position);
+                    GameObject enemy = director2.Construct(position);
 
-                    (enemy.GetComponent("Skeleton") as Skeleton).LoadContent(content);
+                    (enemy.GetComponent("Ghost") as Ghost).LoadContent(content);
 
                     enemy.LoadContent(content);
 

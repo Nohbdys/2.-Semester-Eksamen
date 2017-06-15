@@ -55,7 +55,7 @@ namespace It_is_a_scary_world
 
             Texture2D sprite = content.Load<Texture2D>("Shopkeeper");
 
-            animator.CreateAnimation("IdleFront", new Animation(1, 0, 0, 165, 190, 0, Vector2.Zero, sprite));
+            animator.CreateAnimation("IdleFront", new Animation(1, 0, 0, 89, 68, 0, Vector2.Zero, sprite));
 
             animator.PlayAnimation("IdleFront");
 

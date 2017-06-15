@@ -108,9 +108,15 @@ namespace It_is_a_scary_world
         {
             if (other.gameObject.Tag == "Enemy")
             {
-                (other.gameObject.GetComponent("Skeleton") as Skeleton).health -= damage; 
+                if (other.gameObject.GetComponent("Skeleton") is Skeleton)
+                {
+                    (other.gameObject.GetComponent("Skeleton") as Skeleton).health -= damage;
+                }
+                if (other.gameObject.GetComponent("Ghost") is Ghost)
+                {
+                    (other.gameObject.GetComponent("Ghost") as Ghost).health -= damage;
+                }
             }
-
         }
     }
 }

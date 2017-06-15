@@ -567,7 +567,7 @@ namespace It_is_a_scary_world
                     }
                     if (go.Tag == "Shop")
                     {
-                        go.transform.position = new Vector2(1100, 535);
+                        go.transform.position = new Vector2(1100, 658);
                     }
                 }
             }

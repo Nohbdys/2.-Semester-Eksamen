@@ -28,7 +28,7 @@ namespace It_is_a_scary_world
 
             Vector2 translation = Vector2.Zero;
 
-            /*
+            
             if (keyState.IsKeyDown(Keys.W))
             {
                 translation += new Vector2(0, -1);
@@ -39,7 +39,7 @@ namespace It_is_a_scary_world
                 translation += new Vector2(0, 1);
                 currentDirection = Front;
             }
-            */
+            
 
             if (keyState.IsKeyDown(Keys.A))
             {

@@ -8,9 +8,10 @@ using Microsoft.Xna.Framework.Graphics;
 using static It_is_a_scary_world.DIRECTION;
 using System.Threading;
 
+
 namespace It_is_a_scary_world
 {
-    class Skeleton : Component, IUpdateable, ICollisionEnter, ICollisionExit
+    class Ghost : Component, IUpdateable, ICollisionEnter, ICollisionExit
     {
         private DIRECTION direction;
 
@@ -43,7 +44,7 @@ namespace It_is_a_scary_world
 
         Random rnd = new Random();
 
-        public Skeleton(GameObject gameObject) : base(gameObject)
+        public Ghost(GameObject gameObject) : base(gameObject)
         {
             this.go = gameObject;
             gameObject.Tag = "Enemy";
@@ -54,22 +55,21 @@ namespace It_is_a_scary_world
 
             animator = (Animator)gameObject.GetComponent("Animator");
 
-            Texture2D sprite = content.Load<Texture2D>("SkeletonWalk");
+            Texture2D sprite = content.Load<Texture2D>("GhostSheet");
 
             direction = Front;
 
             //Adds the enemys animations
-            animator.CreateAnimation("IdleFront", new Animation(4, 40, 0, 15, 40, 5, Vector2.Zero, sprite));
-            animator.CreateAnimation("IdleBack", new Animation(4, 0, 0, 15, 40, 5, Vector2.Zero, sprite));
-            animator.CreateAnimation("IdleLeft", new Animation(4, 40, 0, 15, 40, 5, Vector2.Zero, sprite));
-            animator.CreateAnimation("IdleRight", new Animation(4, 0, 0, 15, 40, 5, Vector2.Zero, sprite));
-            animator.CreateAnimation("WalkFront", new Animation(4, 40, 0, 15, 40, 5, Vector2.Zero, sprite));
-            animator.CreateAnimation("WalkBack", new Animation(4, 0, 0, 15, 40, 5, Vector2.Zero, sprite));
-            animator.CreateAnimation("WalkLeft", new Animation(4, 40, 0, 15, 40, 5, Vector2.Zero, sprite));
-            animator.CreateAnimation("WalkRight", new Animation(4, 0, 0, 15, 40, 5, Vector2.Zero, sprite));
+            animator.CreateAnimation("IdleFront", new Animation(1, 0, 0, 25, 32, 5, Vector2.Zero, sprite));
+            animator.CreateAnimation("IdleBack", new Animation(1, 32, 0, 25, 32, 5, Vector2.Zero, sprite));
+            animator.CreateAnimation("IdleLeft", new Animation(1, 0, 0, 25, 32, 5, Vector2.Zero, sprite));
+            animator.CreateAnimation("IdleRight", new Animation(1, 32, 0, 25, 32, 5, Vector2.Zero, sprite));
+            animator.CreateAnimation("WalkFront", new Animation(1, 0, 0, 25, 32, 5, Vector2.Zero, sprite));
+            animator.CreateAnimation("WalkBack", new Animation(1, 32, 0, 25, 32, 5, Vector2.Zero, sprite));
+            animator.CreateAnimation("WalkLeft", new Animation(1, 0, 0, 25, 32, 5, Vector2.Zero, sprite));
+            animator.CreateAnimation("WalkRight", new Animation(1, 32, 0, 25, 32, 5, Vector2.Zero, sprite));
 
-            animator.CreateAnimation("Pause", new Animation(1, 40, 0, 15, 40, 0, Vector2.Zero, sprite));
-
+            animator.CreateAnimation("Pause", new Animation(1, 0, 0, 25, 32, 0, Vector2.Zero, sprite));
 
             animator.PlayAnimation("WalkLeft");
 
@@ -90,25 +90,22 @@ namespace It_is_a_scary_world
 
                 t.IsBackground = true;
 
-
-
                 t.Start();
 
                 activeThread = true;
 
             }
-
-
         }
-
 
         private void ThreadUpdate()
         {
 
             while (!isDead)
             {
+
                 if (GameWorld.Instance.currentGameState == GameState.InGame)
                 {
+
                     Thread.Sleep(17);
 
                     #region Death
@@ -128,9 +125,8 @@ namespace It_is_a_scary_world
                                     break;
                                 }
                             }
-
-
                         }
+
                         foreach (GameObject go in GameWorld.Instance.gameObjects)
                         {
                             if (go.Tag == "Player")
@@ -140,39 +136,27 @@ namespace It_is_a_scary_world
                             }
 
                         }
-                        
+                        activeThread = false;
+
                         GameWorld.Instance.objectsToRemove.Add(gameObject);
                     }
                     #endregion
 
-                    #region Platform collision check
-
-                    //Used to check if the Skeleton is colliding with the platform
-                    //PlatformTimer is in collisionEnter
-                    if (platformTimer > 0)
-                    {
-                        platformTimer -= 1;
-                    }
-                    if (platformTimer <= 0)
-                    {
-                        (this.gameObject.GetComponent("Gravity") as Gravity).grounded = false;
-                        (this.gameObject.GetComponent("Gravity") as Gravity).isFalling = true;
-                    }
-
-                    #endregion
-
                     #region FollowTarget / idle
-                    if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 240 && !(strategy is FollowTarget))
+
+                    if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 2000 && !(strategy is GhostWalk))
                     {
-                        strategy = new FollowTarget(player.transform, gameObject.transform, animator);
+                        strategy = new GhostWalk(player.transform, gameObject.transform, animator);
                     }
-                    else if (Vector2.Distance(gameObject.transform.position, player.transform.position) > 240 && !(strategy is Idle))
+
+                    else if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 200 && !(strategy is Idle))
                     {
                         strategy = new Idle(animator);
                     }
 
                     strategy.Execute(ref direction);
                     #endregion
+
                 }
                 if (GameWorld.Instance.currentGameState == GameState.ShopMenu)
                 {
@@ -188,19 +172,15 @@ namespace It_is_a_scary_world
         public void OnCollisionExit(Collider other)
         {
 
-            if (other.gameObject.Tag == "Platform")
-            {
-                (this.gameObject.GetComponent("Gravity") as Gravity).grounded = true;
-                platformTimer = 5;
-            }
         }
-
-
 
         public void OnCollisionEnter(Collider other)
         {
             if (other.gameObject.Tag == "Player")
             {
+
+                go.transform.position = new Vector2(3500, 3500);
+
                 if ((other.gameObject.GetComponent("Player") as Player).armor <= 0)
                 {
                     (other.gameObject.GetComponent("Player") as Player).health -= 1;
@@ -211,14 +191,6 @@ namespace It_is_a_scary_world
                     (other.gameObject.GetComponent("Player") as Player).armor -= 1;
                 }
             }
-            if (other.gameObject.Tag == "Platform")
-            {
-                (this.gameObject.GetComponent("Gravity") as Gravity).grounded = true;
-                (this.gameObject.GetComponent("Gravity") as Gravity).isFalling = false;
-                //platformTimer = 5;
-            }
         }
-
-
     }
 }

@@ -178,7 +178,7 @@ namespace It_is_a_scary_world
 
                     //Get the color of both pixels at this point 
                     
-                    if (other.CurrentPixels.Length -1 > secondIndex && CurrentPixels.Length -1 > firstIndex)
+                    if (other.CurrentPixels.Length -1 > secondIndex && CurrentPixels.Length -1 > firstIndex && firstIndex > 0 && secondIndex > 0)
                     {
                         Color colorA = CurrentPixels[firstIndex];
 
