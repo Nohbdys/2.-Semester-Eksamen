@@ -85,13 +85,9 @@
     <Compile Include="Strategy\Attack.cs" />
     <Compile Include="Strategy\FollowTarget.cs" />
     <Compile Include="Strategy\Idle.cs" />
-    <Compile Include="Strategy\Jump.cs" />
-    <Compile Include="Strategy\Walk.cs" />
-    <Compile Include="Builder\WeaponBuilder.cs" />
     <Compile Include="ComponentPatteren\Wall.cs" />
     <Compile Include="ObjectPool\WallPool.cs" />
     <Compile Include="Builder\WallBuilder.cs" />
-    <Compile Include="Weapons.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

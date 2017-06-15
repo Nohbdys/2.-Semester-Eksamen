@@ -130,17 +130,21 @@ namespace It_is_a_scary_world
 
         public void SetupWorld()
         {
-            //Player
-            Director director = new Director(new PlayerBuilder());
-
-            gameObjects.Add(director.Construct(new Vector2(-1000, 0)));
-
             //Shop
             Director shop = new Director(new ShopBuilder());
 
             gameObjects.Add(shop.Construct(new Vector2(-2000, 0)));
 
+            //Player
+            Director director = new Director(new PlayerBuilder());
+
+            gameObjects.Add(director.Construct(new Vector2(-1000, 0)));
+
             //MapTiles
+            for (int i = 0; i < 6; i++)
+            {
+                gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content));
+            }
             for (int i = 0; i < 6; i++)
             {
                 gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content));
@@ -149,17 +153,13 @@ namespace It_is_a_scary_world
             {
                 gameObjects.Add(ObjectPool.Create(new Vector2(2000, 2000), Content));
             }
-            for (int i = 0; i < 6; i++)
-            {
-                gameObjects.Add(WallPool.Create(new Vector2(2000, 2000), Content));
-            }
             gameObjects.Add(DoorPool.Create(new Vector2(2000, 2000), Content));
         }
 
         public void TileSet()
         {
-            tileSet = rnd.Next(1, 3);
-            enemySpawnLevel = rnd.Next(1, 3);
+            tileSet = rnd.Next(1, 4);
+            enemySpawnLevel = rnd.Next(1, 4);
 
             #region ObjectRemove
             //Used to reset every block because of collision problems even after a object is removed
@@ -557,7 +557,7 @@ namespace It_is_a_scary_world
                     }
                     if (go.Tag == "Door")
                     {
-                        go.transform.position = new Vector2(100, 669);
+                        go.transform.position = new Vector2(1100, 669);
                     }
 
                     if (go.Tag == "Player")
@@ -567,11 +567,11 @@ namespace It_is_a_scary_world
                     }
                     if (go.Tag == "Shop")
                     {
-                        go.transform.position = new Vector2(1100, 658);
+                        go.transform.position = new Vector2(2000, 2000);
                     }
                 }
             }
-            //Wall test
+            
 
             #endregion
 
@@ -662,13 +662,13 @@ namespace It_is_a_scary_world
                                 go.transform.position = new Vector2(1200, 200);
                                 break;
                             case 4:
-                                go.transform.position = new Vector2(900, 450);
+                                go.transform.position = new Vector2(800, 580);
                                 break;
                             case 5:
-                                go.transform.position = new Vector2(600, 450);
+                                go.transform.position = new Vector2(500, 580);
                                 break;
                             case 6:
-                                go.transform.position = new Vector2(300, 450);
+                                go.transform.position = new Vector2(200, 580);
                                 break;
                             case 7:
                                 go.transform.position = new Vector2(0, 725);
@@ -685,19 +685,15 @@ namespace It_is_a_scary_world
                             case 11:
                                 go.transform.position = new Vector2(1200, 725);
                                 break;
-                            case 16:
-                                go.transform.position = new Vector2(1225, 525);
+                            case 12:
+                                go.transform.position = new Vector2(450, 350);
                                 break;
-                            case 17:
-                                go.transform.position = new Vector2(1325, 600);
+                            case 13:
+                                go.transform.position = new Vector2(650 ,350);
                                 break;
-                            case 18:
-                                go.transform.position = new Vector2(700, 350);
+                            case 14:
+                                go.transform.position = new Vector2(1200, 450);
                                 break;
-                            case 19:
-                                go.transform.position = new Vector2(800, 250);
-                                break;
-
 
                             default:
                                 break;
@@ -711,29 +707,39 @@ namespace It_is_a_scary_world
 
                         switch (wallNummer)
                         {
-                            
                             case 1:
-                                go.transform.position = new Vector2(0, 0);
+                                go.transform.position = new Vector2(-8, 0);
                                 break;
 
                             case 2:
-                                go.transform.position = new Vector2(1380, 0);
+                                go.transform.position = new Vector2(1386, 0);
                                 break;
 
                             case 3:
-                                go.transform.position = new Vector2(600, -425);
+                                go.transform.position = new Vector2(-8, 241);
+                                break;
+
+                            case 4:
+                                go.transform.position = new Vector2(1386, 241);
+                                break;
+
+                            case 5:
+                                go.transform.position = new Vector2(-8, 482);
                                 break;
 
                             case 6:
-                                go.transform.position = new Vector2(1176, 200);
+                                go.transform.position = new Vector2(1386, 482);
                                 break;
 
                             case 7:
-                                go.transform.position = new Vector2(298, 450);
+                                go.transform.position = new Vector2(650, -122);
                                 break;
 
                             case 8:
-                                go.transform.position = new Vector2(0, 725);
+                                go.transform.position = new Vector2(650, 119);
+                                break;
+                            case 9:
+                                go.transform.position = new Vector2(650, 360);
                                 break;
                             default:
                                 break;
@@ -743,7 +749,7 @@ namespace It_is_a_scary_world
                     }
                     if (go.Tag == "Door")
                     {
-                        go.transform.position = new Vector2(1300, 165);
+                        go.transform.position = new Vector2(1300, 145);
                     }
 
                     if (go.Tag == "Player")
@@ -877,20 +883,8 @@ namespace It_is_a_scary_world
                             case 12:
                                 go.transform.position = new Vector2(1200, 725);
                                 break;
-                            case 16:
-                                go.transform.position = new Vector2(900, 525);
-                                break;
-                            case 17:
-                                go.transform.position = new Vector2(1000, 600);
-                                break;
-                            case 18:
-                                go.transform.position = new Vector2(1100, 525);
-                                break;
-                            case 19:
-                                go.transform.position = new Vector2(900, 675);
-                                break;
-                            case 20:
-                                go.transform.position = new Vector2(1100, 675);
+                            case 13:
+                                go.transform.position = new Vector2(1100, 580);
                                 break;
 
 
@@ -907,25 +901,31 @@ namespace It_is_a_scary_world
                         switch (wallNummer)
                         {
                             case 1:
-                                go.transform.position = new Vector2(0, 0);
+                                go.transform.position = new Vector2(-8, 0);
                                 break;
 
                             case 2:
-                                go.transform.position = new Vector2(1380, 0);
+                                go.transform.position = new Vector2(1386, 0);
                                 break;
+
+                            case 3:
+                                go.transform.position = new Vector2(-8, 241);
+                                break;
+
+                            case 4:
+                                go.transform.position = new Vector2(1386, 241);
+                                break;
+
                             case 5:
-                                go.transform.position = new Vector2(600, 200);
+                                go.transform.position = new Vector2(-8, 482);
                                 break;
 
                             case 6:
-                                go.transform.position = new Vector2(1176, 200);
+                                go.transform.position = new Vector2(1386, 482);
                                 break;
+                           
                             case 7:
-                                go.transform.position = new Vector2(298, 450);
-                                break;
-
-                            case 8:
-                                go.transform.position = new Vector2(0, 725);
+                                go.transform.position = new Vector2(600, 230);
                                 break;
                             default:
                                 break;
@@ -945,7 +945,7 @@ namespace It_is_a_scary_world
 
                     if (go.Tag == "Shop")
                     {
-                        go.transform.position = new Vector2(-1000, -1000);
+                        go.transform.position = new Vector2(650, 380);
                     }
                 }
             }
@@ -1209,7 +1209,7 @@ namespace It_is_a_scary_world
             {
                 if (go.Tag == "Shop")
                 {
-                    if (currentGameState == GameState.InGame && keyState.IsKeyDown(Keys.P) /*&& shopState == false && (go.GetComponent("Shop") as Shop).shopActive == true*/)
+                    if (currentGameState == GameState.InGame && keyState.IsKeyDown(Keys.P) && shopState == false && (go.GetComponent("Shop") as Shop).shopActive == true)
                     {
                         menuID = 1;
                         menuMaxID = 3;

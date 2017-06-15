@@ -356,7 +356,6 @@ C:\Users\Casper\Desktop\EksamensProjekt2Sem\Branch\Casper branch\2.-Semester-Eks
 C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\It is a scary world.exe.config
 C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\Door.png
 C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\Fireball.png
-C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\Shopkeeper.jpg
 C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\SkeletonWalk.png
 C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\System.Data.SQLite.dll
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\It is a scary world.exe.config
@@ -426,3 +425,6 @@ C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\System.Data.SQLite.dll
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\GhostSheet.png
 C:\Users\Oliver\Desktop\Tortoise Git\2. Semester eksamen\Branching\Casper-Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\Shopkeeper.png
+C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\Ghost.png
+C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\GhostSheet.png
+C:\Users\admin\Desktop\EksamensProjekt2semester\Branch\Casper Branch\2.-Semester-Eksamen\It is a scary world\It is a scary world\bin\Windows\x86\Debug\Content\Shopkeeper.png
