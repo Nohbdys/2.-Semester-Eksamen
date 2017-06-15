@@ -12,17 +12,17 @@ namespace It_is_a_scary_world
     class Shop : Component, IUpdateable, ILoadable, ICollisionStay, ICollisionExit
     {
         //Make them to players stats
-        public double gold = 1000;
+        public float gold = 1000;
 
         public int weaponDamageLevel = 1;
         private int weaponAttackSpeedLevel = 1;
         private int playerArmorLevel = 1;
         private int playerSpeedLevel = 1;
 
-        public double weaponDamagePrice = 100;
-        public double weaponAttackSpeedPrice = 100;
-        public double playerArmorPrice = 100;
-        public double playerSpeedPrice = 100;
+        public float weaponDamagePrice = 100;
+        public float weaponAttackSpeedPrice = 100;
+        public float playerArmorPrice = 100;
+        public float playerSpeedPrice = 100;
 
         public bool weaponDamagePriceUp;
         public bool weaponAttackSpeedPriceUp;
@@ -75,6 +75,15 @@ namespace It_is_a_scary_world
                     weaponDamageUpgrade = false;
                     weaponDamagePrice += (int)Math.Ceiling((weaponDamagePrice * 1.25));
                     weaponDamagePriceUp = false;
+
+                    foreach (GameObject go in GameWorld.Instance.gameObjects)
+                    {
+                        if (go.Tag == "Player")
+                        {
+                            (go.GetComponent("Player") as Player).damage = ((weaponDamageLevel * 0.1f) + 1) * (go.GetComponent("Player") as Player).damage;
+                            break;
+                        }
+                    }
                 }
             }
 

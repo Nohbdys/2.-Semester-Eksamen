@@ -19,7 +19,7 @@ namespace It_is_a_scary_world
 
         private DIRECTION direction;
 
-        private int damage;
+        private float damage;
 
         Vector2 directions;
 

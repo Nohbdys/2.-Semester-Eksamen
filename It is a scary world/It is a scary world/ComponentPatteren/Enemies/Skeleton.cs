@@ -32,8 +32,8 @@ namespace It_is_a_scary_world
 
         #region Stats
 
-        public int health = 100;
-        public int damage = 1;
+        public float health = 100;
+        public float damage = 1;
         public int expDrop = 10;
         public int goldDrop = 10;
 

@@ -51,14 +51,14 @@ namespace It_is_a_scary_world
         //     public Vector2 position { get; set; }
 
         #region Stats (player)
-        public int health = 1;
+        public float health = 1;
         public int armor = 2;
-        public double exp;
-        private double expToLevel = 100;
+        public float exp;
+        private float expToLevel = 100;
         private int level = 1;
         private int levelReward;
         private bool checkLevelReward;
-        public int damage { get; set; } = 25;
+        public float damage { get; set; } = 25;
         public float movementSpeed { get; set; } = 100;
         #endregion
 
@@ -117,7 +117,7 @@ namespace It_is_a_scary_world
                     level += 1;
                     levelReward += 1;
                     exp -= (int)Math.Ceiling(expToLevel);
-                    expToLevel = (int)Math.Ceiling(expToLevel) * 1.2;
+                    expToLevel = (int)Math.Ceiling(expToLevel) * 1.2f;
 
                     if (armor < 5)
                     {
