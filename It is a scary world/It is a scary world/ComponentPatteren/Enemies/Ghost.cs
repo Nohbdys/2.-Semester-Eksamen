@@ -11,7 +11,7 @@ using System.Threading;
 
 namespace It_is_a_scary_world
 {
-    class Ghost : Component, IUpdateable, ICollisionEnter, ICollisionExit
+    class Ghost : Component, IUpdateable, ICollisionStay
     {
         private DIRECTION direction;
 
@@ -169,26 +169,25 @@ namespace It_is_a_scary_world
             }
         }
 
-        public void OnCollisionExit(Collider other)
-        {
-
-        }
-
-        public void OnCollisionEnter(Collider other)
+        public void OnCollisionStay(Collider other)
         {
             if (other.gameObject.Tag == "Player")
             {
-
-                go.transform.position = new Vector2(3500, 3500);
-
-                if ((other.gameObject.GetComponent("Player") as Player).armor <= 0)
+                if ((other.gameObject.GetComponent("Player") as Player).iFrameGhost == 0)
                 {
-                    (other.gameObject.GetComponent("Player") as Player).health -= 1;
-                }
+                    go.transform.position = new Vector2(3500, 3500);
 
-                if ((other.gameObject.GetComponent("Player") as Player).armor > 0)
-                {
-                    (other.gameObject.GetComponent("Player") as Player).armor -= 1;
+                    if ((other.gameObject.GetComponent("Player") as Player).armor <= 0)
+                    {
+                        (other.gameObject.GetComponent("Player") as Player).health -= 1;
+                    }
+
+                    if ((other.gameObject.GetComponent("Player") as Player).armor > 0)
+                    {
+                        (other.gameObject.GetComponent("Player") as Player).armor -= 1;
+                    }
+
+                    (other.gameObject.GetComponent("Player") as Player).iFrameGhost = 60;
                 }
             }
         }

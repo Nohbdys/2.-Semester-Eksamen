@@ -23,7 +23,8 @@ namespace It_is_a_scary_world
 
         Vector2 directions;
 
-        private int bulletTime;
+        public int bulletTime;
+        public int bulletRange = 40;
 
         public Projectiles(GameObject gameObject) : base(gameObject)
         {
@@ -72,7 +73,15 @@ namespace It_is_a_scary_world
 
                 bulletTime += 1;
 
-                if (bulletTime > 80)
+                foreach (GameObject go in GameWorld.Instance.gameObjects)
+                {
+                    if (go.Tag == "Shop")
+                    {
+                        bulletRange = (go.GetComponent("Shop") as Shop).weaponAttackRangeBullet;
+                    }
+                }
+
+                if (bulletTime > bulletRange)
                 {
                     GameWorld.Instance.objectsToRemove.Add(gameObject);
                 }

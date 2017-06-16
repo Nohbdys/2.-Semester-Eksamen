@@ -52,7 +52,8 @@ namespace It_is_a_scary_world
 
         #region Stats (player)
         public float health = 1;
-        public int armor = 2;
+        public float armor = 2;
+        public float maxArmor = 3;
         public float exp;
         private float expToLevel = 100;
         private int level = 1;
@@ -60,7 +61,11 @@ namespace It_is_a_scary_world
         private bool checkLevelReward;
         public float damage { get; set; } = 25;
         public float movementSpeed { get; set; } = 100;
+        public float attackSpeed = 1;
         #endregion
+
+        public int iFrameSkeleton;
+        public int iFrameGhost;
 
         public Player(GameObject gameObject, Transform transform) : base(gameObject)
         {
@@ -78,10 +83,10 @@ namespace It_is_a_scary_world
 
             animator.CreateAnimation("IdleFront", new Animation(2, 0, 0, 29, 43, 3, Vector2.Zero, spriteRenderer.Sprite));
 
-            animator.CreateAnimation("AttackRight", new Animation(3, 129, 0, 31, 43, 12, Vector2.Zero, spriteRenderer.Sprite));
-            animator.CreateAnimation("AttackLeft", new Animation(3, 172, 0, 31, 43, 12, Vector2.Zero, spriteRenderer.Sprite));
-            animator.CreateAnimation("AttackFront", new Animation(3, 129, 0, 31, 43, 12, Vector2.Zero, spriteRenderer.Sprite));
-            animator.CreateAnimation("AttackBack", new Animation(3, 172, 0, 31, 43, 12, Vector2.Zero, spriteRenderer.Sprite));
+            animator.CreateAnimation("AttackRight", new Animation(3, 129, 0, 31, 43, 12 * attackSpeed, Vector2.Zero, spriteRenderer.Sprite));
+            animator.CreateAnimation("AttackLeft", new Animation(3, 172, 0, 31, 43, 12 * attackSpeed, Vector2.Zero, spriteRenderer.Sprite));
+            animator.CreateAnimation("AttackFront", new Animation(3, 129, 0, 31, 43, 12 * attackSpeed, Vector2.Zero, spriteRenderer.Sprite));
+            animator.CreateAnimation("AttackBack", new Animation(3, 172, 0, 31, 43, 12 * attackSpeed, Vector2.Zero, spriteRenderer.Sprite));
 
             animator.CreateAnimation("IdleBack", new Animation(2, 0, 0, 29, 43, 3, Vector2.Zero, spriteRenderer.Sprite));
 
@@ -119,15 +124,15 @@ namespace It_is_a_scary_world
                     exp -= (int)Math.Ceiling(expToLevel);
                     expToLevel = (int)Math.Ceiling(expToLevel) * 1.2f;
 
-                    if (armor < 5)
+                    if (maxArmor < 5)
                     {
-                        armor += 1;
+                        maxArmor += 1;
                     }
 
                     #region LevelRewards 
                     if (levelReward == 5)
                     {
-                        doubleJump = true;
+                        //doubleJump = true;
                     }
                     #endregion
                 }
@@ -165,6 +170,27 @@ namespace It_is_a_scary_world
                     jumpTimer = 0;
                 }
 
+                #endregion
+
+                #region IFrame
+
+                if (iFrameSkeleton > 0)
+                {
+                    iFrameSkeleton -= 1;
+                }
+                if (iFrameSkeleton < 0)
+                {
+                    iFrameSkeleton = 0;
+                }
+
+                if (iFrameGhost > 0)
+                {
+                    iFrameGhost -= 1;
+                }
+                if (iFrameGhost < 0)
+                {
+                    iFrameGhost = 0;
+                }
                 #endregion
 
                 if (canMove)
@@ -335,7 +361,7 @@ namespace It_is_a_scary_world
 
         public void Death()
         {
-
+            GameWorld.Instance.currentGameState = GameState.Dead;
         }
     }
 }

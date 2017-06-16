@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace It_is_a_scary_world
 {
-    class Skeleton : Component, IUpdateable, ICollisionEnter, ICollisionExit
+    class Skeleton : Component, IUpdateable, ICollisionEnter, ICollisionExit, ICollisionStay
     {
         private DIRECTION direction;
 
@@ -199,18 +199,6 @@ namespace It_is_a_scary_world
 
         public void OnCollisionEnter(Collider other)
         {
-            if (other.gameObject.Tag == "Player")
-            {
-                if ((other.gameObject.GetComponent("Player") as Player).armor <= 0)
-                {
-                    (other.gameObject.GetComponent("Player") as Player).health -= 1;
-                }
-
-                if ((other.gameObject.GetComponent("Player") as Player).armor > 0)
-                {
-                    (other.gameObject.GetComponent("Player") as Player).armor -= 1;
-                }
-            }
             if (other.gameObject.Tag == "Platform")
             {
                 (this.gameObject.GetComponent("Gravity") as Gravity).grounded = true;
@@ -219,6 +207,26 @@ namespace It_is_a_scary_world
             }
         }
 
+        public void OnCollisionStay(Collider other)
+        {
+            if (other.gameObject.Tag == "Player")
+            {
+                if ((other.gameObject.GetComponent("Player") as Player).iFrameSkeleton == 0)
+                {
 
+                    if ((other.gameObject.GetComponent("Player") as Player).armor <= 0)
+                    {
+                        (other.gameObject.GetComponent("Player") as Player).health -= 1;
+                    }
+
+                    if ((other.gameObject.GetComponent("Player") as Player).armor > 0)
+                    {
+                        (other.gameObject.GetComponent("Player") as Player).armor -= 1;
+                    }
+
+                    (other.gameObject.GetComponent("Player") as Player).iFrameSkeleton = 60;
+                }
+            }
+        }
     }
 }

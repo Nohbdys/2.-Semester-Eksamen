@@ -12,27 +12,34 @@ namespace It_is_a_scary_world
     class Shop : Component, IUpdateable, ILoadable, ICollisionStay, ICollisionExit
     {
         //Make them to players stats
-        public float gold = 1000;
+#if DEBUG == true
+        public float gold = 10000;
+#endif
 
+#if DEBUG == false
+        public float gold = 100;
+#endif
         public int weaponDamageLevel = 1;
-        private int weaponAttackSpeedLevel = 1;
+        private int weaponAttackRangeLevel = 1;
         private int playerArmorLevel = 1;
         private int playerSpeedLevel = 1;
 
         public float weaponDamagePrice = 100;
-        public float weaponAttackSpeedPrice = 100;
-        public float playerArmorPrice = 100;
+        public float weaponAttackRangePrice = 100;
+        public float playerArmorPrice = 500;
         public float playerSpeedPrice = 100;
 
         public bool weaponDamagePriceUp;
-        public bool weaponAttackSpeedPriceUp;
+        public bool weaponAttackRangePriceUp;
         public bool playerArmorPriceUp;
         public bool playerSpeedPriceUp;
 
         public bool weaponDamageUpgrade;
-        public bool weaponAttackSpeedUpgrade;
+        public bool weaponAttackRangeUpgrade;
         public bool playerArmorUpgrade;
         public bool playerSpeedUpgrade;
+
+        public int weaponAttackRangeBullet = 40;
 
         public bool shopActive = false;
 
@@ -87,45 +94,62 @@ namespace It_is_a_scary_world
                 }
             }
 
-            if (gold >= weaponAttackSpeedPrice)
+            if (gold >= weaponAttackRangePrice)
             {
-                weaponAttackSpeedUpgrade = true;
+                weaponAttackRangeUpgrade = true;
 
-                if (weaponAttackSpeedPriceUp == true)
+                if (weaponAttackRangePriceUp == true && weaponAttackRangeLevel <= 9)
                 {
-                    gold -= weaponAttackSpeedPrice;
-                    weaponAttackSpeedLevel += 1;
-                    weaponAttackSpeedUpgrade = false;
-                    weaponAttackSpeedPrice += (int)Math.Ceiling((weaponAttackSpeedPrice * 1.25));
-                    weaponAttackSpeedPriceUp = false;
+                    gold -= weaponAttackRangePrice;
+                    weaponAttackRangeLevel += 1;
+                    weaponAttackRangeUpgrade = false;
+                    weaponAttackRangePrice += (int)Math.Ceiling((weaponAttackRangePrice * 1.25));
+                    weaponAttackRangePriceUp = false;
+                    weaponAttackRangeBullet += 5;
                 }
             }
 
-            if (gold >= playerArmorPrice)
+            foreach (GameObject go in GameWorld.Instance.gameObjects)
             {
-                playerArmorUpgrade = true;
-
-                if (playerArmorPriceUp == true)
+                if (go.Tag == "Player")
                 {
-                    gold -= playerArmorPrice;
-                    playerArmorLevel += 1;
-                    playerArmorUpgrade = false;
-                    playerArmorPrice += (int)Math.Ceiling((playerArmorPrice * 1.25));
-                    playerArmorPriceUp = false;
+                    if (gold >= playerArmorPrice && (go.GetComponent("Player") as Player).armor < (go.GetComponent("Player") as Player).maxArmor)
+                    {
+                        playerArmorUpgrade = true;
+
+                        if (playerArmorPriceUp == true)
+                        {
+                            gold -= playerArmorPrice;
+                            playerArmorLevel += 1;
+                            playerArmorUpgrade = false;
+                            playerArmorPriceUp = false;
+                            (go.GetComponent("Player") as Player).armor += 1;
+                            break;
+                        }
+                        break;
+                    }
                 }
             }
+            
 
             if (gold >= playerSpeedPrice)
             {
                 playerSpeedUpgrade = true;
 
-                if (playerSpeedPriceUp == true)
+                if (playerSpeedPriceUp == true && playerSpeedLevel < 4)
                 {
                     gold -= playerSpeedPrice;
                     playerSpeedLevel += 1;
                     playerSpeedUpgrade = false;
                     playerSpeedPrice += (int)Math.Ceiling((playerSpeedPrice * 1.25));
                     playerSpeedPriceUp = false;
+                    foreach(GameObject go in GameWorld.Instance.gameObjects)
+                    {
+                        if (go.Tag == "Player")
+                        {
+                            (go.GetComponent("Player") as Player).movementSpeed += 5;
+                        }
+                    }
                 }
             }
         }

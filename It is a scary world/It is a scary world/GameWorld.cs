@@ -6,7 +6,7 @@ using System;
 
 namespace It_is_a_scary_world
 {
-    public enum GameState { MainMenu, ShopMenu, InGame }
+    public enum GameState { MainMenu, ShopMenu, InGame, Dead }
 
     /// <summary>
     /// This is the main type for your game.
@@ -34,7 +34,7 @@ namespace It_is_a_scary_world
 
         public List<GameObject> gameObjects;
 
-        private List<GameObject> newObjects;
+        public List<GameObject> newObjects;
 
         public List<GameObject> objectsToRemove;
 
@@ -74,6 +74,10 @@ namespace It_is_a_scary_world
         private int lastRunEnemySpawn;
         private int enemySpawnLevel;
         //TileSet
+
+        //Death
+        private bool dead;
+        //Death
 
         private GameObject go;
 
@@ -352,6 +356,7 @@ namespace It_is_a_scary_world
                 {
                     go.transform.position = new Vector2(5000, 5000);
                 }
+                
             }
             #endregion
 
@@ -1209,7 +1214,14 @@ namespace It_is_a_scary_world
             {
                 if (go.Tag == "Shop")
                 {
-                    if (currentGameState == GameState.InGame && keyState.IsKeyDown(Keys.P) && shopState == false && (go.GetComponent("Shop") as Shop).shopActive == true)
+
+
+
+                    if (currentGameState == GameState.InGame && keyState.IsKeyDown(Keys.P)
+#if DEBUG == false
+ && shopState == false && (go.GetComponent("Shop") as Shop).shopActive == true 
+#endif
+ )
                     {
                         menuID = 1;
                         menuMaxID = 3;
@@ -1311,9 +1323,9 @@ namespace It_is_a_scary_world
                             if (menuID == 2)
                             {
                                 clickDelay = 30;
-                                if ((go.GetComponent("Shop") as Shop).weaponAttackSpeedUpgrade == true)
+                                if ((go.GetComponent("Shop") as Shop).weaponAttackRangeUpgrade == true)
                                 {
-                                    (go.GetComponent("Shop") as Shop).weaponAttackSpeedPriceUp = true;
+                                    (go.GetComponent("Shop") as Shop).weaponAttackRangePriceUp = true;
                                 }
                             }
 
@@ -1400,16 +1412,16 @@ namespace It_is_a_scary_world
                                 spriteBatch.DrawString(mainMenuTM, "  -- Weapon --", new Vector2(600, 250), Color.White);
                                 spriteBatch.DrawString(mainMenuTM, "Price:" + ((go.GetComponent("Shop") as Shop).weaponDamagePrice), new Vector2(600, 280), Color.White);
                                 spriteBatch.DrawString(mainMenuTL, "Upgrade Damage", new Vector2(600, 320), Color.White);
-                                spriteBatch.DrawString(mainMenuT, "Upgrade AttackSpeed", new Vector2(600, 360), Color.White);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade AttackRange", new Vector2(600, 360), Color.White);
                                 spriteBatch.DrawString(mainMenuT, "Back", new Vector2(600, 400), Color.White);                               
                             }
 
                             if (menuID == 2)
                             {
                                 spriteBatch.DrawString(mainMenuTM, "  -- Weapon --", new Vector2(600, 250), Color.White);
-                                spriteBatch.DrawString(mainMenuTM, "Price:" + ((go.GetComponent("Shop") as Shop).weaponAttackSpeedPrice), new Vector2(600, 280), Color.White);
+                                spriteBatch.DrawString(mainMenuTM, "Price:" + ((go.GetComponent("Shop") as Shop).weaponAttackRangePrice), new Vector2(600, 280), Color.White);
                                 spriteBatch.DrawString(mainMenuT, "Upgrade Damage", new Vector2(600, 320), Color.White);
-                                spriteBatch.DrawString(mainMenuTL, "Upgrade AttackSpeed", new Vector2(600, 360), Color.White);
+                                spriteBatch.DrawString(mainMenuTL, "Upgrade AttackRange", new Vector2(600, 360), Color.White);
                                 spriteBatch.DrawString(mainMenuT, "Back", new Vector2(600, 400), Color.White);
                             }
                             if (menuID == 3)
@@ -1417,7 +1429,7 @@ namespace It_is_a_scary_world
                                 spriteBatch.DrawString(mainMenuTM, "  -- Weapon --", new Vector2(600, 250), Color.White);
                                 spriteBatch.DrawString(mainMenuTM, "Price:" , new Vector2(600, 280), Color.White);
                                 spriteBatch.DrawString(mainMenuT, "Upgrade Damage", new Vector2(600, 320), Color.White);
-                                spriteBatch.DrawString(mainMenuT, "Upgrade AttackSpeed", new Vector2(600, 360), Color.White);
+                                spriteBatch.DrawString(mainMenuT, "Upgrade AttackRange", new Vector2(600, 360), Color.White);
                                 spriteBatch.DrawString(mainMenuTL, "Back", new Vector2(600, 400), Color.White);
                             }
                             spriteBatch.End();
@@ -1425,6 +1437,33 @@ namespace It_is_a_scary_world
                         #endregion
 
                     }
+                }
+            }
+
+            #endregion
+
+            #region Death
+
+            if (currentGameState == GameState.Dead)
+            {
+                if (dead == false)
+                {
+                    gameObjects.Clear();
+                    dead = true;
+                }
+
+                spriteBatch.Begin();
+                    spriteBatch.DrawString(mainMenuTL, "You died", new Vector2(600, 250), Color.White);
+                    spriteBatch.DrawString(mainMenuT, "Press enter to restart", new Vector2(600, 300), Color.White);
+                spriteBatch.End();
+
+                if (keyState.IsKeyDown(Keys.Enter) && clickDelay == 0)
+                {
+                        currentGameState = GameState.MainMenu;
+                        dead = false;
+                        firstRun = true;
+                        Initialize();
+                        clickDelay = 30;
                 }
             }
 
@@ -1461,7 +1500,7 @@ namespace It_is_a_scary_world
                     menuTimerCheck = 0;
                 }
             }
-            #endregion
+                        #endregion
             //Menues and clickdelays
 
             base.Draw(gameTime);
